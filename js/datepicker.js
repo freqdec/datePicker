@@ -345,7 +345,7 @@ var datePickerController = (function datePickerController() {
                         } else if(/lang|buttontabindex|mousewheel|cellformat|titleformat|nodrag|describedby/.test(str.toLowerCase())) {                                               
                                 var f = Function(['var document,top,self,window,parent,Number,Date,Object,Function,',
                                         'Array,String,Math,RegExp,Image,ActiveXObject;',
-                                        'return (' , str.replace(/<\!--.+-->/gim,'').replace(/\bfunction\b/g,'function­') , ');'].join(''));
+                                        'return (' , str.replace(/<\!--.+-->/gim,'').replace(/\bfunction\b/g,'function-') , ');'].join(''));
                                 return f();                          
                         };
                 } catch (e) { };
