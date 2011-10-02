@@ -1,0 +1,561 @@
+/*
+Content-Type: multipart/related; boundary="_BASE64_SEPARATOR"
+
+--_BASE64_SEPARATOR
+Content-Location:bgheader
+Content-Transfer-Encoding:base64
+
+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
+--_BASE64_SEPARATOR
+Content-Location:greygradient
+Content-Transfer-Encoding:base64
+
+R0lGODlhJgBbAMQAAAAAAP////7+/v39/fz8/Pv7+/r6+vn5+fj4+Pf39/b29vX19fT09PPz8/Ly8vHx8fDw8O/v7+7u7u3t7ezs7Ovr6+rq6unp6ejo6Ofn5+bm5uXl5f///wAAAAAAAAAAACH5BAEAABwALAAAAAAmAFsAAAX/4CaOZGmeaKqubOu+cCzPWm3feK7vfO//wCAvQywaj8ikcslsOp/QJWZKrVqv2Kx2y+16v9qLeEwum8/otHqttrjf8Lh8Tq/b7/aKfs/v+/+AgYKDhIWGgRSJiouMjY6PkJGSkROVlpeYmZqbnJ2enRKhoqOkpaanqKmqqRGtrq+wsbKztLW2tRC5uru8vb6/wMHCwQ/FxsfIycrLzM3OzQ7R0tPU1dbX0Q3a29zd3t/g4eLj4gzm5+jp6uvs7e7v7gvy8/T19vf4+fr7+gr+/wADChxIsKDBgwYTKFzIsKHDhxAjSpwoEYHFixgzatzIsaPHjx4PiBxJsqTJkyhTi6pcybKly5QGYsqcSbOmzZs4c+rMWaCnz59AgwodSrSo0aIEkipdyrSp06dQo0qdSrUq1AFYs2rdyrWr169gw4odS/argLNo06pdy7at27dw48qd6zaA3bt48+rdy7ev37+AAwseTLiw4cOIEytezLix48eQI0ueTLmy5cuYM2vezLmz58+gQ4tOHAIAOw==
+--_BASE64_SEPARATOR
+Content-Location:calgrey
+Content-Transfer-Encoding:base64
+
+R0lGODlhEAAQALMIAGtra11dXc7Ozp+fn56enldXV83Nzf///////wAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAEAAAgALAAAAAAQABAAAARXEMlJKyJkDMx3zgURjGTgaVpYkpkHDsdhxPMh0HEByzjvhwaBYRg0AI6AYSh28wFiz8PSV4tGdUIiEZk06HrNWm1aC/eAwvQwm/1Swbmd+S0t2O/4fCECADs=
+--_BASE64_SEPARATOR
+Content-Location:cal
+Content-Transfer-Encoding:base64
+
+R0lGODlhEAAQAKIAAKVNSkpNpUpNSqWmpdbT1v///////wAAACH5BAEAAAYALAAAAAAQABAAAANEaLrcNjDKKUa4OExYM95DVRTEWJLmKKLseVZELMdADcSrOwK7OqQsXkEIm8lsN0IOqCssW8Cicar8Qa/P5kvA7Xq/ggQAOw==--_BASE64_SEPARATOR
+Content-Location:bullet
+Content-Transfer-Encoding:base64
+
+iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAjVJREFUeNrMVE1PE0EYfmZ32a1ugXVrS0FsoKWKxBps4kFNOBnjybPR/8Nv8A+Y1K+DxgMeIMYLngiBxGyQKK1NWxq3VpGW7tc4O25C024rBw5MMpnknXmfeeZ9nncIpRSnOQSc8jj7gFJYkLCBZxs69IkclHNzkJUk37A6NXTau2jsb+NJvkFDBCC9MYYlRF9sZZLJ5L3rsdFsXoU0qxAhIhByREE//aF2odg0zP3aKh4vfmX53kCGnNlyIa7r+v278ejcnSiVNYnFQOF5FDI7shQl8oX0+MJTxxJ/LBdes5R6N9PeJ4uYTt+c1MczuuBKDRswLfDT/iTBPE8E8UEqll37ffVWBVhhIWcQoAx17AqxbbHYAsoE1KHoq5NEQFwIYiahLzDAtWGACgOc2GvbKLXgDZXTp0ojGs8BWoMAJVYsUjs6oUc8rw+j3zb18i9tekYdY2KMMJd6IZ0pMHY2wzqsVg7M//jQwe52FZdnp1SRYJQVy092vGNRpOCSAxfUKhq17vqFAXaw+sropNIp71ouoUkC0UaYMZlzRLbp+q9kmjdtStulHdP+8MbgOUMALay/L7Xjlza/O4/yyC1elAURkwoH9oFQ7Xi0svP5Z/nd883mystvPGdQp3Bj/1MtgRu3s1h6OI/5fAJTMyo/UNk7hLFRx8e3BrbWv/gV9xl2Gzu09bgfAd8SsWCNBNu+/k02zWC1eluPhH2wAVMxAFa6SuMENfOf6Z7oczhz/+FfAQYATvji+0cdRCAAAAAASUVORK5CYII==
+--_BASE64_SEPARATOR--
+*/
+
+/* Hide the datepickers associated input by using a className */
+.fd-hidden-input
+        {
+        display:none;
+        }
+/* Screen reader class - used to hide spans inside each cell from the visual display */
+.fd-screen-reader
+        {
+        position:absolute;
+        left:-999em;
+        top:0;
+        width:1px;
+        height:1px;
+        overflow:hidden; 
+        outline: 0 none;
+	-moz-outline: 0 none;
+        } 
+/* test removing this */
+.date-picker-control:focus,
+.date-picker td:focus 
+        {
+        overflow:hidden;
+        outline:0 none;
+	-moz-outline: 0 none;
+	color:rgb(100,130,170) !important;
+        }
+/* The wrapper div */
+.date-picker
+        {
+        position:absolute;        
+        z-index:9999;
+        text-align:center;
+
+        /* Change the font-size to suit your design's CSS. The following line is for the demo that has a 12px font-size defined on the body tag */
+        font:900 0.8em/1em Verdana, Sans-Serif;
+
+        /* For Example: If using the YUI font CSS, uncomment the following line to get a 10px font-size within the datePicker */
+        /* font:900 77%/77% Verdana, sans-serif; */
+        
+        /* Or, if you prefer a pixel precision */
+        /* font:900 12px/12px Verdana, sans-serif; */
+        
+        background:transparent;
+
+        /* Mozilla & Webkit extensions to stop text-selection. */
+        -moz-user-select:none;
+        -khtml-user-select:none;
+        -webkit-user-select:none;                 
+        }
+/* Styles for the static datePickers */
+.static-datepicker
+        {
+        position:relative;        
+        top:5px;
+        left:0;
+        margin-bottom:1.5em;
+        }
+.date-picker table
+        {
+        width:auto;
+        height:auto;
+        border-collapse:separate;         
+        } 
+/* Draggable datepickers */
+.date-picker .drag-enabled,
+.date-picker .drag-enabled span
+        {
+        cursor:move;
+        }
+/* The iframe hack to cover selectlists in Internet Explorer <= v6 */
+.iehack
+        {
+        position:absolute;
+        background:#fff;
+        z-index:9998;
+        padding:0;
+        border:0;
+        display:none;
+        margin:0;
+        }
+/* The "button" created beside each input for non-static datePickers */
+.date-picker-control:link,
+.date-picker-control:visited
+        {
+        position:relative;
+        display: -moz-inline-stack;
+        border:0 none;
+        padding:0;
+        margin:0 4px;
+        background:transparent url(data:image/gif;base64,R0lGODlhEAAQALMIAGtra11dXc7Ozp+fn56enldXV83Nzf///////wAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAEAAAgALAAAAAAQABAAAARXEMlJKyJkDMx3zgURjGTgaVpYkpkHDsdhxPMh0HEByzjvhwaBYRg0AI6AYSh28wFiz8PSV4tGdUIiEZk06HrNWm1aC/eAwvQwm/1Swbmd+S0t2O/4fCECADs=) no-repeat 50% 50%;
+        min-width:16px;
+        line-height:1;
+        cursor:pointer;
+        visibility:visible;
+        text-decoration:none;
+        vertical-align:top;         
+        }
+.oldie .date-picker-control:link,
+.oldie .date-picker-control:visited
+        {
+        *background:transparent url("mhtml:http://www.frequency-decoder.com/demo/datepicker/datepicker.css!calgrey") no-repeat 50% 50%;
+        }
+.date-picker-control:hover,
+.date-picker-control:active,
+.date-picker-control:focus,
+.dp-button-active:link,
+.dp-button-active:visited,
+.dp-button-active:hover,
+.dp-button-active:active,
+.dp-button-active:focus
+        {
+        background:transparent url(data:image/gif;base64,R0lGODlhEAAQAKIAAKVNSkpNpUpNSqWmpdbT1v///////wAAACH5BAEAAAYALAAAAAAQABAAAANEaLrcNjDKKUa4OExYM95DVRTEWJLmKKLseVZELMdADcSrOwK7OqQsXkEIm8lsN0IOqCssW8Cicar8Qa/P5kvA7Xq/ggQAOw==) no-repeat 50% 50% !important;
+        }
+.oldie .date-picker-control:hover,
+.oldie .date-picker-control:active,
+.oldie .date-picker-control:focus,
+.oldie .dp-button-active:link,
+.oldie .dp-button-active:visited,
+.oldie .dp-button-active:hover,
+.oldie .dp-button-active:active,
+.oldie .dp-button-active:focus
+        {
+        *background:transparent url("mhtml:./datepicker.css!cal") no-repeat 50% 50%;
+        }
+/* Feed IE6 the following rule, IE7 should handle the min-width declared above */
+.oldie .date-picker-control
+        {
+        _width:16px;
+        }
+/* IE, Safari & Opera. Seperate CSS rule seems to be required. */
+.date-picker-control
+        {
+        display:inline-block;
+        }
+.date-picker-control span
+        {
+        display:block;
+        width:16px;
+        height:16px;
+        overflow:hidden;
+        margin:auto 0;
+        }
+/* Default "button" styles */
+.date-picker th span
+        {
+        display:block;
+        padding:0;
+        margin:0;
+        text-align:center;
+        line-height:1em;
+        border:0 none;
+        background:transparent;
+        font-weight:bold;
+        cursor:pointer;
+        }
+/* The "month, year" display */
+.date-picker .month-display,
+.date-picker .year-display
+        {
+        display:inline;
+        text-transform:uppercase;
+        letter-spacing:1px;
+        font:normal 1.2em Verdana, Sans-Serif;
+        }
+/* Generic button class for Next & Previous (month & year) buttons */
+.date-picker .prev-but,
+.date-picker .next-but
+        {
+        font-weight:normal;
+        font-size:2.4em;
+        font-family: georgia, times new roman, palatino, times, bookman, serif;
+        cursor:pointer;
+        }
+.date-picker .prev-but,
+.date-picker .next-but,
+.date-picker .today-but
+        {         
+        -webkit-transition:all .2s ease-in-out;
+        -moz-transition:all .2s ease-in-out;
+        -o-transition:all .2s ease-in-out;
+        transition:all .2s ease-in-out;        
+        }
+/* Hover effect for Next & Previous (month, year) buttons */
+.date-picker .prev-but:hover,
+.date-picker .next-but:hover,
+.date-picker .today-but:hover
+        {
+        color:#a84444;
+        }
+.date-picker .prev-but:hover,
+.date-picker .next-but:hover
+        {
+        /*
+        -webkit-transform:scale(1.6);
+        -moz-transform:scale(1.6);
+        -ie-transform:scale(1.6);
+        -o-transform:scale(1.6);
+        transform:scale(1.6);
+        
+        text-shadow:0 2px 1px rgba(0,0,0,.4);
+        */
+        }
+/* Today button */
+.date-picker .today-but
+        {
+        text-align:center;
+        margin:0 auto;
+        font:normal 1em Verdana, Sans-Serif;
+        width:100%;
+        text-decoration:none;
+        padding-top:0.3em;
+        text-transform:uppercase;
+        vertical-align:middle;
+        cursor:pointer          
+        }
+/* Disabled buttons */ 
+.dp-disabled .prev-but,
+.dp-disabled .next-but,
+.dp-disabled .today-but,
+.dp-disabled .prev-but:hover,
+.dp-disabled .next-but:hover,
+.dp-disabled .today-but:hover,
+.date-picker .prev-but.fd-disabled:hover,
+.date-picker .next-but.fd-disabled:hover,
+.date-picker .fd-disabled,
+.date-picker .fd-disabled:hover
+        {
+        color:#aaa;
+        cursor:default !important; 
+        opacity:1;        
+        }   
+.date-picker .prev-but.fd-disabled:hover,
+.date-picker .next-but.fd-disabled:hover
+        {
+        -webkit-transform:scale(1);
+        -moz-transform:scale(1);
+        -ie-transform:scale(1);
+        -o-transform:scale(1);
+        transform:scale(1);
+        text-shadow:0 -1px 1px rgba(255,255,255,.8);
+        }
+/* The gradient background image */
+.date-picker table,
+.date-picker td,
+.date-picker tbody th,
+.date-picker .day-disabled,
+.date-picker .date-picker-hover.day-disabled,
+.date-picker .date-picker-unused,
+.date-picker .month-out 
+        {
+        background-color:#fff;
+        background-image:url(data:image/gif;base64,R0lGODlhJgBbAMQAAAAAAP////7+/v39/fz8/Pv7+/r6+vn5+fj4+Pf39/b29vX19fT09PPz8/Ly8vHx8fDw8O/v7+7u7u3t7ezs7Ovr6+rq6unp6ejo6Ofn5+bm5uXl5f///wAAAAAAAAAAACH5BAEAABwALAAAAAAmAFsAAAX/4CaOZGmeaKqubOu+cCzPWm3feK7vfO//wCAvQywaj8ikcslsOp/QJWZKrVqv2Kx2y+16v9qLeEwum8/otHqttrjf8Lh8Tq/b7/aKfs/v+/+AgYKDhIWGgRSJiouMjY6PkJGSkROVlpeYmZqbnJ2enRKhoqOkpaanqKmqqRGtrq+wsbKztLW2tRC5uru8vb6/wMHCwQ/FxsfIycrLzM3OzQ7R0tPU1dbX0Q3a29zd3t/g4eLj4gzm5+jp6uvs7e7v7gvy8/T19vf4+fr7+gr+/wADChxIsKDBgwYTKFzIsKHDhxAjSpwoEYHFixgzatzIsaPHjx4PiBxJsqTJkyhTi6pcybKly5QGYsqcSbOmzZs4c+rMWaCnz59AgwodSrSo0aIEkipdyrSp06dQo0qdSrUq1AFYs2rdyrWr169gw4odS/argLNo06pdy7at27dw48qd6zaA3bt48+rdy7ev37+AAwseTLiw4cOIEytezLix48eQI0ueTLmy5cuYM2vezLmz58+gQ4tOHAIAOw==);
+        background-repeat:repeat-x;
+        background-position:0 0;
+        }
+.oldie .date-picker table,
+.oldie .date-picker td,
+.oldie .date-picker tbody th,
+.oldie .date-picker .day-disabled,
+.oldie .date-picker .date-picker-hover.day-disabled,
+.oldie .date-picker .date-picker-unused,
+.oldie .date-picker .month-out
+        {
+        *background-image:url(mhtml:./datepicker.css!greygradient);
+        } 
+.date-picker table
+        {               
+        margin:0;
+        padding:0;
+        border:1px solid #ccc;        
+        background-position:0 -20px; 
+        text-align:center;
+        border-spacing:2px;
+        padding:0.3em; 
+        width:auto;             
+        empty-cells:show;   
+        border-radius:0.8em;             
+        -moz-border-radius:0.8em;
+        -moz-box-shadow:0px 0px 5px #aaa;               
+        }
+/* Common TD & TH styling */
+.date-picker td,
+.date-picker tbody th
+        {                 
+        border:0 none;
+        padding:0;
+        text-align:center;
+        vertical-align:middle;               
+        cursor:pointer;
+        background-position:0 -35px; 
+        width:3em;
+        height:3em;   
+        overflow:hidden;      
+        outline:transparent none 0px;        
+        border:1px solid #ccc;
+        text-transform:none; 
+        -webkit-border-radius:2px;        
+        -moz-border-radius:2px;         
+        border-radius:2px;
+        }
+.date-picker th
+        {
+        border:0 none;
+        padding:0;        
+        font-weight:bold;
+        color:#222;
+        text-align:center;
+        vertical-align:middle; 
+        text-transform:none;        
+        }
+.date-picker .date-picker-week-header
+        {                          
+        border:1px solid #dcdcdc;        
+        font-style:oblique;  
+        background:transparent;
+        cursor:default;         
+        }
+.date-picker .date-picker-thead .date-picker-week-header
+        {                          
+        border:0 none;
+        cursor:help;         
+        }
+/* The "mon tue wed etc" day header styles */
+.date-picker .date-picker-day-header
+        {
+        cursor:help;
+        border:0 none;
+        padding:0 0 0.2em 0;
+        text-transform:lowercase;
+        height:auto;
+        }
+/* tfoot status bar */
+.date-picker .date-picker-statusbar
+        {
+        cursor:default;
+        font-weight:normal;
+        text-transform:uppercase;
+        letter-spacing:0.1em;
+        border:0 none;
+        background:#fff;
+        height:2.8em;
+        }
+/* TD cell that is _not_ used to display a day of the month */
+.date-picker .date-picker-unused
+        {
+        border-color:#dcdcdc;          
+        cursor:default !important;
+        background-position:0 -25px;
+        }
+/* The TH cell used to display the "month, year" title */
+.date-picker .date-picker-title
+        {
+        width:auto;
+        height:auto;
+        padding:0.4em 0;
+        }
+/* The "todays date" cell style */
+.date-picker .date-picker-today
+        {
+        background:#fff url(data:image/gif;base64,R0lGODlhKwEoAJEAAKnT6v////X6+gAAACH5BAAAAAAALAAAAAArASgAAALXjI+py+0Po5y02ouz3lz4D4biSJbmiabqyrbuC8fyLAcCgOf0zvf+DwwKhyJbDkdMKpfMpnNo1D2n1Kr1GowCsNyu99uNgsfksnlnPKvX7LbA5o7L51Q4/Y7P8+z6vv9fwgc4SJgnWIiYuHao2OgY9hgpecU4aXkJVIm5yQmj2QkaavIpWmpKapraiaraasnqGusIK1tbSGub64er23vH6xvsBixcfEZsnAyGrNyMxewcPQUtXb1EbZ0thK3d3cPtHV4jTl5Xft4Ejr4eyO6e9R7/LU8/UwAAOw==) no-repeat 0 0;
+        }
+.oldie .date-picker .date-picker-today
+        {
+        *background:#fff url(mhtml:./datepicker.css!bullet) no-repeat 0 0;
+        }
+ 
+.date-picker .month-out.date-picker-highlight 
+        {
+        color:#aa4444;
+        }
+/* The "highlight days" style */
+.date-picker .date-picker-highlight
+        {
+        color:#a86666;
+        }
+/* The "active cursor" style */
+.date-picker .date-picker-hover,
+.date-picker .month-out.date-picker-hover
+        {
+        background:#fff url(data:image/jpg;base64,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) no-repeat 0 0;
+        cursor:pointer;
+        border-color:rgb(100,130,170) !important;
+        color:rgb(100,130,170); 
+        text-shadow: 0px 1px 1px #fff;        
+        -webkit-box-shadow:0 0 6px rgba(100,130,170,.6); 
+        -moz-box-shadow:0 0 6px rgba(100,130,170,.6); 
+        box-shadow:0 0 6px rgba(100,130,170,.6);  
+        }
+.oldie .date-picker .date-picker-hover,
+.oldie .date-picker .month-out.date-picker-hover
+        {
+        *background-image:url(mhtml:./datepicker.css!bgheader);
+        }
+/* The "disabled days" style */
+.date-picker .day-disabled
+        {          
+        color:#888;
+        cursor:default;
+        text-decoration:line-through;
+        background-position:0 -15px;
+        } 
+.date-picker .month-out 
+        {
+        border-color:#ddd;
+        color:#aaa;
+        background-position:0 -25px;
+        } 
+/* The "selected date" style - color changed below also */
+.date-picker .date-picker-selected-date
+        {
+        border-color:#555 !important;
+        }
+/* The date "out of range" style */
+.date-picker .out-of-range,
+.date-picker .not-selectable
+        {           
+        color:#ccc;
+        font-style:oblique;
+        background:#fcfcfc;
+        cursor:default;              
+        } 
+/* Week number "out of range" && "month-out" styles */
+.date-picker th.month-out,
+.date-picker th.out-of-range
+        {
+        color:#aaa;
+        font-style:oblique;
+        background:#fcfcfc;          
+        }
+/* Week numbers "out of range" */
+.date-picker .out-of-range
+        {
+        opacity:0.6;
+        }  
+/* Used when the entire grid is full but the next/prev months dates cannot be selected */
+.date-picker .not-selectable
+        {         
+        opacity:0.8;
+        }
+/* IE gets the filter treatment */
+.oldie .date-picker .out-of-range
+        {
+        *filter:alpha(opacity=60);
+        }
+.oldie .date-picker .not-selectable
+        {
+        *filter:alpha(opacity=80);
+        }
+.date-picker tr
+        {
+        display:table-row;
+        }
+.date-picker sup
+        {
+        font-size:0.86em;
+        letter-spacing:normal;
+        text-transform:none;
+        height: 0;
+	line-height: 1;
+	position: relative;
+	top: -0.2em;	
+	vertical-align: baseline !important;
+	vertical-align: top;  
+        }
+.date-picker .date-picker-day-header,
+.date-picker .month-display,
+.date-picker .year-display
+        {            
+        text-shadow: 0px 1px 1px #fff;                            
+        }
+.date-picker td:focus,
+.date-picker .date-picker-hover 
+        {
+        overflow:hidden;
+        outline:0px solid #ff0000;        
+	-moz-outline: 0 none;
+	-o-highlight:0 none;
+	/*color:rgb(100,130,170);*/        	
+        }
+/* The "selected date" style */
+.date-picker .date-picker-selected-date
+        {
+        color:#333;
+        }
+.static-datepicker table
+        {
+        -webkit-box-shadow:0 0 0 transparent;
+        -moz-box-shadow:0 0 0 transparent;   
+        box-shadow:0 0 0 transparent;           
+        }               
+.date-picker-focus table
+        {
+        /* Naughty, naughty - but we add a highlight & box shadow to make up for it */
+        outline:none;
+        border-color:#999;
+        -webkit-box-shadow:0px 0px 5px #aaa;
+        -moz-box-shadow:0px 0px 5px #aaa;
+        box-shadow:0px 0px 5px #aaa;          
+        }    
+/* Disabled datePicker and activation button */
+a.dp-disabled,
+.dp-disabled table
+        {
+        opacity:.6 !important;           
+        filter:alpha(opacity=60);           
+        }
+.dp-disabled,
+.dp-disabled td,
+.dp-disabled th,
+.dp-disabled th span
+        {
+        cursor:default !important;          
+        }
+.dp-disabled .prev-but:hover,
+.dp-disabled .next-but:hover
+        {
+        -webkit-transform:scale(1);
+        -moz-transform:scale(1);
+        -ie-transform:scale(1);
+        -o-transform:scale(1);
+        transform:scale(1);
+        text-shadow:none;
+        }
+body.fd-drag-active 
+        {
+        -webkit-user-select:none;
+        -moz-user-select:none;
+        -khtml-user-select:none;
+        -webkit-touch-callout:none; 
+        user-select:none;     
+        }

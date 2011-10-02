@@ -1,0 +1,32 @@
+h1. Unobtrusive datePicker Widgit
+
+Yet another attempt writing a datePicker that is accessible using the keyboard, requires no embedded JavaScript blocks, uses no pop-up windows and is suitable for use within documents served as application/xhtml+xml.
+
+h2. At a glance
+
+* Keyboard accessible
+* All keyboard shortcuts now adhere to "The DHTML Style Guide Working Group (DSGWG) recommendations":http://dev.aol.com/dhtml_style_guide#datepicker
+* Accessibility enhancements including support for ARIA Roles and States
+* Multiple date formats and date dividers supported
+* Unobtrusive and nameSpace friendly
+* Fully skinnable with CSS
+* Both upper and lower date limits can be set
+* Bespoke days of the week can be disabled
+* Bespoke dates can be disabled/enabled (and wildcards used to stipulate the dates in question)
+* Includes "smart" localisation
+* Bespoke days of the week can be highlighted  
+* Works with any combination of text inputs or select lists  
+* DOM friendly - the calendar is only added to the DOM when actually required
+* DatePickers can display an optional status bar and week numbers
+* DatePickers can be dragged within the viewport by the user (activated by clicking on either the datePicker's header or footer)
+* The script can parse and format dates using a subset of the "PHP date":http://www.php.net/date/ conversion specifiers
+* Global configuration parameters can be specified using JSON within the script tag itself
+* The "button" used for popup datePickers can now be styled for default, hover, active and disabled states, be arbitrarily positioned within the DOM and removed from the document tabindex if so desired
+* Inline datePickers are now available (i.e. no button activation is required), are automatically added to the document's tabIndex and can be arbirarily positioned within the DOM
+* A bespoke final opacity can be defined and the fade in/out animation effect disabled 
+* The entire grid can now be filled with dates    
+* The "Today" button can be removed from the U.I.
+
+h2. Quick Demos 
+
+Coming tomorrow.
