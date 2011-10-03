@@ -29,4 +29,4 @@ h2. At a glance
 
 h2. Quick Demos 
 
-Coming tomorrow.
+A "work-in-progress demo":http://www.frequency-decoder.com/demo/datePicker/ is now available. Note: There are currently problems with the CSS file in IE when running in compat mode. A fix for this is on the development radar.
