@@ -295,23 +295,20 @@ var datePickerController = (function datePickerController() {
         // Basic event functions
         function addEvent(obj, type, fn) { 
                 try {                 
-                        if( obj.attachEvent ) {
-                                obj["e"+type+fn] = fn;
-                                obj[type+fn] = function(){obj["e"+type+fn]( window.event );};
-                                obj.attachEvent( "on"+type, obj[type+fn] );
+                        if(obj.attachEvent) {
+                                obj.attachEvent("on"+type, fn);
                         } else {
-                                obj.addEventListener( type, fn, true );
+                                obj.addEventListener(type, fn, true);
                         };
                 } catch(err) {};
         };
         
         function removeEvent(obj, type, fn) {
                 try {
-                        if( obj.detachEvent ) {
-                                obj.detachEvent( "on"+type, obj[type+fn] );
-                                obj[type+fn] = null;
+                        if(obj.detachEvent) {
+                                obj.detachEvent("on"+type, fn);
                         } else {
-                                obj.removeEventListener( type, fn, true );
+                                obj.removeEventListener(type, fn, true);
                         };
                 } catch(err) {};
         };   
@@ -1151,7 +1148,7 @@ var datePickerController = (function datePickerController() {
                                                                           
                                 setTimeout(this.resizeInlineDiv, 300);                               
                         };                          
-                                
+                        
                         // ARIA Application role
                         setARIARole(this.div, "application");
                         setARIARole(this.table, "grid");
@@ -1299,8 +1296,6 @@ var datePickerController = (function datePickerController() {
 
                         tableBody = tableHead = tr = createThAndButton = createTH = null;
 
-                        //if(this.rangeLow && this.rangeHigh && (this.rangeHigh - this.rangeLow < 7)) { this.equaliseDates(); };                        
-                                                             
                         this.updateTableHeaders();
                         this.created = true;                                                                    
                         this.updateTable();                         
@@ -1312,21 +1307,12 @@ var datePickerController = (function datePickerController() {
                                 this.div.style.display = "block";
                                 this.noFocus = true;                                                          
                                 this.fade();
-                        
-                                for(formElemId in this.formElements) {
-                                        formElem = document.getElementById(formElemId);
-                                        if(formElem.form) {
-                                                addEvent(formElem.form, "reset", this.reset);
-                                        };        
-                                };
                         } else {                                     
                                 this.reposition();
                                 this.div.style.visibility = "visible";
                                 this.fade();
                                 this.noFocus = true;   
                         };   
-                        
-                        
                         
                         this.callback("domcreate", { "id":this.id });                                                   
                 };                 
@@ -1576,7 +1562,7 @@ var datePickerController = (function datePickerController() {
                         this.fade();
                         var butt = document.getElementById('fd-but-' + this.id);
                         if(butt) { 
-                                  removeClass(butt, "dp-button-active");
+                                  addClass(butt, "date-picker-button-active");
                         };                                                
                 };
                 this.hide = function() {                        
@@ -1605,7 +1591,7 @@ var datePickerController = (function datePickerController() {
                         
                         var butt = document.getElementById('fd-but-' + this.id);
                         if(butt) {
-                                removeClass(butt, "dp-button-active");                                
+                                removeClass(butt, "date-picker-button-active");                                
                         };
                 
                         removeEvent(document, "mousedown", this.onmousedown);
@@ -1970,12 +1956,16 @@ var datePickerController = (function datePickerController() {
                 };
                 
                 (function() {
-                        var elemID, elem;
+                        var elemID, elem, elemCnt = 0;
                         
                         for(elemID in o.formElements) {                              
                                 elem = document.getElementById(elemID);
                                 if(elem && elem.tagName && elem.tagName.search(/select|input/i) != -1) {                                                                     
-                                        addEvent(elem, "change", o.changeHandler);                                
+                                        addEvent(elem, "change", o.changeHandler); 
+                                        if(elemCnt == 0 && elem.form) {
+                                                addEvent(elem.form, "reset", o.reset);
+                                        };
+                                        elemCnt++;                               
                                 };
                                 
                                 if(!elem || elem.disabled == true) {
@@ -1983,7 +1973,7 @@ var datePickerController = (function datePickerController() {
                                 };                         
                         };                                      
                 })();   
-                                
+                                        
                 // We have fully created the datepicker...
                 this.fullCreate = true;
         };
@@ -2006,8 +1996,8 @@ var datePickerController = (function datePickerController() {
                                 var kc = e.keyCode != null ? e.keyCode : e.charCode;
                                 if(kc != 13) return true; 
                                 if(dpVisible) {
-                                        //this.className = this.className.replace("dp-button-active", "");
-                                        removeClass(this, "dp-button-active")                                          
+                                        //this.className = this.className.replace("date-picker-button-active", "");
+                                        removeClass(this, "date-picker-button-active")                                          
                                         hideAll();
                                         return stopEvent(e);
                                 };                                   
@@ -2016,15 +2006,15 @@ var datePickerController = (function datePickerController() {
                                 datePickers[inpId].kbEvent = false;
                         };
 
-                        //this.className = this.className.replace("dp-button-active", "");
+                        //this.className = this.className.replace("date-picker-button-active", "");
                         
                         if(!dpVisible) {                                 
-                                //this.className += " dp-button-active";
-                                addClass(this, "dp-button-active")
+                                //this.className += " date-picker-button-active";
+                                addClass(this, "date-picker-button-active")
                                 hideAll(inpId);                                                             
                                 showDatePicker(inpId, autoFocus);
                         } else {
-                                removeClass(this, "dp-button-active");                        
+                                removeClass(this, "date-picker-button-active");                        
                                 hideAll();
                         };
                 
@@ -2391,6 +2381,7 @@ var datePickerController = (function datePickerController() {
         datePicker.prototype.setDateFromInput = function() {
                 var origDateSet = this.dateSet,
                     m           = false,
+                    but         = this.staticPos ? false : document.getElementById("fd-but-" + this.id),
                     i, dt, elemID, elem, elemFmt, d, y, elemVal, dp, mp, yp, dpt;
                 
                 // Reset the internal dateSet variable
@@ -2493,6 +2484,10 @@ var datePickerController = (function datePickerController() {
                         };
                 };
                 
+                if(but) {
+                        removeClass(but, "date-picker-dateval");
+                };
+                        
                 if(!dt || isNaN(dt)) {                        
                         var newDate = new Date(y || new Date().getFullYear(), !(m === false) ? m - 1 : new Date().getMonth(), 1);
                         this.date = this.cursorDate ? new Date(+this.cursorDate.substr(0,4), +this.cursorDate.substr(4,2) - 1, +this.cursorDate.substr(6,2)) : new Date(newDate.getFullYear(), newDate.getMonth(), Math.min(+d || new Date().getDate(), daysInMonth(newDate.getMonth(), newDate.getFullYear())));
@@ -2502,7 +2497,8 @@ var datePickerController = (function datePickerController() {
                         if(this.fullCreate) {
                                 this.updateTable();
                         };  
-                                               
+                        
+                                           
                         return;
                 };
         
@@ -2513,6 +2509,9 @@ var datePickerController = (function datePickerController() {
                 
                 if(dt.getTime() == this.date.getTime() && this.canDateBeSelected(this.date)) {                                              
                         this.dateSet = new Date(this.date);
+                        if(but) {
+                                addClass(but, "date-picker-dateval");
+                        };                        
                 };
                 
                 if(this.fullCreate) {
@@ -2531,7 +2530,12 @@ var datePickerController = (function datePickerController() {
                 };
         };
         datePicker.prototype.returnFormattedDate = function(noFocus) {     
-                if(!this.dateSet) {                                
+                var but = this.staticPos ? false : document.getElementById("fd-but-" + this.id);
+                
+                if(!this.dateSet) {
+                        if(but) {
+                                removeClass(but, "date-picker-dateval");
+                        };                                
                         return;
                 };
                 
@@ -2568,6 +2572,8 @@ var datePickerController = (function datePickerController() {
                         this.noFocus = true;
                         this.updateTable(); 
                         this.noFocus = false;
+                } else if(but) {
+                        addClass(but, "date-picker-dateval");
                 };                         
                 
                 if(this.fullCreate) {
@@ -3167,10 +3173,11 @@ var datePickerController = (function datePickerController() {
                     myMax       = 0,               
                     fmt,
                     opts,
-                    dtPartStr;
+                    dtPartStr,
+                    elemID,
+                    elem;
                     
-                for(var elemID in options.formElements) {
-                        //                 
+                for(elemID in options.formElements) {
                         elem = document.getElementById(elemID);
                         
                         if(!checkElem(elem)) {
@@ -3363,8 +3370,7 @@ var datePickerController = (function datePickerController() {
                         datePickers[options.id].setEnabledDates(options.enabledDates)
                 };
                 
-                datePickers[options.id].callback("create", datePickers[options.id].createCbArgObj());                  
-                
+                datePickers[options.id].callback("create", datePickers[options.id].createCbArgObj());                                  
         };
 
         // Used by the button to dictate whether to open or close the datePicker
@@ -3385,9 +3391,25 @@ var datePickerController = (function datePickerController() {
         addEvent(window, "load", function() { setTimeout(updateStatic, 0); });
         
         // Add oldie class if needed for IE < 9
-        /*@cc_on 
+        /*@cc_on
+        @if (@_jscript_version < 5.8)
+                addClass(document.documentElement, "oldie-mhtml");
+        @end
+        @*/
+
+        /*
+        
+        @if (@_jscript_version == 5.8)
+                addClass(document.documentElement, "oldie-8"); 
+        @elif (@_jscript_version == 5.7 && window.XMLHttpRequest)
+                addClass(document.documentElement, "oldie-7");
+        @else (@_jscript_version == 5.6 || (@_jscript_version == 5.7 && !window.XMLHttpRequest))
+                addClass(document.documentElement, "oldie-6");
+        */
+        
+        /*@cc_on  
         @if (@_jscript_version < 9)
-        addClass(document.documentElement, "oldie");
+                addClass(document.documentElement, "oldie");
         @end 
         @*/
         
