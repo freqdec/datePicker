@@ -2591,7 +2591,7 @@ var datePickerController = (function datePickerController() {
                         this.removeOnFocusEvents();
                         this.removeOldFocus();
                         this.noFocus = true;
-                        addClass(this.div, "dp-disabled")  
+                        addClass(this.div, "date-picker-disabled")  
                         this.table.onmouseover = this.table.onclick = this.table.onmouseout = this.table.onmousedown = null;                                      
                         removeEvent(document, "mousedown", this.onmousedown);                         
                         removeEvent(document, "mouseup",   this.clearTimer);                       
@@ -2601,7 +2601,7 @@ var datePickerController = (function datePickerController() {
                         };                        
                         var but = document.getElementById("fd-but-" + this.id);
                         if(but) {
-                                addClass(but, "dp-disabled");
+                                addClass(but, "date-picker-control-disabled");
                                 // Set a "disabled" ARIA state
                                 setARIAProperty(but, "disabled", true);                               
                                 but.onkeydown = but.onclick = function() { 
@@ -2628,7 +2628,7 @@ var datePickerController = (function datePickerController() {
                         };
                         this.noFocus = true;                        
                         this.updateTable();                        
-                        removeClass(this.div, "dp-disabled");
+                        removeClass(this.div, "date-picker-disabled");
                         this.disabled = false;                         
                         this.table.onmouseover = this.onmouseover;
                         this.table.onmouseout  = this.onmouseout;
@@ -2637,7 +2637,7 @@ var datePickerController = (function datePickerController() {
                 } else {                         
                         var but = document.getElementById("fd-but-" + this.id);
                         if(but) {                                
-                                removeClass(but, "dp-disabled");
+                                removeClass(but, "date-picker-control-disabled");
                                 // Reset the "disabled" ARIA state
                                 setARIAProperty(but, "disabled", false);
                                 this.addButtonEvents(but);                                                
