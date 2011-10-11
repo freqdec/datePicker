@@ -1,16 +1,16 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta charset="utf-8" />
   <title>Language File Creator</title>
-  <style type="text/css">
+  <style>
 body
         {
         padding:2em 0 2em 0;
         border:0;
         margin:0;
         text-align:center;
-        font-size:12px;
+        font-size:16px;
         font-family: verdana,arial,sans-serif;
         color:#545454;
         min-width: 800px;
@@ -61,7 +61,8 @@ form
         border:3px double #ccc;
         text-align:left;
         padding:10px;
-        margin:0 auto;        
+        margin:0 auto;
+        border-radius:5px;        
         }
 input, textarea
         {            
@@ -73,6 +74,7 @@ input, textarea
         border-left-color:#aaa;
         padding:0;
         margin:0 5px 4px 0;
+        border-radius:3px;
         }
 textarea
         {
@@ -80,6 +82,7 @@ textarea
         height:14em;
         float:none;
         margin:0;
+        border-radius:5px;
         }
 #doit
         {
@@ -95,18 +98,20 @@ textarea
         text-transform:uppercase;
         text-decoration:none;
         cursor:pointer;
-        text-shadow:-1px -1px 1px #80a300;
+        text-shadow:0 1px 0 #80a300;
         width:738px;
         clear:top;
         float:none;
         display:block;
         margin:0 0 0.5em 0;
+        border-radius:6px;
         }
 fieldset
         {
         border:1px solid #ccc;
         margin:0 0 1em 0;
         padding:10px 5px 10px 10px;
+        border-radius:5px;
         }
 legend
         {
@@ -117,9 +122,7 @@ legend
         letter-spacing:1px;
         }
   </style>
-  <script charset="UTF-8" type="text/javascript">
-  // <![CDATA[  
-  
+  <script>
 function safeVal(val) {
         var str = "";
         for(var i = 0, c; c = val.charAt(i); i++) {
@@ -230,11 +233,10 @@ window.onload = function() {
         document.body.appendChild(fm);
 };
 
-  // ]]>
   </script>
 </head>
 <body>
   <h1>Language File Creator</h1>
-  <p class="al-center">View the related &#8220;<a href="http://www.frequency-decoder.com/2009/09/09/unobtrusive-date-picker-widget-v5/">language in the lab</a>&#8221; post.</p>
+  <p>View the related &#8220;<a href="http://www.frequency-decoder.com/2011/10/11/unobtrusive-accessible-datepicker-widgit-v6/">language in the lab</a>&#8221; post.</p>
 </body>
 </html>       
