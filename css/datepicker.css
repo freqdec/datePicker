@@ -38,6 +38,15 @@ Content-Transfer-Encoding:base64
 R0lGODlhKwEoAJEAAKnT6v////X6+gAAACH5BAAAAAAALAAAAAArASgAAALXjI+py+0Po5y02ouz3lz4D4biSJbmiabqyrbuC8fyLAcCgOf0zvf+DwwKhyJbDkdMKpfMpnNo1D2n1Kr1GowCsNyu99uNgsfksnlnPKvX7LbA5o7L51Q4/Y7P8+z6vv9fwgc4SJgnWIiYuHao2OgY9hgpecU4aXkJVIm5yQmj2QkaavIpWmpKapraiaraasnqGusIK1tbSGub64er23vH6xvsBixcfEZsnAyGrNyMxewcPQUtXb1EbZ0thK3d3cPtHV4jTl5Xft4Ejr4eyO6e9R7/LU8/UwAAOw==--_BASE64_SEPARATOR--
 */
 
+/*
+
+  Please note:
+  
+  * This is a work in progress and as yet fully untested in IE
+  * The file requires DOS CRLF linefeeds in order for the MHTML block to work properly
+  
+*/
+    
 /* Hide the datepickers associated input by using a className */
 .fd-hidden-input
         {
