@@ -506,8 +506,8 @@ R0lGODlhKwEoAJEAAKnT6v////X6+gAAACH5BAAAAAAALAAAAAArASgAAALXjI+py+0Po5y02ouz3lz4
 /* The "selected date" style - color changed below also */
 .date-picker .date-picker-selected-date
         {
-        border-color:#666 !important;
-        border-color:rgba(5,5,5,.6) !important;
+        border-color:#888 !important;
+        border-color:rgba(7,7,7,.6) !important;
         }
 /* The date "out of range" style */
 .date-picker .out-of-range,
