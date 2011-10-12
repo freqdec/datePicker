@@ -8,6 +8,8 @@
        in a JSON block within the script tag). Don't worry, you don't have to 
        set the describedby parameter, I'm just showing you how it can be done. -->
   <script src="./js/datepicker.js">{"describedby":"fd-dp-aria-describedby"}</script>
+  
+  <!-- Styles for the demo -->
   <link href="./css/demo.css"       rel="stylesheet" type="text/css" />
       
   <!-- Add the datepicker stylesheet -->
@@ -17,19 +19,16 @@
   <form method="post" action="">
     <h1>Unobtrusive JavaScript datepicker widgit</h1>  
     <!-- The ARIA describedby property points to the following div -->    
-    <h2>Keyboard Controls</h2>
     <div id="fd-dp-aria-describedby">       
+      <h2>Keyboard Controls</h2>
       <table cellpadding="0" cellspacing="0" border="0">
-        <thead>
-          <tr><th class="firstup">Key&#160;Combination</th><th>Action</th></tr>
-        </thead>
         <tbody>
           <tr><td><kbd>&larr;</kbd> <kbd>&rarr;</kbd> <kbd>&uarr;</kbd> <kbd>&darr;</kbd></td><td>Day navigation</td></tr>
           <tr><td><kbd>Page Up</kbd></td><td>Previous month</td></tr>
           <tr><td><kbd>Page Down</kbd></td><td>Next month</td></tr>
           <tr><td><kbd>Ctrl</kbd> + <kbd>page up</kbd></td><td>Previous year</td></tr>
           <tr><td><kbd>Ctrl</kbd> + <kbd>page down</kbd></td><td>Next year</td></tr>          
-          <tr><td><kbd>Space</kbd></td><td>Todays date</td></tr>
+          <tr><td><kbd>Space</kbd></td><td>Today&#8217;s date</td></tr>
           <tr><td><kbd>Esc</kbd></td><td>Close datepicker (without selecting date)</td></tr>
           <tr><td><kbd>Return</kbd></td><td>Select highlighted date and close datepicker</td></tr>
           <tr><td><kbd>2</kbd>&ndash;<kbd>7</kbd></td><td>Select the corresponding day as the first day of the week</td></tr>
@@ -42,7 +41,7 @@
       
     -->
     <fieldset>
-      <legend>Demo 1</legend> 
+      <legend>Demo #1</legend> 
       <ul>
         <li>A bare-bones datepicker that uses a single text input to represent the day, month and year date parts</li>
       </ul>
@@ -60,7 +59,7 @@ datePickerController.createDatePicker({
       
     -->      
     <fieldset>
-      <legend>Demo 2</legend> 
+      <legend>Demo #2</legend> 
       <ul>
         <li>Displaying the week number within the datePicker interface</li>
         <li>Setting a statusbar date format</li>
@@ -118,7 +117,7 @@ datePickerController.setEnabledDates("demo-2", enabledDates);
       
     -->
     <fieldset>
-      <legend>Demo 3</legend>
+      <legend>Demo #3</legend>
       <ul>
         <li>Using three text inputs to represent the individual day, month and year date parts</li>
         <li>Removing the &#8220;today&#8221; button from the U.I.</li>
@@ -157,7 +156,7 @@ datePickerController.setDisabledDates("demo-3", {"****1225":1});
      
     -->
     <fieldset>
-      <legend>Demo 4</legend>
+      <legend>Demo #4</legend>
       <ul>
         <li>Using three select lists to represent the day, month and year date parts</li>
         <li>Disabling Monday and Tuesday</li>
@@ -280,7 +279,7 @@ function showEnglishDate(argObj) {
      
     -->
     <fieldset>
-      <legend>Demo 5</legend>
+      <legend>Demo #5</legend>
       <ul>
         <li>Using both text inputs and select lists to represent the day, month and year date parts</li>
         <li>Positioning the button within a specified DOM node (which is why it&#8217;s rendered to the left of the associated form controls)</li>
@@ -356,7 +355,7 @@ datePickerController.createDatePicker({
       
       -->
     <fieldset>
-      <legend>Demo 6</legend>
+      <legend>Demo #6</legend>
       <ul>
         <li>Using a select list to represent both the month and year date parts</li>
       </ul>
@@ -377,8 +376,8 @@ datePickerController.createDatePicker({
         <option value="112008">November 2008</option>
         <option value="122008">December 2008</option>
       </select>          
-      </fieldset>
-      <script>           
+    </fieldset>
+    <script>           
 datePickerController.createDatePicker({                            
         formElements:{"demo-6-1":"%m%Y","demo-6":"%d"},
         showWeeks:true,
@@ -386,14 +385,14 @@ datePickerController.createDatePicker({
         constrainSelection:false,
         statusFormat:"%l, %d %F %Y"       
         });
-      </script>
-      <!-- 
-      
-      DEMO #7 
-      
-      -->
+    </script>
+    <!-- 
+     
+    DEMO #7 
+    
+    -->
     <fieldset>
-      <legend>Demo 7</legend>
+      <legend>Demo #7</legend>
       <ul>
         <li>Using a select list to represent the day, month and year date parts</li>
         <li>Testing the <code>enable</code> and <code>disable</code> methods</li>
@@ -429,7 +428,7 @@ datePickerController.createDatePicker({
      
     -->
     <fieldset>
-      <legend>Demo 8</legend>
+      <legend>Demo #8</legend>
       <ul>
         <li>Setting bespoke statusbar titles for Christmas day, new years eve and new years day</li>
         <li>Setting a callback function for the &#8220;redraw&#8221; event that dynamically calculates and disables Easter Monday for the given year and sets a bespoke title that reads &#8220;Easter Monday&#8221; for the date in question</li>
@@ -489,7 +488,7 @@ datePickerController.createDatePicker({
       
     -->
     <fieldset>
-      <legend>Demo 9</legend>
+      <legend>Demo #9</legend>
       <ul>
         <li>Creating a static (inline) datepicker</li>
         <li>Setting the opacity to 90%</li>
@@ -512,7 +511,7 @@ datePickerController.createDatePicker({
       
     -->
     <fieldset>
-      <legend>Demo 10</legend>
+      <legend>Demo #10</legend>
       <ul>
         <li>Creating a static (inline) datepicker</li>
         <li>Filling the entire grid with dates</li>
@@ -538,7 +537,7 @@ datePickerController.createDatePicker({
       
     -->
     <fieldset>
-      <legend>Demo 11</legend>
+      <legend>Demo #11</legend>
       <ul>
         <li>Removing the associated input from the U.I.</li>
       </ul>
@@ -551,7 +550,7 @@ datePickerController.createDatePicker({
         statusFormat:"%l, %d %F %Y",
         staticPos:true,
         fillGrid:true,
-        // Remove the associated input from the screen
+        // Remove the associated input from the U.I.
         hideInput:true                  
         });
     </script>

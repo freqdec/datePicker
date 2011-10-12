@@ -159,7 +159,7 @@ R0lGODlhKwEoAJEAAKnT6v////X6+gAAACH5BAAAAAAALAAAAAArASgAAALXjI+py+0Po5y02ouz3lz4
         *background-image:url('mhtml:http://www.frequency-decoder.com/demo/datePicker/css/datepicker.css!calicon');
         /* IE6 gets the filter treatment */
         _background-image:none;
-        _filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled=true,sizingMethod=crop,src='mhtml:http://www.frequency-decoder.com/demo/datePicker/datepicker.css!calicon');        
+        _filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled=true,sizingMethod=crop,src='mhtml:http://www.frequency-decoder.com/demo/datePicker/css/datepicker.css!calicon');        
         } 
 /* IE 6 & 7 get fed another rule to show the icon displayed when a valid date selected */
 .oldie-mhtml .date-picker-dateval:link,
@@ -169,7 +169,7 @@ R0lGODlhKwEoAJEAAKnT6v////X6+gAAACH5BAAAAAAALAAAAAArASgAAALXjI+py+0Po5y02ouz3lz4
         *background-image:url('mhtml:http://www.frequency-decoder.com/demo/datePicker/css/datepicker.css!calselected');
         /* IE6 gets the filter treatment */
         _background-image:none;
-        _filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled=true,sizingMethod=crop,src='mhtml:http://www.frequency-decoder.com/demo/datePicker/datepicker.css!calselected');        
+        _filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled=true,sizingMethod=crop,src='mhtml:http://www.frequency-decoder.com/demo/datePicker/css/datepicker.css!calselected');        
         }                           
 /* Hover states etc for the button */
 .date-picker-control:focus,
@@ -191,7 +191,7 @@ R0lGODlhKwEoAJEAAKnT6v////X6+gAAACH5BAAAAAAALAAAAAArASgAAALXjI+py+0Po5y02ouz3lz4
         *background-image:url('mhtml:http://www.frequency-decoder.com/demo/datePicker/css/datepicker.css!calhover');
         /* IE6 gets the filter treatment */
         _background-image:none;
-        _filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled=true,sizingMethod=crop,src='mhtml:http://www.frequency-decoder.com/demo/datePicker/datepicker.css!calhover');             
+        _filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled=true,sizingMethod=crop,src='mhtml:http://www.frequency-decoder.com/demo/datePicker/css/datepicker.css!calhover');             
         }
 /* Disabled button */
 .date-picker-control-disabled:link,
@@ -220,10 +220,10 @@ R0lGODlhKwEoAJEAAKnT6v////X6+gAAACH5BAAAAAAALAAAAAArASgAAALXjI+py+0Po5y02ouz3lz4
 .oldie-mhtml .date-picker-control-disabled:active
         {
         /* IE7: MHTML semi-opaque png image */
-        *background-image:url('mhtml:http://www.frequency-decoder.com/demo/datePicker/datepicker.css!calopaque') !important;        
+        *background-image:url('mhtml:http://www.frequency-decoder.com/demo/datePicker/css/datepicker.css!calopaque') !important;        
         /* IE6: Filter treatment */
         _background-image:none;
-        _filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled=true,sizingMethod=crop,src='mhtml:http://www.frequency-decoder.com/demo/datePicker/datepicker.css!calopaque');                       
+        _filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled=true,sizingMethod=crop,src='mhtml:http://www.frequency-decoder.com/demo/datePicker/css/datepicker.css!calopaque');                       
         }
 .date-picker-control-disabled:hover span,
 .date-picker-control-disabled:active span
@@ -409,7 +409,7 @@ R0lGODlhKwEoAJEAAKnT6v////X6+gAAACH5BAAAAAAALAAAAAArASgAAALXjI+py+0Po5y02ouz3lz4
         border:0 none;
         padding:0;        
         font-weight:bold;
-        color:#222;
+        color:#333;
         text-align:center;
         vertical-align:middle; 
         text-transform:none;        
@@ -496,6 +496,7 @@ R0lGODlhKwEoAJEAAKnT6v////X6+gAAACH5BAAAAAAALAAAAAArASgAAALXjI+py+0Po5y02ouz3lz4
 .oldie-mhtml .date-picker .month-out.date-picker-hover
         {
         background-image:url('mhtml:http://www.frequency-decoder.com/demo/datePicker/css/datepicker.css!cursor');
+        background-position:0 0;
         }
 /* The "disabled days" style */
 .date-picker .day-disabled

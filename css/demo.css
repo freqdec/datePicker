@@ -198,16 +198,12 @@ option.alt
         margin-bottom:0;
         border:0;
         }
-#fd-dp-aria-describedby th, #fd-dp-aria-describedby td
+#fd-dp-aria-describedby td
         {
-        padding:0.6em 0;
-        border-bottom:1px solid #ccc;
+        padding:0.6em 0;        
+        border-top:1px solid #ccc;
         vertical-align:top;
         text-align:left;
-        }
-#fd-dp-aria-describedby th
-        {
-        border:0;
         }
 #date-sel-out
         {  
