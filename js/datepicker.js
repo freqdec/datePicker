@@ -406,6 +406,7 @@ var datePickerController = (function datePickerController() {
                 this.defaults            = {};
                 this.dynDisabledDates    = {};
                 this.dateList            = [];
+                this.bespokeClass        = options.bespokeClass;
                 this.firstDayOfWeek      = localeImport.firstDayOfWeek; 
                 this.interval            = new Date();
                 this.clickActivated      = false;
@@ -669,6 +670,8 @@ var datePickerController = (function datePickerController() {
                         
                         // Remove the focus from the currently highlighted cell                                         
                         o.removeOldFocus();
+                        
+                        o.div.dir = localeImport.rtl ? "rtl" : "ltr"; 
                         
                         // If the update timer initiated
                         if(o.timerSet && !o.delayedUpdate) {
@@ -1059,7 +1062,7 @@ var datePickerController = (function datePickerController() {
                         
                         this.div                     = document.createElement('div');
                         this.div.id                  = "fd-" + this.id;
-                        this.div.className           = "date-picker";  
+                        this.div.className           = "date-picker" + this.bespokeClass;  
                         
                         // Attempt to hide the div from screen readers during content creation
                         this.div.style.visibility = "hidden";
@@ -2409,6 +2412,15 @@ var datePickerController = (function datePickerController() {
                         allFormats = [];
                         allFormats.push(elemFmt);
                         
+                        // Try to assign some default date formats to throw at
+                        // the (simple) regExp parser.
+                        
+                        // I only cover common cases as usually one form
+                        // element tied to only two of the three date parts
+                        // is a selectlist e.g. a form element that has
+                        // been assigned a "%d%m" format (that attempts to match
+                        // only the day and month parts of a date)
+                        
                         // If year, month & day required
                         if(dp && mp && yp) {
                                 // Inject some common formats, placing the easiest
@@ -2417,15 +2429,22 @@ var datePickerController = (function datePickerController() {
                                         "%Y%m%d",       // 20110113
                                         "%Y/%m/%d",     // 2011/01/13
                                         "%Y/%n/%d",     // 2011/1/13
-                                        "%Y/%n/%j",     // 2011/1/13
-                                        "%d/%m/%Y",     // 13/01/2011
-                                        "%j/%m/%Y",     // 13/01/2011
-                                        "%j/%n/%Y",
-                                        "%d/%m/%y",
-                                        "%d/%M/%Y",
+                                        "%Y/%n/%j",     // 2011/1/3
+                                        "%d/%m/%Y",     // 05/01/2011
+                                        "%j/%m/%Y",     // 5/01/2011
+                                        "%j/%n/%Y",     // 5/4/2011
+                                        "%d/%m/%y",     // 05/12/11
+                                        "%d/%M/%Y",     
                                         "%d/%F/%Y",
                                         "%d/%M/%y",
-                                        "%d/%F/%y"                                        
+                                        "%d/%F/%y",
+                                        "%d%m%Y",
+                                        "%j%m%Y",
+                                        "%d%n%Y",
+                                        "%j%n%Y",
+                                        "%d%m%y",
+                                        "%j%m%y",
+                                        "%j%n%y"                                                                           
                                         ]);        
                         } else if(yp) {
                                 allFormats = allFormats.concat([
@@ -2475,9 +2494,9 @@ var datePickerController = (function datePickerController() {
                 
                 dt = false;
                 
-                if(d && !(m === false) && y) {                                            
-                        if(+d > daysInMonth(+m, +y)) {
-                                d  = daysInMonth(+m, +y);
+                if(d && !(m === false) && y) { 
+                        if(+d > daysInMonth(+m - 1, +y)) {
+                                d  = daysInMonth(+m - 1, +y);
                                 dt = false;
                         } else {
                                 dt = new Date(+y, +m - 1, +d);
@@ -2496,13 +2515,10 @@ var datePickerController = (function datePickerController() {
                         this.outOfRange();                         
                         if(this.fullCreate) {
                                 this.updateTable();
-                        };  
-                        
-                                           
+                        };                 
                         return;
                 };
         
-                // Skip daylight savings time sillyness
                 dt.setHours(5);
                 this.date = new Date(dt);                            
                 this.outOfRange();                 
@@ -2756,6 +2772,7 @@ var datePickerController = (function datePickerController() {
                 fullDays:  ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
                 dayAbbrs:  ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"],
                 titles:    ["Previous month","Next month","Previous year","Next year", "Today", "Show Calendar", "wk", "Week [[%0%]] of [[%1%]]", "Week", "Select a date", "Click \u0026 Drag to move", "Display \u201C[[%0%]]\u201D first", "Go to Today\u2019s date", "Disabled date :"],
+                rtl:       false,
                 firstDayOfWeek:0,
                 imported:  false
         };        
@@ -3135,6 +3152,7 @@ var datePickerController = (function datePickerController() {
                                 fullDays        : fdLocale.fullDays,
                                 dayAbbrs        : fdLocale.dayAbbrs,
                                 firstDayOfWeek  : ("firstDayOfWeek" in fdLocale) ? fdLocale.firstDayOfWeek : 0,
+                                rtl             : ("rtl" in fdLocale) ? true : false,
                                 imported        : true
                         };                                               
                 } else if(!localeImport) {                        
@@ -3181,12 +3199,16 @@ var datePickerController = (function datePickerController() {
                         elem = document.getElementById(elemID);
                         
                         if(!checkElem(elem)) {
-                                if(debug) throw "Element '" + elemID + "' is of the wrong type or does not exist within the DOM";
+                                if(debug) {
+                                        throw "Element '" + elemID + "' is of the wrong type or does not exist within the DOM";
+                                };
                                 return false;
                         };
                         
                         if(!(options.formElements[elemID].match(formatTestRegExp))) {
-                                if(debug) throw "Element '" + elemID + "' has a date format that does not contain either a day (d|j), month (m|F|n) or year (y|Y) part: " + options.formElements[elemID];
+                                if(debug) {
+                                        throw "Element '" + elemID + "' has a date format that does not contain either a day (d|j), month (m|F|n) or year (y|Y) part: " + options.formElements[elemID];
+                                };
                                 return false;
                         };
                         
@@ -3357,7 +3379,9 @@ var datePickerController = (function datePickerController() {
                         // Days of the week to highlight (normally the weekend)
                         highlightDays:options.highlightDays && options.highlightDays.length && options.highlightDays.length == 7 ? options.highlightDays : [0,0,0,0,0,1,1],
                         // Days of the week to disable
-                        disabledDays:options.disabledDays && options.disabledDays.length && options.disabledDays.length == 7 ? options.disabledDays : [0,0,0,0,0,0,0]                                                                   
+                        disabledDays:options.disabledDays && options.disabledDays.length && options.disabledDays.length == 7 ? options.disabledDays : [0,0,0,0,0,0,0],
+                        // A bespoke class to give the datepicker
+                        bespokeClass:options.bespokeClass ? " " + options.bespokeClass : ""                                                                   
                 };  
                 
                 datePickers[options.id] = new datePicker(opts);                         
@@ -3397,15 +3421,15 @@ var datePickerController = (function datePickerController() {
         @end
         @*/
 
-        /*
         
+        /*@cc_on
         @if (@_jscript_version == 5.8)
                 addClass(document.documentElement, "oldie-8"); 
         @elif (@_jscript_version == 5.7 && window.XMLHttpRequest)
                 addClass(document.documentElement, "oldie-7");
         @else (@_jscript_version == 5.6 || (@_jscript_version == 5.7 && !window.XMLHttpRequest))
                 addClass(document.documentElement, "oldie-6");
-        */
+        @*/
         
         /*@cc_on  
         @if (@_jscript_version < 9)

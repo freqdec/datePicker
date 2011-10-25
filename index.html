@@ -394,7 +394,7 @@ datePickerController.createDatePicker({
     <fieldset>
       <legend>Demo #7</legend>
       <ul>
-        <li>Using a select list to represent the day, month and year date parts</li>
+        <li>Using a select list to represent the day, month and year date parts (let&#8217;s be honest - you probably wouldn&#8217;t ever do this but the code makes allowances for it and so might as well be demoed)</li>
         <li>Testing the <code>enable</code> and <code>disable</code> methods</li>
       </ul>
       <p>Note: the high &amp; low ranges will be automatically calculated by the script when a select list is used to represent the year date part, so there&#8217;s no need to set a <code>rangeLow</code> or <code>rangeHigh</code> when creating the datepicker.</p>
@@ -416,7 +416,9 @@ datePickerController.createDatePicker({
       <button onclick="datePickerController.disable('demo-7'); return false;">Disable</button> <button onclick="datePickerController.enable('demo-7'); return false;">Enable</button>           
     </fieldset>
     <script>           
-datePickerController.createDatePicker({                            
+datePickerController.createDatePicker({
+        // Associate the select list above and set the date format to match
+        // the options value                           
         formElements:{"demo-7":"%d%m%Y"},
         showWeeks:true,
         statusFormat:"%l, %d %F %Y"       
@@ -440,9 +442,13 @@ datePickerController.createDatePicker({
 datePickerController.createDatePicker({                            
         formElements:{"demo-8":"%d/%m/%Y"},
         showWeeks:true,
+        // Set a list of titles to use in the statusbar for specific dates
         bespokeTitles:{
+                // The 25th of December for all years
                 "****1225":"Christmas Day",
+                // The 31st of December for all years
                 "****1231":"New Years Eve",
+                // The 1st of January for all years
                 "****0101":"New Years Day"
                 },
         statusFormat:"%l, %d %F %Y",
@@ -502,6 +508,7 @@ datePickerController.createDatePicker({
         showWeeks:true,
         statusFormat:"%l, %d %F %Y",
         staticPos:true,
+        // Set an opacity of 90%
         finalOpacity:90                  
         });
     </script>

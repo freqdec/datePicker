@@ -177,7 +177,7 @@ fm.onsubmit = function() {
                 out.push(txt);
         };
         
-        ta.value = "/* Please save this file using the appropriate two letter language code e.g. fr.js\nand send it to frequency.decoder at gmail d0t com - thanks! */\n\nvar fdLocale = {\n/* Uncomment the following line if the first day of the week does not start on Monday */\n//firstDayOfWeek:0," + out.join(",") + "};\ntry { datePickerController.loadLanguage(); } catch(err) {};";
+        ta.value = "/* Please save this as a Javascript file using the appropriate two letter (e.g. fr.js) or four letter (e.g. pt-br.js) language code and send it to frequency.decoder at gmail (dot com) - thanks! */\n\nvar fdLocale = {\n/* Uncomment the following line if the first day of the week does not start on Monday */\n//firstDayOfWeek:0," + out.join(",") + "};\ntry { if(\"datePickerController\" in window) { datePickerController.loadLanguage(); }; } catch(err) {};";
         
         return false;
 };

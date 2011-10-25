@@ -99,7 +99,8 @@ R0lGODlhKwEoAJEAAKnT6v////X6+gAAACH5BAAAAAAALAAAAAArASgAAALXjI+py+0Po5y02ouz3lz4
         {
         width:auto;
         height:auto;
-        border-collapse:separate;         
+        border-collapse:separate;
+        color:#555;         
         } 
 /* The iframe hack to cover selectlists in IE6 */
 .iehack
