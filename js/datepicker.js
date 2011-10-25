@@ -3152,7 +3152,7 @@ var datePickerController = (function datePickerController() {
                                 fullDays        : fdLocale.fullDays,
                                 dayAbbrs        : fdLocale.dayAbbrs,
                                 firstDayOfWeek  : ("firstDayOfWeek" in fdLocale) ? fdLocale.firstDayOfWeek : 0,
-                                rtl             : ("rtl" in fdLocale) ? true : false,
+                                rtl             : ("rtl" in fdLocale) ? !!(fdLocale.rtl) : false,
                                 imported        : true
                         };                                               
                 } else if(!localeImport) {                        
