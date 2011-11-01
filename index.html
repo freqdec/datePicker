@@ -69,6 +69,7 @@ datePickerController.createDatePicker({
             <li>Disable March the 13<sup>th</sup> for all years</li>
             <li>Disable the 25<sup>th</sup> to the 31<sup>st</sup> for all months and all years</li>
             <li>Disable July 01<sup>st</sup> to July 08<sup>th</sup> for all years</li>
+            <li>Disable today&#8217;s date</li>
             <li>Enable the 03<sup>th</sup> to the 05<sup>th</sup> of July for all years</li>
             <li>Enable the 25<sup>th</sup> December for all years</li>
           </ol>
@@ -95,6 +96,9 @@ var disabledDates = {
         "****1225":1
         };
 
+        // Disable today's date
+        disabledDates[datePickerController.dateToYYYYMMDDStr(new Date)] = 1;
+        
 // Create the datePicker
 datePickerController.createDatePicker({ 
         // Associate the three text inputs to their date parts                            
