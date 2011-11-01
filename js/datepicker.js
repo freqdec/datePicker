@@ -190,6 +190,7 @@ var datePickerController = (function datePickerController() {
                                 if(typeof value === "string" && value.search(/^[a-z]{2,3}(-([a-z]{2}))?$/i) != -1) {                                                
                                         languageInfo = [value.toLowerCase()];                                                   
                                         returnLocaleDate = true;
+                                        deriveLocale = true;
                                 };
                                 return true;
                         },
@@ -375,7 +376,7 @@ var datePickerController = (function datePickerController() {
         };
         
         function dateToYYYYMMDD(dt) {                
-                return typeof dt == "date" && !isNaN(dt) ? dt.getFullYear() + pad(dt.getMonth() + 1) + "" + pad(dt.getDate()) : dt;                
+                return dt instanceof Date && !isNaN(dt) ? dt.getFullYear() + pad(dt.getMonth() + 1) + "" + pad(dt.getDate()) : dt;                
         };
         
         // The datePicker object itself 
@@ -2415,25 +2416,19 @@ var datePickerController = (function datePickerController() {
                         // Try to assign some default date formats to throw at
                         // the (simple) regExp parser.
                         
-                        // I only cover common cases as usually one form
-                        // element tied to only two of the three date parts
-                        // is a selectlist e.g. a form element that has
-                        // been assigned a "%d%m" format (that attempts to match
-                        // only the day and month parts of a date)
-                        
                         // If year, month & day required
                         if(dp && mp && yp) {
                                 // Inject some common formats, placing the easiest
                                 // to spot at the beginning.
                                 allFormats = allFormats.concat([
-                                        "%Y%m%d",       // 20110113
-                                        "%Y/%m/%d",     // 2011/01/13
-                                        "%Y/%n/%d",     // 2011/1/13
-                                        "%Y/%n/%j",     // 2011/1/3
-                                        "%d/%m/%Y",     // 05/01/2011
-                                        "%j/%m/%Y",     // 5/01/2011
-                                        "%j/%n/%Y",     // 5/4/2011
-                                        "%d/%m/%y",     // 05/12/11
+                                        "%Y%m%d",       
+                                        "%Y/%m/%d",     
+                                        "%Y/%n/%d",     
+                                        "%Y/%n/%j",     
+                                        "%d/%m/%Y",     
+                                        "%j/%m/%Y",     
+                                        "%j/%n/%Y",     
+                                        "%d/%m/%y",
                                         "%d/%M/%Y",     
                                         "%d/%F/%Y",
                                         "%d/%M/%y",
@@ -2969,7 +2964,7 @@ var datePickerController = (function datePickerController() {
                                 continue loopLabel;
                         };
                         
-                        //console.log("parsing " + part + " from " + str)
+                        //console.log(pt + ": parsing " + part + " from string " + str)
                         
                         if(str.length == 0) { 
                                 break; 
@@ -3105,12 +3100,13 @@ var datePickerController = (function datePickerController() {
                         };
                 };   
                 
-                //console.log("dmy: " + d + " " + m + " " + y)
+                //console.log("parse end, dmy: " + d + ", " + m + ", " + y)
+                
                 if((dp && d === false) || (mp && m === false) || (yp && y === false)) {
                         return false;
                 };                
                 
-                if(dp && mp && yp && +d > daysInMonth(+m, +y)) {
+                if(dp && mp && yp && +d > daysInMonth(+m - 1, +y)) {
                         return false;
                 };
                 
