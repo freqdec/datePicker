@@ -540,7 +540,9 @@ var datePickerController = (function datePickerController() {
 
                 // Repositions the datepicker beside the button
                 this.reposition = function() {
-                        if(!o.created || o.staticPos) { return; };
+                        if(!o.created || o.staticPos) { 
+                                return; 
+                        };
 
                         o.div.style.visibility = "hidden";
                         o.div.style.left = o.div.style.top = "0px";                           
@@ -554,13 +556,14 @@ var datePickerController = (function datePickerController() {
                             sOffsets    = o.getScrollOffsets(),
                             scrollTop   = sOffsets[1], 
                             scrollLeft  = sOffsets[0],
-                            fitsBottom  = parseInt(trueBody.clientHeight+scrollTop) > parseInt(osh+pos[1]+elem.offsetHeight+2),
-                            fitsTop     = parseInt(pos[1]-(osh+elem.offsetHeight+2)) > parseInt(scrollTop); 
-                        
+                            tSpace      = parseInt(pos[1] - 2) - parseInt(scrollTop),
+                            bSpace      = parseInt(trueBody.clientHeight + scrollTop) - parseInt(pos[1] + elem.offsetHeight + 2); 
+                       
                         o.div.style.visibility = "visible";
 
                         o.div.style.left = Number(parseInt(trueBody.clientWidth+scrollLeft) < parseInt(osw+pos[0]) ? Math.abs(parseInt((trueBody.clientWidth+scrollLeft) - osw)) : pos[0]) + "px";
-                        o.div.style.top  = (fitsBottom || !fitsTop) ? Math.abs(parseInt(pos[1] + elem.offsetHeight + 2)) + "px" : Math.abs(parseInt(pos[1] - (osh + 2))) + "px";
+                        //o.div.style.top  = (fitsBottom || !fitsTop) ? Math.abs(parseInt(pos[1] + elem.offsetHeight + 2)) + "px" : Math.abs(parseInt(pos[1] - (osh + 2))) + "px";
+                        o.div.style.top  = (bSpace > tSpace) ? Math.abs(parseInt(pos[1] + elem.offsetHeight + 2)) + "px" : Math.abs(parseInt(pos[1] - (osh + 2))) + "px";
                         /*@cc_on
                         @if(@_jscript_version <= 5.7)
                         if(o.isIE7) return;
@@ -2000,7 +2003,6 @@ var datePickerController = (function datePickerController() {
                                 var kc = e.keyCode != null ? e.keyCode : e.charCode;
                                 if(kc != 13) return true; 
                                 if(dpVisible) {
-                                        //this.className = this.className.replace("date-picker-button-active", "");
                                         removeClass(this, "date-picker-button-active")                                          
                                         hideAll();
                                         return stopEvent(e);
@@ -2010,10 +2012,7 @@ var datePickerController = (function datePickerController() {
                                 datePickers[inpId].kbEvent = false;
                         };
 
-                        //this.className = this.className.replace("date-picker-button-active", "");
-                        
                         if(!dpVisible) {                                 
-                                //this.className += " date-picker-button-active";
                                 addClass(this, "date-picker-button-active")
                                 hideAll(inpId);                                                             
                                 showDatePicker(inpId, autoFocus);
@@ -2463,8 +2462,6 @@ var datePickerController = (function datePickerController() {
                         for(i = 0; i < allFormats.length; i++) { 
                                 dt = parseDateString(elemVal, allFormats[i]); 
                                 
-                                //console.log("parseDateString returned:");
-                                //console.log(dt);
                                 if(dt) {
                                         if(!d && dp && dt.d) {
                                                 d = dt.d;        
@@ -2889,12 +2886,17 @@ var datePickerController = (function datePickerController() {
         };
 
         var getWeekNumber = function(y,m,d) {
-                var d = new Date(y, m, d, 0, 0, 0);
-                var DoW = d.getDay();
+                var d   = new Date(y, m, d, 0, 0, 0),
+                    DoW = d.getDay(), 
+                    ms;
+                    
                 d.setDate(d.getDate() - (DoW + 6) % 7 + 3); 
-                var ms = d.valueOf(); 
+                
+                ms = d.valueOf(); 
+                
                 d.setMonth(0);
                 d.setDate(4);
+                
                 return Math.round((ms - d.valueOf()) / (7 * 864e5)) + 1;
         };
         
@@ -2947,7 +2949,6 @@ var datePickerController = (function datePickerController() {
                     mp    = fmt.search(mPartsRegExp) != -1 ? 1 : 0,
                     yp    = fmt.search(yPartsRegExp) != -1 ? 1 : 0,                        
                     now   = new Date(),
-                    parts = String(fmt).split(formatSplitRegExp),
                     parts = cbSplit(fmt, formatSplitRegExp),
                     str   = "" + str,
                     len   = parts.length,
