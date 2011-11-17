@@ -456,6 +456,7 @@ datePickerController.createDatePicker({
                 "****0101":"New Years Day"
                 },
         statusFormat:"%l, %d %F %Y",
+        rangeLow:datePickerController.dateToYYYYMMDDStr(new Date()),
         // Set a callback function for the redraw event
         callbackFunctions:{"redraw":[function(argObj) { 
         
