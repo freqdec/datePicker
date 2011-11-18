@@ -3424,7 +3424,7 @@ var datePickerController = (function datePickerController() {
                 addClass(document.documentElement, "oldie-8"); 
         @elif (@_jscript_version == 5.7 && window.XMLHttpRequest)
                 addClass(document.documentElement, "oldie-7");
-        @else (@_jscript_version == 5.6 || (@_jscript_version == 5.7 && !window.XMLHttpRequest))
+        @elif (@_jscript_version == 5.6 || (@_jscript_version == 5.7 && !window.XMLHttpRequest))
                 addClass(document.documentElement, "oldie-6");
         @end 
         @*/
