@@ -3416,20 +3416,6 @@ var datePickerController = (function datePickerController() {
         @if (@_jscript_version < 5.8)
                 addClass(document.documentElement, "oldie-mhtml");
         @end
-        @*/
-
-        
-        /*@cc_on
-        @if (@_jscript_version == 5.8)
-                addClass(document.documentElement, "oldie-8"); 
-        @elif (@_jscript_version == 5.7 && window.XMLHttpRequest)
-                addClass(document.documentElement, "oldie-7");
-        @elif (@_jscript_version == 5.6 || (@_jscript_version == 5.7 && !window.XMLHttpRequest))
-                addClass(document.documentElement, "oldie-6");
-        @end 
-        @*/
-        
-        /*@cc_on  
         @if (@_jscript_version < 9)
                 addClass(document.documentElement, "oldie");
         @end 

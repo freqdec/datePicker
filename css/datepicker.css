@@ -127,7 +127,11 @@ R0lGODlhKwEoAJEAAKnT6v////X6+gAAACH5BAAAAAAALAAAAAArASgAAALXjI+py+0Po5y02ouz3lz4
 .date-picker-control:hover span,
 .date-picker-control:active span
         {
+        -webkit-box-shadow:0 0 5px rgba(40, 130, 170, 0.7);
+        -moz-box-shadow:0 0 5px rgba(40, 130, 170, 0.7);
         box-shadow:0 0 5px rgba(40, 130, 170, 0.7);
+        -webkit-border-radius:2px;
+        -moz-border-radius:2px;
         border-radius:2px;
         }
 .date-picker-control:link,
@@ -380,9 +384,12 @@ R0lGODlhKwEoAJEAAKnT6v////X6+gAAACH5BAAAAAAALAAAAAArASgAAALXjI+py+0Po5y02ouz3lz4
         width:auto;             
         empty-cells:show;
         z-index:2;   
-        border-radius:0.8em;             
+        -webkit-border-radius:0.8em;
         -moz-border-radius:0.8em;
-        -moz-box-shadow:0px 0px 5px #aaa;               
+        border-radius:0.8em;             
+        -webkit-box-shadow:0px 0px 5px #aaa; 
+        -moz-box-shadow:0px 0px 5px #aaa; 
+        box-shadow:0px 0px 5px #aaa;               
         }
 /* Common TD & TH styling */
 .date-picker td,
