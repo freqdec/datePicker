@@ -2588,7 +2588,9 @@ var datePickerController = (function datePickerController() {
                         if(el.type && el.type != "hidden" && !noFocus) { 
                                 el.focus(); 
                         };                                                                                                                                             
-                };         
+                };
+
+				if (!noFocus) this.callback("datereturned");
         };
         datePicker.prototype.disableDatePicker = function() {
                 if(this.disabled) {
