@@ -2590,7 +2590,9 @@ var datePickerController = (function datePickerController() {
                         };                                                                                                                                             
                 };
 
-				if (!noFocus) this.callback("datereturned");
+		if(!noFocus) {
+                        this.callback("datereturned");
+                };
         };
         datePicker.prototype.disableDatePicker = function() {
                 if(this.disabled) {
