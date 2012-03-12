@@ -3,22 +3,33 @@
 <head> 
   <title>Unobtrusive JavaScript datePicker demo ~ frequency decoder</title>            
   <meta charset="utf-8" /> 
-  <!-- Add the datepicker script and set the ARIA describedby property to
-       point to to the table that explains keyboard controls (by passing it
-       in a JSON block within the script tag). Don't worry, you don't have to 
-       set the describedby parameter, I'm just showing you how it can be done. -->
-  <script src="./js/datepicker.js">{"describedby":"fd-dp-aria-describedby"}</script>
+  <!-- 
+  
+  Add the English language translation file 
+  
+  -->
+  <script src="./js/lang/en.js"></script>
+  
+  <!-- 
+  
+  Add the datepicker script and set the ARIA describedby property to point to 
+  the table that explains keyboard controls (by passing it in a JSON block 
+  within the script tag). Don't worry, you don't have to set the describedby 
+  parameter, I'm just showing you how it can be done. 
+  
+  -->
+  <script src="./js/datepicker.min.js">{"describedby":"fd-dp-aria-describedby"}</script>
   
   <!-- Styles for the demo -->
   <link href="./css/demo.css"       rel="stylesheet" type="text/css" />
       
   <!-- Add the datepicker stylesheet -->
-  <link href="./css/datepicker.css" rel="stylesheet" type="text/css" />
+  <link href="./css/datepicker.min.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
   <form method="post" action="">
     <h1>Unobtrusive JavaScript datepicker widgit</h1>  
-    <!-- The ARIA describedby property points to the following div -->    
+    <!-- The ARIA describedby property set above points to the following div -->    
     <div id="fd-dp-aria-describedby">       
       <h2>Keyboard Controls</h2>
       <table cellpadding="0" cellspacing="0" border="0">
@@ -49,9 +60,9 @@
     </fieldset>
     <script>
 datePickerController.createDatePicker({ 
-        // Associate the text input to a DD/MM/YYYY date format                            
-        formElements:{"demo-1":"%d/%m/%Y"}
-        }); 
+    // Associate the text input to a DD/MM/YYYY date format                            
+    formElements:{"demo-1":"%d/%m/%Y"}
+    }); 
     </script> 
     <!-- 
       
@@ -80,34 +91,34 @@ datePickerController.createDatePicker({
     <script>
 // Create a few variables to pass to the datePicker      
 var disabledDates = {
-        // Disable March the 13th for all years
-        "****0313":1,
-        // Disable the 25th to the 31st for all months and all years
-        "******25":"******31",
-        // Disable July 01st to July 08th for all years    
-        "****0701":"****0708"
-        },
+    // Disable March the 13th for all years
+    "****0313":1,
+    // Disable the 25th to the 31st for all months and all years
+    "******25":"******31",
+    // Disable July 01st to July 08th for all years    
+    "****0701":"****0708"
+    },
     enabledDates  = {
-        // Enable the 03rd to the 05th of July for all years - this should
-        // take precedence over the last disabled date rule declared above
-        "****0703":"****0705",
-        // Enable Christmas day for all years - this should take precedence
-        // over the second disabled rule above
-        "****1225":1
-        };
+    // Enable the 03rd to the 05th of July for all years - this should
+    // take precedence over the last disabled date rule declared above
+    "****0703":"****0705",
+    // Enable Christmas day for all years - this should take precedence
+    // over the second disabled rule above
+    "****1225":1
+    };
 
-        // Disable today's date
-        disabledDates[datePickerController.dateToYYYYMMDDStr(new Date)] = 1;
+    // Disable today's date
+    disabledDates[datePickerController.dateToYYYYMMDDStr(new Date()] = 1;
         
 // Create the datePicker
 datePickerController.createDatePicker({ 
-        // Associate the three text inputs to their date parts                            
-        formElements:{"demo-2":"%d/%m/%Y"},
-        // Show week numbers
-        showWeeks:true,
-        // Set a statusbar format
-        statusFormat:"%l, %d %F %Y" 
-        });
+    // Associate the three text inputs to their date parts                            
+    formElements:{"demo-2":"%d/%m/%Y"},
+    // Show week numbers
+    showWeeks:true,
+    // Set a statusbar format
+    statusFormat:"%l, %d%S %F %Y" 
+    });
 
 // Disable the required dates
 datePickerController.setDisabledDates("demo-2", disabledDates);
@@ -137,20 +148,20 @@ datePickerController.setEnabledDates("demo-2", enabledDates);
     </fieldset> 
     <script> 
 datePickerController.createDatePicker({                            
-        // Associate the three text inputs to their date parts 
-        formElements:{"demo-3":"%Y","demo-3-mm":"%m","demo-3-dd":"%d"},
-        // Show the week numbers
-        showWeeks:true,
-        // Set a statusbar format
-        statusFormat:"%l, %d %F %Y", 
-        // Remove the "Today" button
-        noTodayButton:true,
-        // Fill the entire grid with dates
-        fillGrid:true,
-        // Enable the selection of dates not within the current month
-        // but rendered within the grid (as we used fillGrid:true)
-        constrainSelection:false
-        });
+    // Associate the three text inputs to their date parts 
+    formElements:{"demo-3":"%Y","demo-3-mm":"%m","demo-3-dd":"%d"},
+    // Show the week numbers
+    showWeeks:true,
+    // Set a statusbar format
+    statusFormat:"%l, %d%S %F %Y", 
+    // Remove the "Today" button
+    noTodayButton:true,
+    // Fill the entire grid with dates
+    fillGrid:true,
+    // Enable the selection of dates not within the current month
+    // but rendered within the grid (as we used fillGrid:true)
+    constrainSelection:false
+    });
 // Disable the 25th of December for all years
 datePickerController.setDisabledDates("demo-3", {"****1225":1});
     </script> 
@@ -240,41 +251,45 @@ datePickerController.setDisabledDates("demo-3", {"****1225":1});
         <option value="1989">1989</option>
         <option value="1990">1990</option>
       </select>
-      <!-- A span to display the long-hand date format using the 
-           "showEnglishDate" callback function defined below -->
+      <!-- 
+      
+      A span to display the long-hand date format using the "showEnglishDate" 
+      function defined below 
+      
+      -->
       <span id="date-sel-out"></span>
     </fieldset>
     <script type="text/javascript">           
 datePickerController.createDatePicker({                            
-        formElements:{"date-sel":"%Y","date-sel-mm":"%n","date-sel-dd":"%j"},
-        showWeeks:true,
-        statusFormat:"%l, %d %F %Y",
-        // Fill the entire grid with dates
-        fillGrid:true,
-        // Disable the selection of dates not within the current month
-        // but rendered within the grid (as we used fillGrid:true)
-        constrainSelection:true,
-        // Set a final opacity of 90%
-        finalOpacity:95,
-        // Disable Monday (index =0) and Tuesday (index = 1)
-        disabledDays:[1,1,0,0,0,0,0],
-        // The function "showEnglishDate" is declared below
-        callbackFunctions:{"create":[showEnglishDate],"dateset":[showEnglishDate]}                                                       
-        });
+    formElements:{"date-sel":"%Y","date-sel-mm":"%n","date-sel-dd":"%j"},
+    showWeeks:true,
+    statusFormat:"%l, %d%S %F %Y",
+    // Fill the entire grid with dates
+    fillGrid:true,
+    // Disable the selection of dates not within the current month
+    // but rendered within the grid (as we used fillGrid:true)
+    constrainSelection:true,
+    // Set a final opacity of 90%
+    finalOpacity:95,
+    // Disable Monday (index =0) and Tuesday (index = 1)
+    disabledDays:[1,1,0,0,0,0,0],
+    // The function "showEnglishDate" is declared below
+    callbackFunctions:{"create":[showEnglishDate],"dateset":[showEnglishDate]}                                                       
+    });
 
 // This is the actual function used by the "create" and "dateset" events
 function showEnglishDate(argObj) {
-        // Grab the span & get a more English-ised version of the selected date
-        var spn = document.getElementById(argObj.id+"-out"),
-            formattedDate = !argObj.date ? "Please select a valid date" : datePickerController.printFormattedDate(argObj.date, "%l, %d%S %F %Y", false);
-        
-        // Remove the current contents of the span
-        while(spn.firstChild) {
-                spn.removeChild(spn.firstChild);
-        };
-        
-        // Add a new text node containing our formatted date
-        spn.appendChild(document.createTextNode(formattedDate));
+    // Grab the span & get a more English-ised version of the selected date
+    var spn = document.getElementById(argObj.id+"-out"),
+        formattedDate = !argObj.date ? "Please select a valid date" : datePickerController.printFormattedDate(argObj.date, "%l, %d%S %F %Y", false);
+    
+    // Remove the current contents of the span
+    while(spn.firstChild) {
+        spn.removeChild(spn.firstChild);
+    };
+    
+    // Add a new text node containing our formatted date
+    spn.appendChild(document.createTextNode(formattedDate));
 };
     </script> 
     <!-- 
@@ -289,7 +304,11 @@ function showEnglishDate(argObj) {
         <li>Positioning the button within a specified DOM node (which is why it&#8217;s rendered to the left of the associated form controls)</li>
         <li>Highlighting Monday only</li>
       </ul>
-      <!-- The datePicker button is created as a child of the following span -->
+      <!-- 
+      
+      The datePicker button is created as a child of the following span 
+      
+      -->
       <span id="demo-5-button"></span>
       <select id="demo-5-dd" name="demo-5-dd">
         <option value="-1">Day</option>
@@ -344,14 +363,14 @@ function showEnglishDate(argObj) {
       </fieldset>
       <script>
 datePickerController.createDatePicker({                            
-        formElements:{"demo-5":"%Y","demo-5-mm":"%n","demo-5-dd":"%j"},
-        showWeeks:true,
-        statusFormat:"%l, %d %F %Y",
-        // Highlight Monday only 
-        highlightDays:[1,0,0,0,0,0,0],
-        // Position the button in a wrapper span to the left
-        positioned:"demo-5-button"                
-        });
+    formElements:{"demo-5":"%Y","demo-5-mm":"%n","demo-5-dd":"%j"},
+    showWeeks:true,
+    statusFormat:"%l, %d%S %F %Y",
+    // Highlight Monday only 
+    highlightDays:[1,0,0,0,0,0,0],
+    // Position the button in a wrapper span to the left of the input
+    positioned:"demo-5-button"                
+    });
       </script>
       <!-- 
       
@@ -383,12 +402,12 @@ datePickerController.createDatePicker({
     </fieldset>
     <script>           
 datePickerController.createDatePicker({                            
-        formElements:{"demo-6-1":"%m%Y","demo-6":"%d"},
-        showWeeks:true,
-        fillGrid:true,
-        constrainSelection:false,
-        statusFormat:"%l, %d %F %Y"       
-        });
+    formElements:{"demo-6-1":"%m%Y","demo-6":"%d"},
+    showWeeks:true,
+    fillGrid:true,
+    constrainSelection:false,
+    statusFormat:"%l, %d%S %F %Y"       
+    });
     </script>
     <!-- 
      
@@ -421,12 +440,12 @@ datePickerController.createDatePicker({
     </fieldset>
     <script>           
 datePickerController.createDatePicker({
-        // Associate the select list above and set the date format to match
-        // the options value                           
-        formElements:{"demo-7":"%d%m%Y"},
-        showWeeks:true,
-        statusFormat:"%l, %d %F %Y"       
-        });
+    // Associate the select list above and set the date format to match
+    // the options value                           
+    formElements:{"demo-7":"%d%m%Y"},
+    showWeeks:true,
+    statusFormat:"%l, %d%S %F %Y"       
+    });
     </script>
     <!-- 
      
@@ -438,60 +457,63 @@ datePickerController.createDatePicker({
       <ul>
         <li>Setting bespoke statusbar titles for Christmas day, new years eve and new years day</li>
         <li>Setting a callback function for the &#8220;redraw&#8221; event that dynamically calculates and disables Easter Monday for the given year and sets a bespoke title that reads &#8220;Easter Monday&#8221; for the date in question</li>
+        <li>Setting the <code>rangeLow</code> to be today&#8217;s date</li>
       </ul>
       <label for="demo-8">Date</label> 
       <input type="text" class="w8em" id="demo-8" name="demo-8" value="" />
     </fieldset>  
     <script>           
 datePickerController.createDatePicker({                            
-        formElements:{"demo-8":"%d/%m/%Y"},
-        showWeeks:true,
-        // Set a list of titles to use in the statusbar for specific dates
-        bespokeTitles:{
-                // The 25th of December for all years
-                "****1225":"Christmas Day",
-                // The 31st of December for all years
-                "****1231":"New Years Eve",
-                // The 1st of January for all years
-                "****0101":"New Years Day"
-                },
-        statusFormat:"%l, %d %F %Y",
-        rangeLow:datePickerController.dateToYYYYMMDDStr(new Date()),
-        // Set a callback function for the redraw event
-        callbackFunctions:{"redraw":[function(argObj) { 
+    formElements:{"demo-8":"%d/%m/%Y"},
+    showWeeks:true,
+    // Set a list of titles to use in the statusbar for specific dates
+    bespokeTitles:{
+        // The 25th of December for all years
+        "****1225":"Christmas Day",
+        // The 31st of December for all years
+        "****1231":"New Years Eve",
+        // The 1st of January for all years
+        "****0101":"New Years Day"
+        },
+    statusFormat:"%l, %d%S %F %Y",
+    // Set the rangeLow to be today's date
+    rangeLow:datePickerController.dateToYYYYMMDDStr(new Date()),
+    // Set a callback function for the redraw event
+    callbackFunctions:{"redraw":[function(argObj) { 
+
+        // Dynamically calculate Easter Monday - I've forgotten where this code 
+        // was originally found and I don't even know if it returns a valid
+        // result in all cases.
         
-                // Dynamically calculate Easter Monday - I've forgotten where this code 
-                // was originally found and I don't even know if it returns a valid
-                // result in all cases.
-                
-                // Only run the code if the month is March or April though
-                if(+argObj.mm < 3 || +argObj.mm > 4) {
-                        return;
-                };
-                
-                var y = argObj.yyyy,
-                    a=y%4,
-                    b=y%7,
-                    c=y%19,
-                    d=(19*c+15)%30,
-                    e=(2*a+4*b-d+34)%7,
-                    m=Math.floor((d+e+114)/31),
-                    g=(d+e+114)%31+1,            
-                    yyyymmdd = y + "0" + m + String(g < 10 ? "0" + g : g),
-                    ret = {},
-                    titles = {};          
-                
-                // Disable the date
-                ret[yyyymmdd] = 1;
-                datePickerController.addDisabledDates(argObj.id, ret);
-                
-                // Just for fun, also set an "Easter Monday" status bar title for this date
-                ret[yyyymmdd] = "Easter Monday"; 
-                
-                datePickerController.addBespokeTitles(argObj.id, ret);
-               
-                }]}                               
-        });
+        // Only run the code if the month is March or April though
+        if(+argObj.mm < 3 || +argObj.mm > 4) {
+            return;
+        };
+        
+        var y = argObj.yyyy,
+            a=y%4,
+            b=y%7,
+            c=y%19,
+            d=(19*c+15)%30,
+            e=(2*a+4*b-d+34)%7,
+            m=Math.floor((d+e+114)/31),
+            g=(d+e+114)%31+1,            
+            yyyymmdd = y + "0" + m + String(g < 10 ? "0" + g : g),
+            ret = {},
+            titles = {};          
+        
+        // Disable the date
+        ret[yyyymmdd] = 1;
+        datePickerController.addDisabledDates(argObj.id, ret);
+        
+        // Just for fun, also set an "Easter Monday" status bar title for the
+        // date we just calculated
+        ret[yyyymmdd] = "Easter Monday"; 
+        
+        datePickerController.addBespokeTitles(argObj.id, ret);
+       
+        }]}                               
+    });
     </script>
     <!-- 
       
@@ -509,13 +531,14 @@ datePickerController.createDatePicker({
     </fieldset>
     <script>
 datePickerController.createDatePicker({                            
-        formElements:{"demo-9":"%d/%m/%Y"},
-        showWeeks:true,
-        statusFormat:"%l, %d %F %Y",
-        staticPos:true,
-        // Set an opacity of 90%
-        finalOpacity:90                  
-        });
+    formElements:{"demo-9":"%d/%m/%Y"},
+    showWeeks:true,
+    statusFormat:"%l, %d%S %F %Y",
+    // We want an inline datepicker
+    staticPos:true,
+    // Set an opacity of 90%
+    finalOpacity:90                  
+    });
     </script>
     <!-- 
       
@@ -535,13 +558,14 @@ datePickerController.createDatePicker({
     </fieldset>
     <script>
 datePickerController.createDatePicker({                            
-        formElements:{"demo-10":"%d/%m/%Y"},
-        showWeeks:true,
-        statusFormat:"%l, %d %F %Y",
-        staticPos:true,
-        fillGrid:true,
-        constrainSelection:false                  
-        });
+    formElements:{"demo-10":"%d/%m/%Y"},
+    showWeeks:true,
+    statusFormat:"%l, %d%S %F %Y",
+    staticPos:true,
+    fillGrid:true,
+    // Enable the selection of all dates rendered within the grid
+    constrainSelection:false                  
+    });
     </script>
     <!-- 
       
@@ -557,16 +581,15 @@ datePickerController.createDatePicker({
     </fieldset>
     <script>
 datePickerController.createDatePicker({                            
-        formElements:{"demo-11":"%d/%m/%Y"},
-        showWeeks:true,
-        statusFormat:"%l, %d %F %Y",
-        staticPos:true,
-        fillGrid:true,
-        // Remove the associated input from the U.I.
-        hideInput:true                  
-        });
+    formElements:{"demo-11":"%d/%m/%Y"},
+    showWeeks:true,
+    statusFormat:"%l, %d%S %F %Y",
+    staticPos:true,
+    fillGrid:true,
+    // Remove the associated input from the U.I.
+    hideInput:true                  
+    });
     </script>
-    <input type="reset" value="reset" />
   </form>
 </body>
 </html>

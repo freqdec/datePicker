@@ -19,15 +19,14 @@ h2. At a glance
 * Global configuration parameters can be specified using JSON within the script tag itself
 * The "button" used for popup datePickers can be arbitrarily positioned within the DOM and removed from the document tabindex if so desired
 * The "button" updates to show a small cursor should the associated form element(s) contain a valid date
-* Inline datePickers are now available (i.e. no button activation is required), are automatically added to the documents tabindex and can be arbitrarily positioned within the DOM
+* Inline datePickers possible (i.e. no button activation is required), are automatically added to the document tabindex and can be arbitrarily positioned within the DOM
 * A bespoke final opacity can be defined and the fade in/out animation effect disabled 
-* The entire grid can now be filled with dates    
+* The entire grid can be filled with dates    
 * The "Today" button can be removed from the U.I.
-* No pesky images to upload and track on your server - they have all been (Base64) encoded directly into the CSS file
+* Fully skinnable with CSS
 
 h2. Quick Demo 
 
 A "demo":http://www.frequency-decoder.com/demo/datePicker/ is now available. 
 
-Note: The CSS file has been rewritten to use Base64 encoded images. I have tested in IE7+ but not yet in IE6. Theoretically, it should also be IE6 friendly (should anyone have tested the demo in IE6 and care to share that would be cool). Don't worry, an alternative CSS file that does not use Base64 encoded images is also available.
 
