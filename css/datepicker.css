@@ -71,13 +71,6 @@
     left:0;
     margin-bottom:1.5em;
     }
-.date-picker table
-    {
-    width:auto;
-    height:auto;
-    border-collapse:separate;
-    color:#555;         
-    } 
 /* 
     The iframe hack to cover selectlists in IE6 
 */
@@ -101,6 +94,7 @@
     height:18px;
     overflow:hidden;
     margin:auto 0;
+    resize:none;
     }
 .date-picker-button-active span,
 .date-picker-control:focus span,
@@ -136,7 +130,8 @@
     cursor:pointer;
     visibility:visible;
     text-decoration:none;
-    vertical-align:text-bottom;         
+    vertical-align:text-bottom;
+    resize:none;         
     }
 /* 
     IE6 & 7 fed "normal" png images 
@@ -383,7 +378,7 @@
 .oldie .date-picker .date-picker-unused,
 .oldie .date-picker .month-out 
     {
-    *background-image:url(../media/datepicker-gradient.gif);
+    *background-image:url(http://www.frequency-decoder.com/demo/datePicker/media/datepicker-gradient.gif);
     /* 
     Remove from IE6 as it has a bug that never caches images on dynamically 
     created elements which results in one http request being made for each
@@ -393,17 +388,22 @@
     }
 .date-picker table
     {
+    table-layout:fixed;
+    empty-cells:show;
+    border-spacing:2px;
+    border-collapse:separate;
     position:relative;               
     margin:0;
     padding:0;
     border:1px solid #ccc;        
     background-position:0 -20px; 
     text-align:center;
-    border-spacing:2px;
     padding:0.3em; 
-    width:auto;             
-    empty-cells:show;
-    z-index:2;   
+    z-index:2;
+    width:auto;
+    height:auto;
+    color:#555;         
+    font-size:1em;
     -webkit-border-radius:0.8em;
        -moz-border-radius:0.8em;
             border-radius:0.8em;             
@@ -430,7 +430,7 @@
     border:1px solid #ccc;
     text-transform:none;
     font-weight:normal;
-    text-shadow:0 1px #fff; 
+    text-shadow:0 1px #fff;
     -webkit-border-radius:2px;        
        -moz-border-radius:2px;         
             border-radius:2px;
@@ -443,7 +443,7 @@
     color:#333;
     text-align:center;
     vertical-align:middle; 
-    text-transform:none;        
+    text-transform:none;
     }
 .date-picker .date-picker-week-header
     {                          
@@ -508,7 +508,7 @@
     }
 .oldie .date-picker .date-picker-today
     {
-    *background:#fff url(../media/datepicker-today.gif) no-repeat 0 0;
+    *background:#fff url(http://www.frequency-decoder.com/demo/datePicker/media/datepicker-today.gif) no-repeat 0 0;
     }
 .date-picker .month-out.date-picker-highlight 
     {
@@ -538,12 +538,14 @@
     */
     }
 /*
-    Keyboard users get a scaled cursor 
+    Keyboard users get a scaled cursor. webKit exhibits buggy behaviour when 
+    scaling TD cells so commented out until I find a curious CSS based fix.     
 */
 .date-picker-focus .date-picker-hover
     {
-    z-index:9999;
+    /*    
     -webkit-transform:scale(1.25);
+    */
        -moz-transform:scale(1.25);
         -ms-transform:scale(1.25);
          -o-transform:scale(1.25);
@@ -566,8 +568,7 @@
 .oldie .date-picker .date-picker-hover,
 .oldie .date-picker .month-out.date-picker-hover
     {
-    *background:#fff url(../media/datepicker-cursor.jpg) no-repeat 0 0;
-    *background-position:0 0;
+    *background:#fff url(http://www.frequency-decoder.com/demo/datePicker/media/datepicker-cursor.jpg) no-repeat 0 0;
     }
 /* 
     The "disabled days" style 
@@ -703,10 +704,6 @@
     }               
 .date-picker-focus table
     {
-    /* 
-    Naughty, naughty - but we add a highlight & box shadow to make up for it 
-    */
-    outline:none;
     border-color:#999;
     border-color:rgba(153,153,153,.8);
     -webkit-box-shadow:0px 0px 5px #aaa;
