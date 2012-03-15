@@ -45,7 +45,6 @@ h2,
 legend
     {
     font-weight:lighter;
-    font-family:verdana,arial,sans-serif;
     text-align:center;
     color:#333;
     text-transform:uppercase;
@@ -70,7 +69,7 @@ kbd
     display: inline-block;
     min-width:1em;
     padding:.2em .3em .3em .3em;
-    font: bold .85em/1em "Lucida Grande", Lucida, Arial, sans-serif;
+    font: normal .85em/1em Monaco, "Bitstream Vera Sans Mono", 'andale mono', 'lucida console', 'courier new', monospace;
     text-align: center;   		
     text-decoration: none;
     -webkit-border-radius: .3em;

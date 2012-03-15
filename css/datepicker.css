@@ -13,13 +13,13 @@
     }
 /* 
     Screen reader class - used to hide spans inside each cell from the visual 
-    display 
+    display. See: http://webaim.org/techniques/css/invisiblecontent/ 
 */
 .fd-screen-reader
     {
     position:absolute;
     left:-999em;
-    top:0;
+    top:auto;
     width:1px;
     height:1px;
     overflow:hidden; 
@@ -34,26 +34,13 @@
     position:absolute;        
     z-index:9999;
     text-align:center;
-
     /* 
     Change the font-size to suit your designs CSS. The following line is for 
-    the demo that has a 12px font-size defined on the body tag 
-    */
-    font:900 0.8em/1em "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
-
-    /* 
-    For Example: If using the YUI font CSS, uncomment the following line to get 
-    a 10px font-size within the datePicker 
-    
-    font:900 77%/77% "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
-    
-    Or, if you prefer a pixel precision 
-    
-    font:900 12px/12px "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
-    
+    the demo that has a 14px font-size defined on the body tag.
+     
     All other rules are "em" based and inherit from the font-size set here. 
     */
-    
+    font:900 0.8em/1em "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;  
     background:transparent;
     -webkit-user-select:none;
        -moz-user-select:none;
@@ -95,7 +82,11 @@
     overflow:hidden;
     margin:auto 0;
     resize:none;
+    outline:none;
     }
+/*
+    The hover effect on the activation button
+*/
 .date-picker-button-active span,
 .date-picker-control:focus span,
 .date-picker-control:hover span,
@@ -260,7 +251,8 @@
     display:inline;
     text-transform:uppercase;
     letter-spacing:1px;
-    font:normal 1.2em Verdana, Sans-Serif;
+    font-weight:normal;
+    font-size:1.2em;
     }
 /* 
     Generic button class for Next & Previous (both month & year) buttons 
@@ -314,7 +306,8 @@
     {
     text-align:center;
     margin:0 auto;
-    font:normal 1em Verdana, Sans-Serif;
+    font-weight:normal;
+    font-size:1em;
     width:100%;
     text-decoration:none;
     padding-top:0.3em;
@@ -739,11 +732,16 @@
 .date-picker-disabled .prev-but:hover,
 .date-picker-disabled .next-but:hover
     {
+    /*    
+    Uncomment this if you have used the previous scale rules previously
+    declared within the file (for the prev-but and next-but classes)
+    
     -webkit-transform:scale(1);
        -moz-transform:scale(1);
         -ms-transform:scale(1);
          -o-transform:scale(1);
             transform:scale(1);
+    */
     text-shadow:none;
     }
 body.fd-drag-active 

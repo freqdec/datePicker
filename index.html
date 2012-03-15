@@ -24,7 +24,7 @@
   <link href="./css/demo.css"       rel="stylesheet" type="text/css" />
       
   <!-- Add the datepicker stylesheet -->
-  <link href="./css/datepicker.min.css" rel="stylesheet" type="text/css" />
+  <link href="./css/datepicker.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
   <form method="post" action="">
@@ -108,7 +108,7 @@ var disabledDates = {
     };
 
     // Disable today's date
-    disabledDates[datePickerController.dateToYYYYMMDDStr(new Date()] = 1;
+    disabledDates[datePickerController.dateToYYYYMMDDStr(new Date())] = 1;
         
 // Create the datePicker
 datePickerController.createDatePicker({ 
