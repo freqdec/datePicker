@@ -9,6 +9,7 @@ body
     font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
     color:#545454;
     min-width: 800px;
+    background:#fcfcfc;
     }
 sup 
     {
@@ -80,8 +81,10 @@ kbd
        -moz-user-select: none;
             user-select: none;
     background: rgb(230, 230, 230);
-    background: -moz-linear-gradient(top, rgb(230,230,230), rgb(245,245,245));
     background: -webkit-gradient(linear, left top, left bottom, from(rgb(230,230,230)), to(rgb(245,245,245)));
+    background: -moz-linear-gradient(top, rgb(230,230,230), rgb(245,245,245));
+    background: -ms-linear-gradient(top, rgb(230,230,230), rgb(245,245,245));
+    background: -o-linear-gradient(top, rgb(230,230,230), rgb(245,245,245));
     color:#222;
     text-shadow: 0 1px 0 rgb(255,255,255);
     border:1px solid #ccc;
@@ -116,10 +119,7 @@ a:active
 form
     {
     width:740px;
-    background:#fcfcfc;
-    border:3px double #ccc;
     text-align:left;
-    padding:10px;
     margin:0 auto;
     -webkit-border-radius:5px;
     -moz-border-radius:5px;

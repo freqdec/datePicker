@@ -35,8 +35,8 @@
     z-index:9999;
     text-align:center;
     /* 
-    Change the font-size to suit your designs CSS. The following line is for 
-    the demo that has a 14px font-size defined on the body tag.
+    Change the font-size to suit your needs. The following line is for the demo
+    that has a 14px font-size defined on the body tag.
      
     All other rules are "em" based and inherit from the font-size set here. 
     */
@@ -133,7 +133,7 @@
     /* 
     IE7 gets a non-base64 encoded image sprite of the base64 encoded image 
     declared above. That's all you have to do for IE7 support as it inherits
-    the background-position declarations to reposition the sprite
+    the background-position declarations used to reposition the sprite
     */
     *background-image:url(http://www.frequency-decoder.com/demo/datePicker/media/datepicker-sprite.png);
     /* 

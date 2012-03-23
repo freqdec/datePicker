@@ -13,7 +13,7 @@ var datePickerController = (function datePickerController() {
         finalOpacity        = 100,
         buttonTabIndex      = true,
         mouseWheel          = true,
-        deriveLocale        = false,
+        deriveLocale        = true,
         localeImport        = false,
         nodrag              = false,            
         returnLocaleDate    = false,              
@@ -58,7 +58,7 @@ var datePickerController = (function datePickerController() {
                 if (bases.length && bases[0].childNodes.length) {
                         bases[0].appendChild(script);
                 } else {
-                        document.getElementsByTagName('head')[0].appendChild(script);
+                        head.appendChild(script);
                 };
                 bases = null;
                 @else @*/
@@ -422,7 +422,8 @@ var datePickerController = (function datePickerController() {
         this.noFocus             = true;
         this.kbEvent             = false; 
         this.delayedUpdate       = false;  
-        this.bespokeTitles       = {};             
+        this.bespokeTitles       = {};
+        this.bespokeTabIndex     = options.bespokeTabIndex;             
             
         for(var thing in options) {
             if(!options.hasOwnProperty(thing) || String(thing).search(/^(callbacks|formElements|enabledDates|disabledDates)$/) != -1) { 
@@ -1998,6 +1999,7 @@ var datePickerController = (function datePickerController() {
                 kbEvent   = datePickers[inpId].kbEvent;
                 
             if(kbEvent) {
+            console.log("kbe");
                 datePickers[inpId].kbEvent = false;
                 return;
             };
@@ -2028,13 +2030,11 @@ var datePickerController = (function datePickerController() {
             return stopEvent(e);
         };
             
-        but.onkeydown = buttonEvent;
-        but.onclick   = buttonEvent;
+        but.onclick     = buttonEvent;
+        but.onkeydown   = buttonEvent;
         
-        if(!buttonTabIndex || this.bespokeTabIndex === false) {
+        if(!buttonTabIndex) {
             setTabIndex(but, -1); 
-            but.onkeydown = null; 
-            removeEvent(but, "keydown", buttonEvent);
         } else {
             setTabIndex(but, this.bespokeTabIndex);
         };                              
