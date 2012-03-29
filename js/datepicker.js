@@ -1999,7 +1999,6 @@ var datePickerController = (function datePickerController() {
                 kbEvent   = datePickers[inpId].kbEvent;
                 
             if(kbEvent) {
-            console.log("kbe");
                 datePickers[inpId].kbEvent = false;
                 return;
             };
