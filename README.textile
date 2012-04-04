@@ -13,7 +13,7 @@ h2. At a glance
 * Bespoke days of the week can be highlighted  
 * Works with any combination of text inputs or select lists  
 * DOM friendly - the calendar is only added to the DOM when actually required
-* Includes a "smart" localisation option and has been translated into 36 locales
+* Includes a "smart" localisation option and has been translated into 37 locales
 * Can display an optional status bar and week numbers within the U.I.
 * Can be dragged within the viewport by the user
 * Global configuration parameters can be specified using JSON within the script tag itself
