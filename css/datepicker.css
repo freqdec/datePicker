@@ -381,7 +381,7 @@
     }
 .date-picker table
     {
-    table-layout:fixed;
+    table-layout:auto;
     empty-cells:show;
     border-spacing:2px;
     border-collapse:separate;
