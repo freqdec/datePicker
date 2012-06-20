@@ -2984,19 +2984,12 @@ var datePickerController = (function datePickerController() {
                     str = str.substr(1);                                     
                     break;                                             
                 // DAY
-                case "d": 
-                    // Day of the month, 2 digits with leading zeros (01 - 31)
-                    if(str.search(/^(3[01]|[12][0-9]|0[1-9])/) != -1) {
-                        d = str.substr(0,2);
-                        str = str.substr(2);                                                        
-                        break;
-                    } else {                                                        
-                        return false;
-                    };
-                case "j": // Day of the month without leading zeros (1 - 31)  
-                    if(str.search(/^(3[01]|[12][0-9]|[1-9])/) != -1) {
-                        d = +str.match(/^(3[01]|[12][0-9]|[1-9])/)[0];
-                        str = str.substr(str.match(/^(3[01]|[12][0-9]|[1-9])/)[0].length);                                                        
+                case "d": // Day of the month, 2 digits with leading zeros (01 - 31)
+                case "j": // Day of the month without leading zeros (1 - 31)
+                    l = /^(3[01]|[12][0-9]|0?[1-9])/;
+                    if(str.search(l) != -1) {
+                        d = +str.match(l)[0];
+                        str = str.substr(str.match(l)[0].length);                                                        
                         break;
                     } else {                                                        
                         return false;
@@ -3051,17 +3044,9 @@ var datePickerController = (function datePickerController() {
                     };
                     return false;
                 case "m": // Numeric representation of a month, with leading zeros
-                    l = /^(1[012]|0[1-9])/;
-                    if(str.search(l) != -1) {
-                        m = +str.substr(0, 2);
-                        str = str.substr(2);
-                        break;
-                    } else {                                                        
-                        return false;
-                    };
                 case "n": // Numeric representation of a month, without leading zeros
                           // Accept either when parsing
-                    l = /^(1[012]|[1-9])/;
+                    l = /^(1[012]|0?[1-9])/;
                     if(str.search(l) != -1) {
                         m = +str.match(l)[0];
                         str = str.substr(str.match(l)[0].length);
