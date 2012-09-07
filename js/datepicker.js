@@ -1,4 +1,4 @@
-/*! DatePicker v6b MIT/GPL2 @freqdec */
+/*! DatePicker v6 MIT/GPL2 @freqdec */
 var datePickerController = (function datePickerController() {
 
     var debug               = false,
@@ -1573,15 +1573,16 @@ var datePickerController = (function datePickerController() {
                   addClass(butt, "date-picker-button-active");
             };                                                
         };
-        this.hide = function() {                        
+        
+        this.hide = function() {
             if(!this.visible || !this.created || !document.getElementById('fd-' + this.id)) {
                 return;
             };
-                        
+
             this.kbEvent = false;
             
             removeClass(o.div, "date-picker-focus");
-                        
+
             this.stopTimer();
             this.removeOnFocusEvents();
             this.clickActivated = false;
@@ -1592,14 +1593,15 @@ var datePickerController = (function datePickerController() {
                 return; 
             };
 
-            // Update status bar                                
-            if(this.statusBar) { 
-                this.updateStatus(getTitleTranslation(9)); 
-            };    
-                        
+            // Update status bar
+            if(this.statusBar) {
+                this.updateStatus(getTitleTranslation(9));
+            };
+
             var butt = document.getElementById('fd-but-' + this.id);
+
             if(butt) {
-                removeClass(butt, "date-picker-button-active");                                
+                removeClass(butt, "date-picker-button-active");
             };
                 
             removeEvent(document, "mousedown", this.onmousedown);
@@ -1695,9 +1697,13 @@ var datePickerController = (function datePickerController() {
                 o.hide();
                 return stopEvent(e);
             } else if(kc == 27) {
-                // ESC: close, no date selection 
+                // ESC: close, no date selection, refocus on popup button
                 if(!o.staticPos) {
                     o.hide();
+                    var butt = document.getElementById('fd-but-' + o.id);
+                    if(butt) {
+                        setTimeout(function(){try{butt.focus()}catch(err){}},0);
+                    };
                     return stopEvent(e);
                 };
                 return true;
@@ -1705,9 +1711,10 @@ var datePickerController = (function datePickerController() {
                 // SPACE: goto todays date 
                 o.date = new Date();
                 o.updateTable();
+
                 return stopEvent(e);
             } else if(kc == 9) {
-                // TAB: close, no date selection & focus back to associated button - popup datepickers only                                      
+                // TAB: pass focus - non popup datepickers only
                 if(!o.staticPos) {
                     return stopEvent(e);
                 };

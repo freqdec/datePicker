@@ -93,12 +93,8 @@
 .date-picker-control:active span
     {
     outline:none;
-    -webkit-box-shadow:0 0 5px rgba(40, 130, 170, 0.7);
-       -moz-box-shadow:0 0 5px rgba(40, 130, 170, 0.7);
-            box-shadow:0 0 5px rgba(40, 130, 170, 0.7);
-    -webkit-border-radius:2px;
-       -moz-border-radius:2px;
-            border-radius:2px;
+    box-shadow:0 0 5px rgba(40, 130, 170, 0.7);
+    border-radius:2px;
     }
 /* 
     A base64 encoded image-sprite is used for the activation button. IE6 and 7
@@ -208,9 +204,7 @@
 .date-picker-control-disabled:hover span,
 .date-picker-control-disabled:active span
     {
-    -webkit-box-shadow:none !important;
-       -moz-box-shadow:none !important;
-            box-shadow:none !important;
+    box-shadow:none !important;
     }
 /*  
     Feed IE6 the following rule, IE7 should handle the min-width declared
@@ -397,12 +391,8 @@
     height:auto;
     color:#555;         
     font-size:1em;
-    -webkit-border-radius:0.8em;
-       -moz-border-radius:0.8em;
-            border-radius:0.8em;             
-    -webkit-box-shadow:0px 0px 5px #aaa; 
-       -moz-box-shadow:0px 0px 5px #aaa; 
-            box-shadow:0px 0px 5px #aaa;               
+    border-radius:0.8em;
+    box-shadow:0px 0px 5px #aaa;
     }
 /* 
     Common TD & TH styling 
@@ -424,9 +414,7 @@
     text-transform:none;
     font-weight:normal;
     text-shadow:0 1px #fff;
-    -webkit-border-radius:2px;        
-       -moz-border-radius:2px;         
-            border-radius:2px;
+    border-radius:2px;
     }
 .date-picker th
     {
@@ -554,9 +542,7 @@
     border-color:rgba(100,130,170,.7) !important;
     color:rgb(100,130,170); 
     text-shadow: 0px 1px 1px #fff;        
-    -webkit-box-shadow:0 0 6px rgba(100,130,170,.6); 
-       -moz-box-shadow:0 0 6px rgba(100,130,170,.6); 
-            box-shadow:0 0 6px rgba(100,130,170,.6); 
+    box-shadow:0 0 6px rgba(100,130,170,.6);
     }
 .oldie .date-picker .date-picker-hover,
 .oldie .date-picker .month-out.date-picker-hover
@@ -691,17 +677,13 @@
 */
 .static-datepicker table
     {
-    -webkit-box-shadow:0 0 0 transparent;
-       -moz-box-shadow:0 0 0 transparent;   
-            box-shadow:0 0 0 transparent;           
+    box-shadow:0 0 0 transparent;
     }               
 .date-picker-focus table
     {
     border-color:#999;
     border-color:rgba(153,153,153,.8);
-    -webkit-box-shadow:0px 0px 5px #aaa;
-       -moz-box-shadow:0px 0px 5px #aaa;
-            box-shadow:0px 0px 5px #aaa; 
+    box-shadow:0px 0px 5px #aaa;
     }
 /* 
     Draggable datepickers 
