@@ -671,6 +671,10 @@
     {
     color:#333;
     color:rgba(3,3,3,.8);
+    font-weight:bold;
+    font-size:1.2em;
+    width:2.4em;
+    height:2.4em;
     }
 /*
     Remove the box-shadow for the inline datepickers
