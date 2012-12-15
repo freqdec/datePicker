@@ -104,7 +104,7 @@
 .date-picker-control:visited
     {
     position:relative;
-    display: -moz-inline-stack;
+    display: -moz-inline-box;
     border:0 none;
     padding:0;
     margin:0 4px;

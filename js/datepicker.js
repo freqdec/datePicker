@@ -1902,11 +1902,7 @@ var datePickerController = (function datePickerController() {
                     if(!o.statusBar) { 
                         break; 
                     };
-                    /*
-                    if(el.className.search(/drag-enabled/) != -1) {
-                        statusText = getTitleTranslation(10);
-                    } else
-                    */
+
                     if(el.className.search(/day-([0-6])/) != -1) {
                         var day = el.className.match(/day-([0-6])/)[1];
                         statusText = getTitleTranslation(11, [getDayTranslation(day, false)]);
@@ -1914,19 +1910,6 @@ var datePickerController = (function datePickerController() {
                         statusText = getTitleTranslation({"drag-enabled":10,"prev-year":2,"prev-month":0,"next-year":3,"next-month":1,"today-but":12}[el.className.match(/(drag-enabled|today-but|prev-(year|month)|next-(year|month))/)[0]]);
                     };
 
-                    /*
-                    if(el.className.search(/prev-year/) != -1 && el.className.search(/disabled/) == -1) {
-                        statusText = getTitleTranslation(2);
-                    } else if(el.className.search(/prev-month/) != -1 && el.className.search(/disabled/) == -1) {
-                        statusText = getTitleTranslation(0);
-                    } else if(el.className.search(/next-year/) != -1 && el.className.search(/disabled/) == -1) {
-                        statusText = getTitleTranslation(3);
-                    } else if(el.className.search(/next-month/) != -1 && el.className.search(/disabled/) == -1) {
-                        statusText = getTitleTranslation(1);
-                    } else if(el.className.search(/today-but/) != -1 && el.className.search(/disabled/) == -1) {
-                        statusText = getTitleTranslation(12);
-                    };
-                    */
                     break;
                 default:
                     statusText = "";
