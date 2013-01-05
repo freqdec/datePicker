@@ -1,7 +1,8 @@
 /*
     Unminified development version of the datepicker stylesheet. Please use the
-    minified version in production (remember to run a find/replace on the 
-    file to update the image locations to suit your installation).
+    minified version in production - remember to run a find/replace on the
+    minified file to update the image locations to suit your installation - more
+    info can be found in the header of the minified file.
 */
 
 /* 
@@ -40,13 +41,32 @@
      
     All other rules are "em" based and inherit from the font-size set here. 
     */
-    font:900 0.8em/1em "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;  
+    font:900 0.8em/1em "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Verdana, Arial, "Lucida Grande", sans-serif;
     background:transparent;
     -webkit-user-select:none;
        -moz-user-select:none;
         -ms-user-select:none;
          -o-user-select:none;                        
             user-select:none;
+    /*
+    Set the fade in/out animation time and final opacity here. This is used for
+    browsers that support CSS transitions. Non-supporting browsers receive the
+    fade effect using a Javascript fallback.
+    */
+    opacity:1;
+    -webkit-transition:opacity .75s ease-in-out;
+       -moz-transition:opacity .75s ease-in-out;
+        -ms-transition:opacity .75s ease-in-out;
+         -o-transition:opacity .75s ease-in-out;
+            transition:opacity .75s ease-in-out;
+    }
+/*
+    The following rule is used whenever CSS Animations are supported by the
+    browser
+*/
+.date-picker.fd-dp-fade
+    {
+    opacity:0;
     }
 /* 
     Styles for the static datePickers 
@@ -386,7 +406,6 @@
     background-position:0 -20px; 
     text-align:center;
     padding:0.3em; 
-    z-index:2;
     width:auto;
     height:auto;
     color:#555;         
@@ -394,6 +413,48 @@
     border-radius:0.8em;
     box-shadow:0px 0px 5px #aaa;
     }
+/*
+    Create a "Lifted Corners" effect on the table. Ripped straight from @necolas
+    http://nicolasgallagher.com/css-drop-shadows-without-images/
+*/
+.date-picker table:before,
+.date-picker table:after
+    {
+    content:"";
+    position:absolute;
+    z-index:-2;
+    bottom:15px;
+    left:10px;
+    width:50%;
+    height:20%;
+    max-width:300px;
+    max-height:100px;
+    -webkit-box-shadow:0 15px 10px rgba(0, 0, 0, 0.7);
+       -moz-box-shadow:0 15px 10px rgba(0, 0, 0, 0.7);
+            box-shadow:0 15px 10px rgba(0, 0, 0, 0.7);
+    -webkit-transform:rotate(-3deg);
+       -moz-transform:rotate(-3deg);
+        -ms-transform:rotate(-3deg);
+         -o-transform:rotate(-3deg);
+            transform:rotate(-3deg);
+    }
+
+.date-picker table:after
+    {
+    right:10px;
+    left:auto;
+    -webkit-transform:rotate(3deg);
+       -moz-transform:rotate(3deg);
+        -ms-transform:rotate(3deg);
+         -o-transform:rotate(3deg);
+            transform:rotate(3deg);
+    }
+.oldie .date-picker table:before,
+.oldie .date-picker table:after
+    {
+    display:none;
+    }
+
 /* 
     Common TD & TH styling 
 */
@@ -520,11 +581,12 @@
     }
 /*
     Keyboard users get a scaled cursor. webKit exhibits buggy behaviour when 
-    scaling TD cells so commented out until I find a curious CSS based fix.     
+    scaling TD cells so commented out until I find a curious CSS based fix.
+    Opera no longer appears to apply the scale... ho hum...
 */
 .date-picker-focus .date-picker-hover
     {
-    /*    
+    /*
     -webkit-transform:scale(1.25);
     */
        -moz-transform:scale(1.25);
@@ -659,10 +721,10 @@
 .date-picker-focus .date-picker-hover,
 .date-picker-control:focus span
     {
-    -webkit-animation:fd-dp-pulse 2s infinite;
-       -moz-animation:fd-dp-pulse 2s infinite;
-        -ms-animation:fd-dp-pulse 2s infinite;
-         -o-animation:fd-dp-pulse 2s infinite;
+    -webkit-animation:fd-dp-pulse 1.5s infinite alternate;
+       -moz-animation:fd-dp-pulse 1.5s infinite alternate;
+        -ms-animation:fd-dp-pulse 1.5s infinite alternate;
+         -o-animation:fd-dp-pulse 1.5s infinite alternate;
     }
 /* 
     The "selected date" style 
@@ -677,12 +739,20 @@
     height:2.4em;
     }
 /*
-    Remove the box-shadow for the inline datepickers
+    Remove the box-shadow & lifted corner effect for the inline datepickers
 */
 .static-datepicker table
     {
     box-shadow:0 0 0 transparent;
-    }               
+    }
+.static-datepicker table:before,
+.static-datepicker table:after
+    {
+    display:none;
+    }
+/*
+    Add a box-shadow and enhance border for datepickers that have keyboard focus
+*/
 .date-picker-focus table
     {
     border-color:#999;
@@ -703,6 +773,11 @@
 .date-picker-disabled table
     {
     opacity:.8 !important;
+    }
+.date-picker-disabled table:before,
+.date-picker-disabled table:after
+    {
+    display:none;
     }
 .oldie .date-picker-disabled table
     {
@@ -742,83 +817,19 @@ body.fd-drag-active
     datepickers activation button 
 */
 @-webkit-keyframes fd-dp-pulse {
-0%      {
-        box-shadow:0 0 4px rgba(100, 130, 170, 0.5);
-        }
-20%     {
-        box-shadow:0 0 4px rgba(70, 130, 170, 0.6);
-        }
-40%     {
-        box-shadow:0 0 5px rgba(40, 130, 170, 0.7);
-        }
-60%     {
-        box-shadow:0 0 6px rgba(10, 130, 170, 0.8);
-        }
-80%     {
-        box-shadow:0 0 5px rgba(40, 130, 170, 0.7);
-        }
-100%    {
-        box-shadow:0 0 4px rgba(70, 130, 170, 0.6);
-        }
+    from{box-shadow:0 0 2px rgba(100, 130, 170, 0.8)}
+    to{box-shadow:0 0 6px rgba(10, 130, 170, 0.5)}
 }
 @-moz-keyframes fd-dp-pulse {
-0%      {
-        box-shadow:0 0 4px rgba(100, 130, 170, 0.5);
-        }
-20%     {
-        box-shadow:0 0 4px rgba(70, 130, 170, 0.6);
-        }
-40%     {
-        box-shadow:0 0 5px rgba(40, 130, 170, 0.7);
-        }
-60%     {
-        box-shadow:0 0 6px rgba(10, 130, 170, 0.8);
-        }
-80%     {
-        box-shadow:0 0 5px rgba(40, 130, 170, 0.7);
-        }
-100%    {
-        box-shadow:0 0 4px rgba(70, 130, 170, 0.6);
-        }
+    from{box-shadow:0 0 2px rgba(100, 130, 170, 0.8)}
+    to{box-shadow:0 0 6px rgba(10, 130, 170, 0.5)}
 }
 @-ms-keyframes fd-dp-pulse {
-0%      {
-        box-shadow:0 0 4px rgba(100, 130, 170, 0.5);
-        }
-20%     {
-        box-shadow:0 0 4px rgba(70, 130, 170, 0.6);
-        }
-40%     {
-        box-shadow:0 0 5px rgba(40, 130, 170, 0.7);
-        }
-60%     {
-        box-shadow:0 0 6px rgba(10, 130, 170, 0.8);
-        }
-80%     {
-        box-shadow:0 0 5px rgba(40, 130, 170, 0.7);
-        }
-100%    {
-        box-shadow:0 0 4px rgba(70, 130, 170, 0.6);
-        }
+    from{box-shadow:0 0 2px rgba(100, 130, 170, 0.8)}
+    to{box-shadow:0 0 6px rgba(10, 130, 170, 0.5)}
 }
 @-o-keyframes fd-dp-pulse {
-0%      {
-        box-shadow:0 0 3px rgba(100, 130, 170, 0.55);
-        }
-20%     {
-        box-shadow:0 0 4px rgba(70, 130, 170, 0.6);
-        }
-40%     {
-        box-shadow:0 0 5px rgba(40, 130, 170, 0.65);
-        }
-60%     {
-        box-shadow:0 0 6px rgba(10, 130, 170, 0.7);
-        }
-80%     {
-        box-shadow:0 0 5px rgba(40, 130, 170, 0.65);
-        }
-100%    {
-        box-shadow:0 0 4px rgba(70, 130, 170, 0.6);
-        }
+    from{box-shadow:0 0 2px rgba(100, 130, 170, 0.8)}
+    to{box-shadow:0 0 6px rgba(10, 130, 170, 0.5)}
 }
 

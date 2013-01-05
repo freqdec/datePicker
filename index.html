@@ -1,7 +1,7 @@
 <!DOCTYPE html> 
 <html lang="en">
 <head> 
-  <title>Unobtrusive JavaScript datePicker demo ~ frequency decoder</title>            
+  <title>Unobtrusive JavaScript datePicker demo by frequency decoder</title>
   <meta charset="utf-8" /> 
   <!-- 
   
@@ -9,13 +9,12 @@
   
   -->
   <script src="./js/lang/en.js"></script>
-  
   <!-- 
   
   Add the datepicker script and set the ARIA describedby property to point to 
   the table that explains keyboard controls (by passing it in a JSON block 
-  within the script tag). Don't worry, you don't have to set the describedby 
-  parameter, I'm just showing you how it can be done. 
+  within the script tag). Of course, you don't have to set the describedby
+  parameter, I'm just showing you how it can be done should you want to.
   
   -->
   <script src="./js/datepicker.min.js">{"describedby":"fd-dp-aria-describedby"}</script>
@@ -28,10 +27,11 @@
 </head>
 <body>
   <form method="post" action="">
-    <h1>Unobtrusive JavaScript datepicker widgit</h1>  
-    <!-- The ARIA describedby property set above points to the following div -->    
+    <h1>Unobtrusive JavaScript datepicker widgit</h1>
+    <!-- The ARIA "describedby" property set above points to the following div -->
     <div id="fd-dp-aria-describedby">       
       <h2>Keyboard Controls</h2>
+      <p><kbd>Tab</kbd> to the button and press <kbd>Enter</kbd> to launch a keyboard aware datepicker control.</p>
       <table cellpadding="0" cellspacing="0" border="0">
         <tbody>
           <tr><td><kbd>&larr;</kbd> <kbd>&rarr;</kbd> <kbd>&uarr;</kbd> <kbd>&darr;</kbd></td><td>Day navigation</td></tr>
@@ -46,6 +46,7 @@
         </tbody>
       </table>
     </div>
+    <p class="asusual">Please view the source code of the page in order to see how the datepîcker controls were created&#8230;</p>
     <!-- 
       
     DEMO #1 
@@ -59,8 +60,10 @@
       <label for="demo-1">Date</label> <input type="text" class="w8em" id="demo-1" name="demo-1" value="" maxlength="10" />
     </fieldset>
     <script>
+// Create the first datepicker
 datePickerController.createDatePicker({ 
-    // Associate the text input to a DD/MM/YYYY date format                            
+    // Associate the text input (with an id of "demo-1") with a DD/MM/YYYY date
+    // format
     formElements:{"demo-1":"%d/%m/%Y"}
     }); 
     </script> 
@@ -89,7 +92,11 @@ datePickerController.createDatePicker({
       <label for="demo-2">Date</label> <input type="text" class="w8em" id="demo-2" name="demo-2" value="" />
     </fieldset>
     <script>
-// Create a few variables to pass to the datePicker      
+// OK, there's a lot going on in this demo. We shall be disabling and enabling
+// a range of dates, most of which are stipulated using wildcards "*" within
+// the date format.
+
+// Create a variable to hold the list of disabled dates
 var disabledDates = {
     // Disable March the 13th for all years
     "****0313":1,
@@ -98,6 +105,7 @@ var disabledDates = {
     // Disable July 01st to July 08th for all years    
     "****0701":"****0708"
     },
+    // Create a variable to hold the list of enabled dates
     enabledDates  = {
     // Enable the 03rd to the 05th of July for all years - this should
     // take precedence over the last disabled date rule declared above
@@ -107,23 +115,28 @@ var disabledDates = {
     "****1225":1
     };
 
-    // Disable today's date
+    // Disable today's date also (add it to the object created previously)
     disabledDates[datePickerController.dateToYYYYMMDDStr(new Date())] = 1;
         
 // Create the datePicker
 datePickerController.createDatePicker({ 
-    // Associate the three text inputs to their date parts                            
+    // Associate the text input with an id of "demo-2" with a DD/MM/YYYY date
+    // format
     formElements:{"demo-2":"%d/%m/%Y"},
-    // Show week numbers
+    // Show week numbers within the datepicker U.I.
     showWeeks:true,
-    // Set a statusbar format
+    // Set a statusbar format - which automatically displays a statusbar
+    // within the datepicker U.I.
     statusFormat:"%l, %d%S %F %Y" 
     });
 
-// Disable the required dates
+// Now the datepicker has been created, we can immediately pass the list of
+// date to disable/enable
+
+// Disable the dates we defined earlier
 datePickerController.setDisabledDates("demo-2", disabledDates);
-// Enable the required dates. As these have been set after the  
-// disabled dates they will take precedence.        
+// Enable the dates we defined earlier. As these have been set after the
+// disabled dates they will take precedence
 datePickerController.setEnabledDates("demo-2", enabledDates);
     </script> 
     <!-- 
@@ -154,15 +167,16 @@ datePickerController.createDatePicker({
     showWeeks:true,
     // Set a statusbar format
     statusFormat:"%l, %d%S %F %Y", 
-    // Remove the "Today" button
+    // Remove the "Today" button from the U.I.
     noTodayButton:true,
-    // Fill the entire grid with dates
+    // Fill the entire grid with dates, even dates outside of the month
+    // currently displayed within the U.I.
     fillGrid:true,
     // Enable the selection of dates not within the current month
     // but rendered within the grid (as we used fillGrid:true)
     constrainSelection:false
     });
-// Disable the 25th of December for all years
+// Disable the 25th of December for all years using a wildcard date format
 datePickerController.setDisabledDates("demo-3", {"****1225":1});
     </script> 
     <!-- 
@@ -259,18 +273,43 @@ datePickerController.setDisabledDates("demo-3", {"****1225":1});
       -->
       <span id="date-sel-out"></span>
     </fieldset>
-    <script type="text/javascript">           
+    <!--
+    
+    We know the datepicker will be given an id of the format:
+
+    #fd-[the id of the first associated form element]
+    
+    So, in this case:
+    
+    #fd-date-sel
+    
+    This enables us to set a final opacity using CSS for browsers that will
+    use CSS transforms to fade in/out the datepicker.
+    
+    It is also necessary to set the opacity during the creation of the
+    datepicker as is shown directly below, in order to deal with browsers that
+    do not support CSS transitions and end up using a Javascript fade effect
+    fallback.
+    
+    -->
+    <style type="text/css">
+    #fd-date-sel { opacity:90% }
+    </style>
+    <script>
 datePickerController.createDatePicker({                            
     formElements:{"date-sel":"%Y","date-sel-mm":"%n","date-sel-dd":"%j"},
+    // Set a final opacity of 90% (for browsers using a Javascript fade in/out
+    // fallback)
+    finalOpacity:90,
+    // Show week numbers
     showWeeks:true,
+    // Show a status format
     statusFormat:"%l, %d%S %F %Y",
     // Fill the entire grid with dates
     fillGrid:true,
     // Disable the selection of dates not within the current month
     // but rendered within the grid (as we used fillGrid:true)
     constrainSelection:true,
-    // Set a final opacity of 90%
-    finalOpacity:95,
     // Disable Monday (index =0) and Tuesday (index = 1)
     disabledDays:[1,1,0,0,0,0,0],
     // The function "showEnglishDate" is declared below
@@ -278,6 +317,7 @@ datePickerController.createDatePicker({
     });
 
 // This is the actual function used by the "create" and "dateset" events
+// in order to display a longhand English date beside the form element
 function showEnglishDate(argObj) {
     // Grab the span & get a more English-ised version of the selected date
     var spn = document.getElementById(argObj.id+"-out"),
@@ -441,7 +481,7 @@ datePickerController.createDatePicker({
     <script>           
 datePickerController.createDatePicker({
     // Associate the select list above and set the date format to match
-    // the options value                           
+    // the option values
     formElements:{"demo-7":"%d%m%Y"},
     showWeeks:true,
     statusFormat:"%l, %d%S %F %Y"       

@@ -211,6 +211,13 @@ option.alt
     vertical-align:top;
     text-align:left;
     }
+#fd-dp-aria-describedby p,
+.asusual
+    {
+    color:#222;
+    text-align:center;
+    font-style:oblique;
+    }
 #date-sel-out
     {  
     color:888;

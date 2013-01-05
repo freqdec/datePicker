@@ -1,4 +1,4 @@
-/*! DatePicker v6 MIT/GPL2 @freqdec */
+/*! DatePicker v6.2 MIT/GPL2 @freqdec */
 var datePickerController = (function datePickerController() {
 
     var debug               = false,
@@ -11,6 +11,8 @@ var datePickerController = (function datePickerController() {
         bespokeTitles       = {},
         uniqueId            = 0,
         finalOpacity        = 100,
+        cssAnimations       = null,
+        transitionEnd       = "",
         buttonTabIndex      = true,
         mouseWheel          = true,
         deriveLocale        = true,
@@ -31,7 +33,7 @@ var datePickerController = (function datePickerController() {
         rangeRegExp         = /^((\d\d\d\d)(0[1-9]|1[012])(0[1-9]|[12][0-9]|3[01]))$/,
         wcDateRegExp        = /^(((\d\d\d\d)|(\*\*\*\*))((0[1-9]|1[012])|(\*\*))(0[1-9]|[12][0-9]|3[01]))$/,            
         wsCharClass         = "\u0009\u000A\u000B\u000C\u000D\u0020\u00A0\u1680\u180E\u2000\u2001\u2002\u2003\u2004\u2005\u2006\u2007\u2008\u2009\u200A\u202F\u205F\u3000\u2028\u2029";                                      
-                
+
     (function() {                 
         var scriptFiles = document.getElementsByTagName('script'),
             json        = parseJSON(String(scriptFiles[scriptFiles.length - 1].innerHTML).replace(/[\n\r\s\t]+/g, " ").replace(/^\s+/, "").replace(/\s+$/, ""));                
@@ -79,7 +81,6 @@ var datePickerController = (function datePickerController() {
         };                    
     };
         
-    // Simple add/remove class methods - they are slow but used rarely
     function addClass(e, c) {
         if(new RegExp("(^|[" + wsCharClass + "])" + c + "([" + wsCharClass + "]|$)").test(e.className)) { 
             return; 
@@ -274,7 +275,7 @@ var datePickerController = (function datePickerController() {
         };        
     };
                       
-    // Parses the JSON passed between the script tags or by using the 
+    // Parses the JSON passed either between the script tags or by using the
     // setGlobalOptions method
     function parseJSON(str) {
         if(!(typeof str === 'string') || str == "") { 
@@ -304,7 +305,8 @@ var datePickerController = (function datePickerController() {
     function parseCellFormat(value) {                  
         if(isOpera) { 
             // Don't use hidden text for opera due to the default 
-            // browser focus outline stretching outside of the viewport              
+            // "blue" browser focus outline stretching outside of the viewport
+            // and degrading visual accessibility. Harsh & hackish though...
             formatParts = ["%j"];
             cellFormat  = "%j %F %Y";  
             return;
@@ -320,33 +322,28 @@ var datePickerController = (function datePickerController() {
         cellFormat  = value;               
     };
         
-        // Pads a number to "length" 
     function pad(value, length) { 
         length = Math.min(4, length || 2); 
         return "0000".substr(0,length - Math.min(String(value).length, length)) + value; 
     };
         
-    // Basic event functions
-    function addEvent(obj, type, fn) { 
-        try {                 
-            if(obj.attachEvent) {
-                obj.attachEvent("on"+type, fn);
-            } else {
-                obj.addEventListener(type, fn, true);
-            };
-        } catch(err) {};
+    // Very, very basic event functions
+    function addEvent(obj, type, fn) {
+        if(obj.addEventListener) {
+            obj.addEventListener(type, fn, true);
+        } else if(obj.attachEvent) {
+            obj.attachEvent("on"+type, fn);
+        }
     };
-        
     function removeEvent(obj, type, fn) {
         try {
-            if(obj.detachEvent) {
-                obj.detachEvent("on"+type, fn);
-            } else {
+            if(obj.removeEventListener) {
                 obj.removeEventListener(type, fn, true);
-            };
-        } catch(err) {};
-    };   
-
+            } else if(obj.detachEvent) {
+                obj.detachEvent("on"+type, fn);
+            }
+        } catch(err) {}
+    };
     function stopEvent(e) {
         e = e || document.parentWindow.event;
         if(e.stopPropagation) {
@@ -362,15 +359,12 @@ var datePickerController = (function datePickerController() {
         return false;
     };
         
-
-    // Sets an ARIA role on an element
     function setARIARole(element, role) {
         if(element && element.tagName) {
             element.setAttribute("role", role);
         };
     };
         
-    // Sets an ARIA property on an element        
     function setARIAProperty(element, property, value) {
 	    if(element && element.tagName) {
             element.setAttribute("aria-" + property, value);
@@ -471,7 +465,19 @@ var datePickerController = (function datePickerController() {
                 
         // Creates the object passed to the callback functions
         this.createCbArgObj = function() {                        
-            return this.dateSet ? {"id":this.id,"date":this.dateSet,"dd":pad(this.date.getDate()),"mm":pad(this.date.getMonth() + 1),"yyyy":this.date.getFullYear()} : {"id":this.id,"date":null,"dd":null,"mm":null,"yyyy":null};                         
+            return this.dateSet ? {
+                "id"    :this.id,
+                "date"  :this.dateSet,
+                "dd"    :pad(this.date.getDate()),
+                "mm"    :pad(this.date.getMonth() + 1),
+                "yyyy"  :this.date.getFullYear()
+                } : {
+                "id"    :this.id,
+                "date"  :null,
+                "dd"    :null,
+                "mm"    :null,
+                "yyyy"  :null
+                };
         };
                 
         // Attempts to grab the window scroll offsets
@@ -526,21 +532,22 @@ var datePickerController = (function datePickerController() {
                         continue; 
                     };                       
                     
-                    // Range
-                    if(+dt1 <= +dt2
+                    // Date Range
+                    if(dt1 <= dt2
                        &&
-                       +workingDt >= dt1.substr(0,6)
+                       workingDt >= dt1.substr(0,6)
                        &&
-                       +workingDt <= dt2.substr(0,6)
+                       workingDt <= dt2.substr(0,6)
                        ) {
-                        rngLower = Math.max(dt1,Math.max(String(workingDt) + "01", this.firstDateShown));
-                        rngUpper = Math.min(dt2,Math.min(String(workingDt) + "31", this.lastDateShown));
-                        for(var i = rngLower; i <= rngUpper; i++) {
+                        rngLower = Math.max(dt1, Math.max(String(workingDt) + "01", this.firstDateShown));
+                        rngUpper = Math.min(dt2, Math.min(String(workingDt) + "31", this.lastDateShown));
+                        for(i = rngLower; i <= rngUpper; i++) {
                             obj[i] = o.dateList[rNumber].type;                                                                                                
                         };
                     };
                 };
                 
+                // Let the Date Object take care of month overflowss
                 workingDt = new Date(workingY, +workingM, 2);
                 workingDt = workingDt.getFullYear()+""+pad(workingDt.getMonth()+1);
             };        
@@ -548,7 +555,11 @@ var datePickerController = (function datePickerController() {
             return obj;
         };
 
-        // Repositions the datepicker beside the button
+        // Repositions the datepicker beside the button - to the bottom by
+        // preference but to the top if there is not enough room to display the
+        // entire U.I. at the bottom (it really should be updated to favour
+        // bottom positioning if not enough room to display the entire U.I. at
+        // the top in that scenario though).
         this.reposition = function() {
             if(!o.created || o.staticPos) { 
                 return; 
@@ -1062,7 +1073,7 @@ var datePickerController = (function datePickerController() {
                 
             this.div                     = document.createElement('div');
             this.div.id                  = "fd-" + this.id;
-            this.div.className           = "date-picker" + this.bespokeClass;  
+            this.div.className           = "date-picker" + (cssAnimations ? " fd-dp-fade " : "") + this.bespokeClass;
                 
             // Attempt to hide the div from screen readers during content creation
             this.div.style.visibility = "hidden";
@@ -1320,8 +1331,29 @@ var datePickerController = (function datePickerController() {
             };   
                 
             this.callback("domcreate", { "id":this.id });                                                   
-        };                 
+        };
+        this.transEnd = function() {
+            o.div.style.display     = "none";
+            o.div.style.visibility  = "hidden";
+            o.visible               = false;
+            setARIAProperty(o.div, "hidden", "true");
+        };
         this.fade = function() {
+            if(cssAnimations) {
+                if(o.opacityTo == 0) {
+                    addEvent(o.div, transitionEnd, o.transEnd);
+                    addClass(o.div, "fd-dp-fade");
+                } else {
+                    removeEvent(o.div, transitionEnd, o.transEnd);
+                    o.div.style.display    = "block";
+                    o.div.style.visibility = "visible";
+                    setARIAProperty(o.div, "hidden", "false");
+                    o.visible = true;
+                    removeClass(o.div, "fd-dp-fade");
+                };
+                return;
+            };
+            
             window.clearTimeout(o.fadeTimer);
             o.fadeTimer = null;   
             var diff = Math.round(o.opacity + ((o.opacityTo - o.opacity) / 4)); 
@@ -1448,7 +1480,7 @@ var datePickerController = (function datePickerController() {
             return true;                                                                      
         }; 
         this.onclick = function(e) {
-            if(o.opacity != o.opacityTo || o.disabled) {
+            if((!cssAnimations && o.opacity != o.opacityTo) || o.disabled) {
                 return stopEvent(e);
             };
             
@@ -1623,7 +1655,7 @@ var datePickerController = (function datePickerController() {
         };
         // The current cursor cell gains focus
         this.onfocus = function(e) {                                               
-            o.noFocus = false;                        
+            o.noFocus = false;
             addClass(o.div, "date-picker-focus"); 
             if(o.statusBar) { 
                 o.updateStatus(printFormattedDate(o.date, o.statusFormat, true)); 
@@ -2374,13 +2406,18 @@ var datePickerController = (function datePickerController() {
             this.statusBar.appendChild(document.createTextNode(msg ? msg : getTitleTranslation(9)));                                                 
         };                                    
     };
-        
-    /* So needs rewritten */
+
+    /* Still needs work... */
     datePicker.prototype.setDateFromInput = function() {
         var origDateSet = this.dateSet,
             m           = false,
             but         = this.staticPos ? false : document.getElementById("fd-but-" + this.id),
-            i, dt, elemID, elem, elemFmt, d, y, elemVal, dp, mp, yp, dpt;
+            e           = localeImport.imported ? [].concat(localeDefaults.fullMonths).concat(localeDefaults.monthAbbrs) : [],
+            l           = localeImport.imported ? [].concat(localeImport.fullMonths).concat(localeImport.monthAbbrs) : [],
+            eosRegExp   = /(3[01]|[12][0-9]|0?[1-9])(st|nd|rd|th)/i,
+            elemCnt     = 0,
+            dt          = false,
+            allFormats, i, elemID, elem, elemFmt, d, y, elemVal, dp, mp, yp;
         
         // Reset the internal dateSet variable
         this.dateSet = null;
@@ -2391,67 +2428,45 @@ var datePickerController = (function datePickerController() {
             elem = document.getElementById(elemID);
             
             if(!elem) {
-                    return false;
+                return false;
             };
             
+            elemCnt++;
+            
             elemVal = String(elem.value);
-            elemFmt = this.formElements[elemID];
-            dt      = false;
             
-            dp = elemFmt.search(dPartsRegExp) != -1 ? 1 : 0;
-            mp = elemFmt.search(mPartsRegExp) != -1 ? 1 : 0;
-            yp = elemFmt.search(yPartsRegExp) != -1 ? 1 : 0;
+            if(!elemVal) {
+                continue;
+            };
             
-            dpt = dp + mp + yp;
-            
-            allFormats = [];
-            allFormats.push(elemFmt);
+            elemFmt     = this.formElements[elemID];
+            allFormats  = [elemFmt];
+            dt          = false;
+            dp          = elemFmt.search(dPartsRegExp) != -1;
+            mp          = elemFmt.search(mPartsRegExp) != -1;
+            yp          = elemFmt.search(yPartsRegExp) != -1;
             
             // Try to assign some default date formats to throw at
-            // the (simple) regExp parser.
-            
-            // If year, month & day required
-            if(dp && mp && yp) {
-                // Inject some common formats, placing the easiest
-                // to spot at the beginning.
-                allFormats = allFormats.concat([
-                    "%Y%m%d",       
-                    "%Y/%m/%d",     
-                    "%Y/%n/%d",     
-                    "%Y/%n/%j",     
-                    "%d/%m/%Y",     
-                    "%j/%m/%Y",     
-                    "%j/%n/%Y",     
-                    "%d/%m/%y",
-                    "%d/%M/%Y",     
-                    "%d/%F/%Y",
-                    "%d/%M/%y",
-                    "%d/%F/%y",
-                    "%d%m%Y",
-                    "%j%m%Y",
-                    "%d%n%Y",
-                    "%j%n%Y",
-                    "%d%m%y",
-                    "%j%m%y",
-                    "%j%n%y"                                                                           
-                    ]);        
-            } else if(yp) {
-                allFormats = allFormats.concat([
-                    "%Y",
-                    "%y"
-                    ]);
-            } else if(mp) {
-                allFormats = allFormats.concat([
-                    "%M",
-                    "%F",
-                    "%m",
-                    "%n"
-                    ]);
-            } else if(dp) {
-                allFormats = allFormats.concat([
-                    "%d%",
-                    "%j"
-                    ]);
+            // the (simple) regExp parser for single date parts.
+            if(!(dp && mp && yp)) {
+                if(yp && !(mp || dp)) {
+                    allFormats = allFormats.concat([
+                        "%Y",
+                        "%y"
+                        ]);
+                } else if(mp && !(yp || dp)) {
+                    allFormats = allFormats.concat([
+                        "%M",
+                        "%F",
+                        "%m",
+                        "%n"
+                        ]);
+                } else if(dp && !(yp || mp)) {
+                    allFormats = allFormats.concat([
+                        "%d%",
+                        "%j"
+                        ]);
+                };
             };
             
             for(i = 0; i < allFormats.length; i++) { 
@@ -2477,6 +2492,39 @@ var datePickerController = (function datePickerController() {
                     break;
                 };
             };                                            
+        };
+        
+        // Last ditch attempt at date parsing for single inputs that
+        // represent the day, month and year parts of the date format.
+        // I'm - thankfully - passing this responsibility off to the browser.
+        // Date parsing in js sucks but the browsers' in-built Date.parse method
+        // will inevitably be better than anything I would hazard to write.
+        // Date.parse is implementation dependant though so don't expect
+        // consistancy, rhyme or reason.
+        if((!d || m === false || !y) && dp && mp && yp && elemCnt == 1 && elemVal) {
+            // If locale imported then replace month names with English
+            // counterparts i necessary
+            if(localeImport.imported) {
+                for(i = 0; i < l.length; i++) {
+                    elemVal = elemVal.replace(new RegExp(l[i], "i"), e[i]);
+                };
+            };
+
+            // Remove English ordinal suffix
+            if(elemVal.search(eosRegExp) != -1) {
+                elemVal = elemVal.replace(eosRegExp, elemVal.match(eosRegExp)[1]);
+            };
+
+            // Older browsers have problems with dashes so we replace with
+            // slashes which appear to be supported by all and then try to use
+            // the in-built Date object to parse a valid date
+            dt = new Date(elemVal.replace(new RegExp("\-", "g"), "/"));
+
+            if(dt && !isNaN(dt)) {
+                d = dt.getDate();
+                m = dt.getMonth() + 1;
+                y = dt.getFullYear();
+            };
         };
         
         dt = false;
@@ -2513,16 +2561,16 @@ var datePickerController = (function datePickerController() {
             this.dateSet = new Date(this.date);
             if(but) {
                 addClass(but, "date-picker-dateval");
-            };                        
+            };
+            this.returnFormattedDate(true);
         };
         
         if(this.fullCreate) {
             this.updateTable();
         };
         
-        this.returnFormattedDate(true);
+        //this.returnFormattedDate(true);
     };
-    
     datePicker.prototype.setSelectIndex = function(elem, indx) {
         for(var opt = elem.options.length-1; opt >= 0; opt--) {
             if(elem.options[opt].value == indx) {
@@ -2630,7 +2678,6 @@ var datePickerController = (function datePickerController() {
         if(this.staticPos) {
             this.removeOldFocus();
             
-            // Reset the cursor to the selected date
             if(this.dateSet != null) {
                 this.date = this.dateSet;
             };
@@ -3159,6 +3206,10 @@ var datePickerController = (function datePickerController() {
     };
     var addDatePicker = function(options) {  
         updateLanguage();
+
+        if(cssAnimations === null) {
+            cssAnimations = testCSSAnimationSupport();
+        };
         
         if(!options.formElements) {
             if(debug) {
@@ -3394,7 +3445,41 @@ var datePickerController = (function datePickerController() {
             };
         };
     };
+
+    var testCSSAnimationSupport = function() {
+        var domPrefixes = 'Webkit Moz ms O'.split(' '),
+            elm = document.createElement('div'),
+            transitions = {
+                'WebkitTransition':'webkitTransitionEnd',
+                'MozTransition':'transitionend',
+                'MSTransition':'msTransitionEnd',
+                'OTransition':'oTransitionEnd',
+                'transition':'transitionEnd'
+            },
+            t;
+
+        for(t in transitions){
+            if(elm.style[t] !== undefined){
+                transitionEnd = transitions[t];
+                break;
+            };
+        };
         
+        if(!transitionEnd) {
+            return false;
+        };
+        
+        if(elm.style.animationName) { return true; }
+
+        for( var i = 0; i < domPrefixes.length; i++ ) {
+            if(elm.style[ domPrefixes[i] + 'AnimationName' ] !== undefined) {
+                return true;
+            };
+        };
+
+        return true;
+    };
+    
     addEvent(window, 'unload', destroy);
     addEvent(window, "load", function() { setTimeout(updateStatic, 0); });
         
