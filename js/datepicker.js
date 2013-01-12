@@ -1,4 +1,4 @@
-/*! DatePicker v6.2 MIT/GPL2 @freqdec */
+/*! DatePicker v6.2.1 MIT/GPL2 @freqdec */
 var datePickerController = (function datePickerController() {
 
     var debug               = false,
@@ -398,7 +398,8 @@ var datePickerController = (function datePickerController() {
         this.created             = false;
         this.disabled            = false;
         this.opacity             = 0; 
-        this.opacityTo           = 99;
+        this.opacityTo           = 100;
+        this.finalOpacity        = 100;
         this.inUpdate            = false;                              
         this.kbEventsAdded       = false;
         this.fullCreate          = false;
@@ -1037,7 +1038,9 @@ var datePickerController = (function datePickerController() {
             if(document.getElementById("fd-" + this.id)) {
                 return;
             };
-                
+
+            var tr, row, col, tableHead, tableBody, tableFoot;
+
             this.noFocus = true; 
                 
             function createTH(details) {
@@ -1074,7 +1077,7 @@ var datePickerController = (function datePickerController() {
             this.div                     = document.createElement('div');
             this.div.id                  = "fd-" + this.id;
             this.div.className           = "date-picker" + (cssAnimations ? " fd-dp-fade " : "") + this.bespokeClass;
-                
+
             // Attempt to hide the div from screen readers during content creation
             this.div.style.visibility = "hidden";
             this.div.style.display = "none";
@@ -1088,8 +1091,8 @@ var datePickerController = (function datePickerController() {
             if(this.labelledBy) {
                 setARIAProperty(this.div, "labelledby", this.labelledBy.id);
             };
-                      
-            var tr, row, col, tableHead, tableBody, tableFoot;
+
+            this.idiv                     = document.createElement('div');
 
             this.table             = document.createElement('table');
             this.table.className   = "date-picker-table";                         
@@ -1097,11 +1100,16 @@ var datePickerController = (function datePickerController() {
             this.table.onmouseout  = this.onmouseout;
             this.table.onclick     = this.onclick;
             
+            if(this.finalOpacity < 100) {
+                this.idiv.style.opacity = Math.min(Math.max(parseInt(this.finalOpacity, 10) / 100, .2), 1);
+            };
+            
             if(this.staticPos) {
                 this.table.onmousedown  = this.onmousedown;
             };
 
-            this.div.appendChild(this.table);   
+            this.div.appendChild(this.idiv);
+            this.idiv.appendChild(this.table);
                 
             var dragEnabledCN = !this.dragDisabled ? " drag-enabled" : "";
                         
@@ -1318,7 +1326,7 @@ var datePickerController = (function datePickerController() {
             
             if(this.staticPos) {                                 
                 this.visible = true;
-                this.opacity = this.opacityTo = this.finalOpacity;                                                                                              
+                this.opacity = 100;
                 this.div.style.visibility = "visible";                       
                 this.div.style.display = "block";
                 this.noFocus = true;                                                          
@@ -1335,27 +1343,34 @@ var datePickerController = (function datePickerController() {
         this.transEnd = function() {
             o.div.style.display     = "none";
             o.div.style.visibility  = "hidden";
-            o.visible               = false;
+            
             setARIAProperty(o.div, "hidden", "true");
         };
         this.fade = function() {
+
+            window.clearTimeout(o.fadeTimer);
+            o.fadeTimer = null;
+
             if(cssAnimations) {
+                o.opacity = o.opacityTo;
+
                 if(o.opacityTo == 0) {
+                    o.visible = false;
                     addEvent(o.div, transitionEnd, o.transEnd);
                     addClass(o.div, "fd-dp-fade");
                 } else {
                     removeEvent(o.div, transitionEnd, o.transEnd);
-                    o.div.style.display    = "block";
-                    o.div.style.visibility = "visible";
+                    o.visible               = true;
+                    o.div.style.display     = "block";
+                    o.div.style.visibility  = "visible";
                     setARIAProperty(o.div, "hidden", "false");
-                    o.visible = true;
                     removeClass(o.div, "fd-dp-fade");
                 };
+                
                 return;
             };
             
-            window.clearTimeout(o.fadeTimer);
-            o.fadeTimer = null;   
+             
             var diff = Math.round(o.opacity + ((o.opacityTo - o.opacity) / 4)); 
             o.setOpacity(diff);  
             if(Math.abs(o.opacityTo - diff) > 3 && !o.noFadeEffect) {                                 
@@ -1577,7 +1592,7 @@ var datePickerController = (function datePickerController() {
                 this.clickActivated = false;
             };    
             
-            this.opacityTo = this.finalOpacity;
+            this.opacityTo = 100;
             this.div.style.display = "block";                        
                                                         
             /*@cc_on
@@ -3447,9 +3462,9 @@ var datePickerController = (function datePickerController() {
     };
 
     var testCSSAnimationSupport = function() {
-        var domPrefixes = 'Webkit Moz ms O'.split(' '),
-            elm = document.createElement('div'),
-            transitions = {
+        var domPrefixes     = 'Webkit Moz ms O'.split(' '),
+            elm             = document.createElement('div'),
+            transitions     = {
                 'WebkitTransition':'webkitTransitionEnd',
                 'MozTransition':'transitionend',
                 'MSTransition':'msTransitionEnd',
@@ -3477,7 +3492,7 @@ var datePickerController = (function datePickerController() {
             };
         };
 
-        return true;
+        return false;
     };
     
     addEvent(window, 'unload', destroy);
