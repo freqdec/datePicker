@@ -104,9 +104,9 @@
          -o-user-select:none;                        
             user-select:none;
     /*
-    Set the fade in/out animation time and final opacity here. This is used for
-    browsers that support CSS transitions. Non-supporting browsers receive the
-    fade effect using a Javascript fallback.
+    Set the fade in/out animation time here. This is used for browsers that
+    support CSS transitions. Non-supporting browsers receive the fade effect
+    using a Javascript fallback.
     */
     opacity:1;
     -webkit-transition:opacity .75s ease-in-out;
