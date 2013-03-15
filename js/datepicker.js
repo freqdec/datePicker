@@ -2042,9 +2042,9 @@ var datePickerController = (function datePickerController() {
             };
 
             if(e.type == "keydown") {
-                datePickers[inpId].kbEvent = true;
                 var kc = e.keyCode != null ? e.keyCode : e.charCode;
-                if(kc != 13) return true; 
+                if(kc != 13) return true;
+                datePickers[inpId].kbEvent = true;
                 if(dpVisible) {
                     removeClass(this, "date-picker-button-active")                                          
                     hideAll();
