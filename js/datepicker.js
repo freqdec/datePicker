@@ -1,4 +1,5 @@
-/*! DatePicker v6.2.1 MIT/GPL2 @freqdec */
+"use strict";
+/*! DatePicker v6.2.2 MIT/GPL2 @freqdec */
 var datePickerController = (function datePickerController() {
 
     var debug               = false,
@@ -100,7 +101,7 @@ var datePickerController = (function datePickerController() {
     };
         
     // Cross browser split from http://blog.stevenlevithan.com/archives/cross-browser-split 
-    cbSplit = function(str, separator, limit) {
+    var cbSplit = function(str, separator, limit) {
         // if `separator` is not a regex, use the native `split`
         if(Object.prototype.toString.call(separator) !== "[object RegExp]") {
                 return cbSplit._nativeSplit.call(str, separator, limit);
@@ -734,7 +735,7 @@ var datePickerController = (function datePickerController() {
             
             tmpDate.setHours(5);
             
-            var dt, cName, td, i, currentDate, cellAdded, col, currentStub, abbr, bespokeRenderClass, spnC, dateSetD,
+            var dt, dts, cName, row, td, i, currentDate, cellAdded, col, currentStub, abbr, bespokeRenderClass, spnC, dateSetD, selectable, weekDay,
                 // Weekday of the fist of the month
                 weekDayC            = (tmpDate.getDay() + 6) % 7,
                 // The column index this weekday will occupy                
@@ -1142,7 +1143,7 @@ var datePickerController = (function datePickerController() {
                 // Aria "hidden" property for non active popup datepickers
                 setARIAProperty(this.div, "hidden", "true");
             } else {
-                elem = document.getElementById(this.positioned ? this.positioned : this.id);
+                var elem = document.getElementById(this.positioned ? this.positioned : this.id);
                 if(!elem) {
                     this.div = null;
                     if(debug) {
@@ -1340,12 +1341,16 @@ var datePickerController = (function datePickerController() {
                 
             this.callback("domcreate", { "id":this.id });                                                   
         };
+        
+        
         this.transEnd = function() {
             o.div.style.display     = "none";
             o.div.style.visibility  = "hidden";
             
             setARIAProperty(o.div, "hidden", "true");
         };
+        
+        
         this.fade = function() {
 
             window.clearTimeout(o.fadeTimer);
@@ -1526,7 +1531,7 @@ var datePickerController = (function datePickerController() {
                     break; 
                 } else if(el.className.search(/date-picker-day-header/) != -1) {
                     var cnt = o.showWeeks ? -1 : 0,
-                    elem = el;
+                        elem = el;
                         
                     while(elem.previousSibling) {
                         elem = elem.previousSibling;
@@ -2515,10 +2520,10 @@ var datePickerController = (function datePickerController() {
         // Date parsing in js sucks but the browsers' in-built Date.parse method
         // will inevitably be better than anything I would hazard to write.
         // Date.parse is implementation dependant though so don't expect
-        // consistancy, rhyme or reason.
+        // consistency, rhyme or reason.
         if((!d || m === false || !y) && dp && mp && yp && elemCnt == 1 && elemVal) {
             // If locale imported then replace month names with English
-            // counterparts i necessary
+            // counterparts if necessary
             if(localeImport.imported) {
                 for(i = 0; i < l.length; i++) {
                     elemVal = elemVal.replace(new RegExp(l[i], "i"), e[i]);
@@ -2888,6 +2893,7 @@ var datePickerController = (function datePickerController() {
             return;
         };
         
+        var dp;
         for(dp in datePickers) {
             datePickers[dp].destroy();
             datePickers[dp] = null;
@@ -3013,7 +3019,7 @@ var datePickerController = (function datePickerController() {
             parts = cbSplit(fmt, formatSplitRegExp),
             str   = "" + str,
             len   = parts.length,
-            pt, part;
+            pt, part, l;
     
         loopLabel:
         for(pt = 0; pt < len; pt++) {
@@ -3209,6 +3215,7 @@ var datePickerController = (function datePickerController() {
     };
     var loadLanguage = function() {
         updateLanguage();
+        var dp;
         for(dp in datePickers) {
             if(!datePickers[dp].created) {
                 continue;
@@ -3241,11 +3248,7 @@ var datePickerController = (function datePickerController() {
             cursorDate  = false,
             myMin       = 0,
             myMax       = 0,               
-            fmt,
-            opts,
-            dtPartStr,
-            elemID,
-            elem;
+            fmt, opts, dtPartStr, elemID, elem, dt, i;
                     
         for(elemID in options.formElements) {
             elem = document.getElementById(elemID);
