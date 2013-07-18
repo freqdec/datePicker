@@ -4,7 +4,7 @@ An attempt at writing a flexible, framework free, feature-rich and accessible da
 
 h2. At a glance...
 
-* Keyboard shortcuts adhere to "The DHTML Style Guide Working Group (DSGWG) recommendations":http://access.aol.com/dhtml-style-guide-working-group/#datepicker                * Accessibility enhancements including support for ARIA Roles and States
+* Keyboard shortcuts adhere to "The DHTML Style Guide Working Group (DSGWG) recommendations":http://access.aol.com/dhtml-style-guide-working-group/#datepicker
 * Accessibility enhancements including support for ARIA Roles and States
 * The script can parse and format dates using a subset of the "PHP date":http://www.php.net/date/ conversion specifiers
 * Both upper and lower date limits can be set
