@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="mssmarttagspreventparsing" content="true" />
+        <meta http-equiv="imagetoolbar" content="false" />
+
+        <title>Yet Another Datepicker - a frequency decoder production</title>
+        <meta name="description" content="An attempt at writing a flexible, framework free, feature-rich and accessible datepicker">
+        <meta name="viewport" content="width=device-width">
+
+        <link rel="stylesheet" href="./pages/css/main.css">
+        <link href='./pages/css/prism.css' rel='stylesheet' type='text/css'>
+
+        <link href='http://fonts.googleapis.com/css?family=Bitter:400,700,400italic' rel='stylesheet' type='text/css'>
+        <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro' rel='stylesheet' type='text/css'>
+</head>
+<body>
+    <div class="content-wrap">
+        <div class="content">
+            <h1>Yet Another DatePicker</h1>
+            <p>An attempt at writing a flexible, framework free, feature-rich and accessible datepicker. The more impatient amongst you may want to see the <a href="./demo/">various demos</a> or head directly over to the <a href="https://github.com/freqdec/datePicker">github repository</a> to ponder over the source before reading any further.</p>
+
+            <h2 id="at-a-glance">At a glance&#8230;</h2>
+            <ul>
+                <li>Keyboard shortcuts adhere to <a href="http://access.aol.com/dhtml-style-guide-working-group/#datepicker">The DHTML Style Guide Working Group (DSGWG) recommendations</a></li>
+                <li>Accessibility enhancements including support for ARIA Roles and States</li>
+                <li>The script can parse and format dates using a subset of the <a href="http://www.php.net/date/">PHP date</a> conversion specifiers</li>
+                <li>Both upper and lower date limits can be set</li>
+                <li>Bespoke days of the week can be disabled</li>
+                <li>Bespoke dates can be disabled/enabled and &#8220;*&#8221; wildcards used to stipulate the dates in question</li>
+                <li>Bespoke days of the week can be highlighted</li>
+                <li>Works with any combination of text inputs or select lists</li>
+                <li>DOM friendly &#8211; the datepicker is only added to the DOM when actually required</li>
+                <li>Includes a &#8220;<a href="#localisation">smart localisation</a>&#8221; option and has been translated into <a href="#currently-available-languages">many languages</a></li>
+                <li>Can display an optional status bar and week numbers</li>
+                <li>Can be dragged within the viewport by the user</li>
+                <li>Global configuration parameters can be specified using JSON within the script tag itself</li>
+                <li>The &#8220;button&#8221; used for popup datepickers can now be styled for default, hover, focus, active and disabled states, be arbitrarily positioned within the DOM and removed from the document tabindex if so desired</li>
+                <li>Inline datepickers are now available, are automatically added to the document tabindex and can be arbitrarily positioned within the DOM</li>
+                <li>A bespoke final opacity can be defined and if desired, the fade in/out animation effect disabled</li>
+                <li>The entire U.I. grid can now be filled with dates</li>
+                <li>The &#8220;Today&#8221; button can be removed from the U.I.</li>
+                <li>Fully skinnable with CSS</li>
+                <li>Compatible down to IE6</li>
+            </ul>
+
+            <h2 id="creating-datepickers">Creating datepickers</h2>
+            <p>Datepickers are created by calling the <code>datePickerController.createDatePicker</code> method, which expects an initialisation Object as the sole argument. An example of a basic creation call is shown below:</p>
+            <pre><code class="language-markup">&lt;input type=&quot;text&quot; id=&quot;inp1&quot; name=&quot;inp1&quot; /&gt;
+&lt;script&gt;
+// Attach a datepicker to the above input element
+datePickerController.createDatePicker({
+    formElements:{
+        &quot;inp1&quot;:&quot;%d/%m/%Y&quot;
+    }
+});
+&lt;/script&gt;</code></pre>
+
+            <h2 id="associating-form-elements-with-a-datepicker">Associating form elements with a&#160;datepicker</h2>
+            <p>Each datepicker has to be associated with at least one form element and each form element has to be associated with a valid <a href="#date-formats">date format</a>. This is acheived by setting the &#8220;formElement&#8221; parameter passed within the initialisation Object; for example, the following code will associate a datepicker with the three distinct form elements whose ids are &#8220;inp1&#8221; (representing the day date part), &#8220;inp2&#8221; (representing the month date part) and &#8220;inp3&#8221; (representing the year date part):</p>
+            <pre><code class="language-markup">&lt;input type=&quot;text&quot; id=&quot;inp1&quot; name=&quot;inp1&quot; /&gt;
+&lt;input type=&quot;text&quot; id=&quot;inp2&quot; name=&quot;inp2&quot; /&gt;
+&lt;input type=&quot;text&quot; id=&quot;inp3&quot; name=&quot;inp3&quot; /&gt;
+&lt;script&gt;
+datePickerController.createDatePicker({
+    formElements:{
+        // Associate inp1 with the day date part
+        &quot;inp1&quot;:&quot;%d&quot;,
+        // Associate inp2 with the month date part
+        &quot;inp2&quot;:&quot;%m&quot;,
+        // Associate inp3 with the year date part
+        &quot;inp3&quot;:&quot;%Y&quot;
+    }
+});
+&lt;/script&gt;</code></pre>
+
+            <h3 id="the-order-of-the-values-set-within-the-formelements-parameter">The order of the values set within the &#8220;formElements&#8221;&#160;parameter</h3>
+            <p>The first form element stipulated within the <code>formElements</code> parameter is the element that receives focus after a date has been successfuly selected using the datepicker; for example, the previous example will set the focus on the &#8220;inp1&#8221; form element as it was the first element listed within the <code>formElements</code> parameter.</p>
+            <p>Additionally, the id of the first form element listed is the id that needs to be used when calling certain methods of the <code>datePickerController</code> Object; for example, to destroy the datepicker created within the previous example, the id &#8220;inp1&#8221; would be passed to the <code>destroyDatePicker</code> method as is shown below:</p>
+            <pre><code class="language-javascript">// Remove the datepicker created above
+datePickerController.destroyDatePicker(&quot;inp1&quot;);</code></pre>
+
+            <h2 id="popup-datepickers">Popup datepickers</h2>
+            <p>By default, the script creates &#8220;popup&#8221; datepickers i.e. an activation button is positioned beside the associated form element and the datepicker only appears when the button has been activated using the mouse or the keyboard. The activation button is, by default, positioned directly after the associated form element within the DOM.</p>
+
+            <h3 id="positioning-the-activation-button">Positioning the activation&#160;button</h3>
+            <p>Should you wish to position the activation button within a specific DOM node, add the parameter &#8220;positioned&#8221; to the initialisation Object and set the parameter value to be the id of the DOM node that you wish to position the button within; for example:</p>
+            <pre><code class="language-markup">&lt;!-- The span that will hold the activation button --&gt;
+&lt;span id=&quot;pos-demo&quot;&gt;&lt;/span&gt;
+&lt;!-- The input associated with the datepicker --&gt;
+&lt;input id=&quot;inp1&quot; name=&quot;inp1&quot; /&gt;
+&lt;script&gt;
+// Create the datepicker
+datePickerController.createDatePicker({
+    formElements: {
+        &quot;inp1&quot;: &quot;%d/%m/%Y&quot;
+    },
+    // Position the activation button within the span
+    positioned: &quot;pos-demo&quot;
+});
+&lt;/script&gt;</code></pre>
+
+            <h3 id="setting-a-bespoke-tabindex-for-the-activation-button">Setting a bespoke tabIndex for the activation&#160;button</h3>
+            <p>Should you wish to set a bespoke tabIndex for the activation button, add the parameter &#8220;bespokeTabIndex&#8221; to the the initialisation Object and set the parameter value to be an Integer representing the desired tabindex.</p>
+
+            <h3 id="removing-all-activation-buttons-from-the-document-tabindex">Removing all activation buttons from the document&#160;tabIndex</h3>
+            <p>This can be only be done on a global level by using the &#8220;buttontabindex&#8221; property within the JSON passed to the script &#8211; this is explained in more detail within the section <a href="#setting-global-configuration-parameters">Setting Global configuration parameters</a>.</p>
+            <p>Removing the buttons from the document tabIndex means, of course, that all &#8220;popup&#8221; datepickers are no longer keyboard accessible and is therefore not recommended. </p>
+
+            <h2 id="inline-non-popup-datepickers">Inline (non-popup) datepickers</h2>
+            <p>If you wish to have the datepicker always displayed on screen i.e. with no activation button; add the parameter &#8220;nopopup&#8221; to the initialisation Object and set the parameter value to &#8220;true&#8221;. By default, the script adds inline datepickers to the DOM as the next sibling of the first associated form element.</p>
+
+            <h3 id="positioning-inline-datepickers">Positioning inline datepickers</h3>
+            <p>Should you wish to position inline datepickers within a bespoke DOM node, add the parameter &#8220;positioned&#8221; to the initialisation Object and set the parameter value to be the id of the DOM node that you wish to position the datepicker within. </p>
+
+            <h2 id="date-formats">Date formats</h2>
+            <p>The following list of conversion specifiers are valid for use within the date format:</p>
+
+            <table cellpadding="0" cellspacing="0" border="0">
+                <thead>
+                    <tr>
+                        <th>Specifier</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>%d</code></td>
+                        <td>Day of the month, 2 digits with leading zeros (01 &#8211; 31)</td>
+                    </tr>
+                    <tr>
+                        <td><code>%j</code></td>
+                        <td>Day of the month without leading zeros (1 &#8211; 31)</td>
+                    </tr>
+                    <tr>
+                        <td><code>%D</code></td>
+                        <td>An abbreviated textual representation of a day (Mon &#8211; Sun)</td>
+                    </tr>
+                    <tr>
+                        <td><code>%l</code></td>
+                        <td>A full textual representation of the day of the week (Monday &#8211; Sunday)</td>
+                    </tr>
+                    <tr>
+                       <td><code>%N</code></td>
+                        <td>ISO-8601 numeric representation of the day of the week 1 (for Monday) through 7 (for Sunday)</td>
+                    </tr>
+                    <tr>
+                        <td><code>%w</code></td>
+                        <td>Numeric representation of the day of the week 0 (for Sunday) through 6 (for Saturday)</td>
+                    </tr>
+                    <tr>
+                        <td><code>%S</code></td>
+                        <td>English ordinal suffix for the day of the month: st, nd, rd or th</td>
+                    </tr>
+                    <tr>
+                        <td><code>%W</code></td>
+                        <td>ISO-8601 week number of year, weeks starting on Monday: 1 &#8211; 53</td>
+                    </tr>
+                    <tr>
+                        <td><code>%M</code></td>
+                        <td>A short textual representation of a month, three letters</td>
+                    </tr>
+                    <tr>
+                        <td><code>%F</code></td>
+                        <td>A full textual representation of a month, such as January or March</td>
+                    </tr>
+                    <tr>
+                        <td><code>%m</code></td>
+                        <td>Numeric representation of a month, with leading zeros</td>
+                    </tr>
+                    <tr>
+                        <td><code>%n</code></td>
+                        <td>Numeric representation of a month, without leading zeros</td>
+                    </tr>
+                    <tr>
+                        <td><code>%t</code></td>
+                        <td>Number of days in the given month: 28 through 31</td>
+                    </tr>
+                    <tr>
+                        <td><code>%Y</code></td>
+                        <td>A full numeric representation of a year, 4 digits</td>
+                    </tr>
+                    <tr>
+                        <td><code>%y</code></td>
+                        <td>A two digit representation of a year</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h2 id="date-parsing">Date parsing</h2>
+            <p>The script will first check to see if the form element value matches the associated date format. If that does not produce a valid date and a language file has been downloaded, all month names in that language are replaced by their English counterparts; for example, the French &#8220;mars&#8221; would be replaced by the English &#8220;March&#8221;. Any English ordinal suffix is then removed, dashes &#8220;-&#8221; are replaced by forward slashes &#8220;/&#8221; (as some browsers just don&#8217;t like parsing dates containing dashes) and finally, the result is passed to the native Javascript Date.parse method.</p>
+            <p>The Date.parse method should, theoretically, parse a string representing an RFC2822 or ISO 8601 date &#8211; which is way better than any date parser I would hazard to write.</p>
+            <p>If a date is sucessfully parsed, the associated form element is automatically updated to reflect the <em>desired</em> date format; for example, if a user enters &#8220;jan&#8221; and a &#8220;%m&#8221; format (a zero filled two character representation of the month) has been assigned to the form element, the script will automatically update the form element value to be &#8220;01&#8221;.</p>
+
+            <h3 id="removing-the-use-of-the-javascript-date-parse-fallback">Removing the use of the Javascript Date.parse&#160;fallback</h3>
+            <p>You may not wish to use the native <code>Date.parse</code> method as a fallback parser. This can be achieved by calling the <code>datePickerController.setGlobalOptions</code> method or by using JSON within the script tag &#8211; this is explained in more detail within the section <a href="#setting-global-configuration-parameters">Setting Global configuration parameters</a>.</p>
+
+            <h2 id="displaying-a-status-bar">Displaying a status&#160;bar</h2>
+            <p>To show a status bar, add the parameter &#8220;statusFormat&#8221; to the initialisation object and set the parameter value to be the date format you wish to have displayed; for example:</p>
+
+            <pre><code class="language-javascript">datePickerController.createDatePicker({
+    formElements:{
+        &quot;inp1&quot;:&quot;%d/%m/%Y&quot;
+    },
+    // Instruct the script to add a status bar and set the date format to be used
+    statusFormat:&quot;%l, %d%S %F %Y&quot;
+});</code></pre>
+
+            <h3 id="setting-the-status-bar-date-format-for-all-datepickers">Setting the status bar date format for all&#160;datepickers</h3>
+            <p>Setting a status bar date format to be shared across all datepickers can be achieved by calling the <code>datePickerController.setGlobalOptions</code> method or by using JSON within the script tag &#8211; this is explained in more detail within the section <a href="#setting-global-configuration-parameters">Setting Global configuration parameters</a>. </p>
+
+            <h3 id="showing-bespoke-messages-within-the-status-bar">Showing bespoke messages within the status&#160;bar</h3>
+            <p>Short text messages can be displayed within the status bar. Messages can either be assigned globally i.e. shared across all datepickers, or individually i.e. for a single datepicker instance only. </p>
+            <p>Setting messages to be shared across all datepickers can be achieved by calling the <code>datePickerController.setGlobalOptions</code> method or by using JSON within the script tag &#8211; this is explained in more detail within the section <a href="#setting-global-configuration-parameters">Setting Global configuration parameters</a>.</p>
+            <p>To set messages for a specific datepicker instance, add the parameter &#8220;bespokeTitles&#8221; to the initialisation object and set the parameter value to itself be an Object of key/value pairs &#8211; where the keys represent a YYYYMMDD date String and the associated values the message to show for the date in question. The &#8220;*&#8221; wilcard character can be used within the keys; for example:</p>
+            <pre><code class="language-javascript">datePickerController.createDatePicker({
+    formElements:{
+        &quot;inp1&quot;:&quot;%d/%m/%Y&quot;
+    },
+    bespokeTitles:{
+        // Show a title for the 25th of December for all years
+        &quot;****1225&quot;:&quot;Christmas Day&quot;,
+        // Show a title for the 13th of March for all years
+        &quot;****0313&quot;:&quot;My Birthday&quot;,
+        // Show a title for the 16th of August 1977
+        &quot;19770816&quot;:&quot;Elvis dies&quot;
+    }
+});</code></pre>
+
+            <h3 id="setting-status-bar-messages-dynamically">Setting status bar messages&#160;dynamically</h3>
+            <p>Setting messages for a specific datepicker instance can also be achieved dynamically by calling either the <code>setBespokeTitles</code> or <code>addBespokeTitles</code> methods of the <code>datePickerController</code> Object; for example:</p>
+            <pre><code class="language-javascript">datepickerController.setBespokeTitles("inp1", {
+    // Show a title for the 25th of December for all years
+    &quot;****1225&quot;:&quot;Christmas Day&quot;,
+    // Show a title for the 13th of March for all years
+    &quot;****0313&quot;:&quot;My Birthday&quot;,
+    // Show a title for the 16th of August 1977
+    &quot;19770816&quot;:&quot;Elvis dies&quot;
+});</code></pre>
+            <p>The <code>setBespokeTitles</code> method replaces any previous messages assigned to the datepicker with the new list of messages while the <code>addBespokeTitles</code> adds the new messages to the existing list.  </p>
+
+            <h2 id="highlighting-days-of-the-week">Highlighting days of the&#160;week</h2>
+            <p>By default, Saturday and Sunday are highlighted in another colour within the datepicker U.I. Should you wish to highlight other days of the week, add the parameter &#8220;highlightDays&#8221; to the initialisation object and set the parameter value to be a seven item Array where the numeric Array keys each represent a day of the week (index 0 represents Monday through index 6, which represents Sunday) and the corresponding value (either a &#8220;0&#8221; or &#8220;1&#8221;) indicates if the day in question should be highlighted or not; for example:</p>
+            <pre><code class="language-javascript">datePickerController.createDatePicker({
+    formElements:{
+        &quot;inp1&quot;:&quot;%d/%m/%Y&quot;
+    },
+    // Highlight Monday (index 0) and Wednesday (index 2)
+    highlightDays:[1,0,1,0,0,0,0]
+});</code></pre>
+
+            <h2 id="localisation">Localisation</h2>
+            <p>Should a language not have been explicitly set, the script attempts to determine the language of the current webpage by checking the value of the <code>lang</code> attribute on the HTML node. If a language code is successfuly recovered, the script then attempts to download the corresponding language file from the server. </p>
+            <p>Should the detected language have a region code set (i.e. en-US), the script will also attempt to download the language file associated with this region code. </p>
+            <p>If the script is unable to determine a language or no language file can be successfuly downloaded, the datepicker display defaults to English.</p>
+
+            <h3 id="filepaths-and-language-files">Filepaths and language&#160;files</h3>
+            <p>In order for the script to successfuly download the appropriate language file, they should be placed within a directory named &#8220;lang&#8221;, itself resident within the same directory as the <code>datepicker.min.js</code> file. </p>
+
+            <h3 id="currently-available-languages">Currently available languages</h3>
+            <p>The datepicker has been translated into the following languages:</p>
+            <ul>
+                <li>Arabic (<em>Thanks to hosam alaa eldien</em>)</li>
+                <li>Catalan (<em>thanks to Thomas Sjödin Dahl</em>)</li>
+                <li>Chinese &#8211; simple (<em>thanks to liuyang.0&#215;18</em>)</li>
+                <li>Czech (<em>thanks to Stano Matousek</em>)</li>
+                <li>Danish (<em>thanks to Brian Jensen</em>)</li>
+                <li>Dutch (<em>thanks to Alfred Vorsselman</em>)</li>
+                <li>English &#8211; British (en-GB as the in-built default)</li>
+                <li>English &#8211; American</li>
+                <li>Esperanto (<em>thanks to Greg Naçu</em>)</li>
+                <li>Estonian  (<em>thanks to Kaius Karon</em>)</li>
+                <li>French</li>
+                <li>Finnish (<em>thanks to Keijo Mukku</em>)</li>
+                <li>German  (<em>thanks to &#8220;too many people to list&#8221;</em>)</li>
+                <li>Hebrew  (<em>thanks to Neil Osman</em>)</li>
+                <li>Hungarian (<em>thanks to Hetesi Tams</em>)</li>
+                <li>Indonesian (<em>thanks to Krishna Hendrakusuma</em>)</li>
+                <li>Italian (<em>thanks to Valerio Pilo</em>)</li>
+                <li>Korean (<em>thanks to Taehyun Kim</em>)</li>
+                <li>Latvian (<em>thanks to Māris Kiseļovs</em>)</li>
+                <li>Norwegian (<em>thanks to Geir Rune Brandt</em>)</li>
+                <li>Portuguese (<em>thanks to Paulo Monteiro</em>)</li>
+                <li>Portuguese &#8211; Brazil (<em>thanks to Francis Rebouças</em>)</li>
+                <li>Russian (<em>thanks to Кирилл Асташов</em>)</li>
+                <li>Slovak  (<em>thanks to Marek Štefkovič</em>)</li>
+                <li>Spanish (<em>thanks to Augusto</em>)</li>
+                <li>Spanish &#8211; Mexico (<em>thanks to Moisés Durán</em>)</li>
+                <li>Swedish (<em>thanks to Henrik Marik</em>)</li>
+                <li>Thai (<em>thanks to Trongchat Sottipayapun</em>)</li>
+                <li>Turkish (<em>thanks to Ogan Keskiner</em>)</li>
+            </ul>
+            <p>Many thanks to the above contributers for their time and effort in creating the localisations.</p>
+
+            <h3 id="creating-a-bespoke-language-file">Creating a bespoke language&#160;file</h3>
+            <p>If you don&#8217;t see your language in the list, you can easily create one by using the <a href="/language/">language file creator</a> script &#8211; it&#8217;s a painless process that takes no more than a couple of minutes. I would, of course, appreciate a copy of the new language file to add to the distribution &ndash; many thanks!.</p>
+
+            <h3 id="stipulating-a-language-to-use">Stipulating a language to&#160;use</h3>
+            <p>You can disable the detect locale functionality and stipulate the required language by either using JSON within the script tag &#8211; this is explained in more detail within the section <a href="#setting-global-configuration-parameters">Setting Global configuration parameters</a> &#8211; or, more easily, by adding the desired <code>language.js</code> file <em>before</em> the <code>datepicker.min.js</code> file within the HTML source; for example:</p>
+            <pre><code class="language-markup">&lt;!-- Explicitly add the French &quot;fr.js&quot; language file --&gt;
+&lt;script type=&quot;text/javascript&quot; src=&quot;/the/path/to/fr.js&quot;&gt;&lt;/script&gt;
+&lt;!-- Now add the datepicker.min.js file --&gt;
+&lt;script type=&quot;text/javascript&quot; src=&quot;/the/path/to/datepicker.min.js&quot;&gt;&lt;/script&gt;</code></pre>
+
+            <h3 id="the-locale-used-when-formatting-dates-that-include-non-numeric-date-parts">The locale used when formatting dates that include non-numeric date&#160;parts</h3>
+            <p>Should no language be explicitly defined for use as described above (i.e. the auto-detect functionality has kicked in and downloaded a language file from the server), the date displayed within the datepicker U.I. will use the downloaded locale but all dates formatted for updating the associated input value will display in English. </p>
+            <p>This is to make life easier on the server, as you know for certain that English (and not Spanish or French or Slovak for example) dates are being returned for processing e.g. the English version &#8220;Friday, 13 March 1970&#8221; will be returned and not the French &#8220;Vendredi, 13 Mars 1970&#8221;.</p>
+            <p>Should a language have been explicitly set, the date returned to the server will always use this language.</p>
+
+            <h3 id="the-first-day-of-the-week">The &#8220;first day of the&#160;week&#8221;</h3>
+            <p>The first day of the week is stipulated within the downloaded language file (as logically, it&#8217;s a locale-specific setting). Should the language file not contain this setting, the first day of the week defaults to Monday. </p>
+            <p>Additionally, users can click on any of the day headers to dynamically set it as the first day of the week (or alternately, press the numbers 2-7 on the regular keyboard or numpad whenever the datepicker has keyboard focus).</p>
+
+            <h2 id="limiting-date-selection-i-e-setting-date-ranges">Limiting date selection i.e. setting date&#160;ranges</h2>
+            <p>To add a lower or upper limit for date selection, add the parameters &#8220;rangeHigh&#8221; and/or &#8220;rangeLow&#8221; to the initialisation object and set the parameter values to be either a YYYYMMDD date format String or a Date Object; for example, the following code will limit date selection outside of the range 13/03/1970 and today's date:</p>
+            <pre><code class="language-markup">&lt;input type=&quot;text&quot; id=&quot;inp1&quot; name=&quot;inp1&quot; /&gt;
+&lt;script&gt;
+datePickerController.createDatePicker({
+    formElements:{
+        &quot;inp1&quot;:&quot;%d/%m/%Y&quot;
+    },
+    // Set a range low of 13/03/1970 using a YYYYMMDD format String
+    rangeLow:&quot;19700313&quot;,
+    // Set a range high of today's date using a Date Object
+    rangeHigh:new Date()
+});
+&lt;/script&gt;</code></pre>
+
+            <h3 id="setting-the-date-range-dynamically">Setting the date range&#160;dynamically</h3>
+            <p>The upper and lower date ranges can also be set dynamically by calling the <code>datePickerController.setRangeLow</code> and <code>datePickerController.setRangeHigh</code> methods; for example:</p>
+            <pre><code class="language-javascript">// Set the lower limit to be 01/12/2008
+datePickerController.setRangeLow(&quot;inp1&quot;, &quot;20081201&quot;);
+// Set the upper limit to be today&#39;s date
+datePickerController.setRangeHigh(&quot;inp1&quot;, new Date());</code></pre>
+            <p>Both methods accept a String representing an input id as the first argument and either a YYYYMMDD formatted date String or a Javascript Date Object as a second argument.</p>
+
+            <h3 id="select-lists-and-automatic-date-ranges">Select lists and automatic date&#160;ranges</h3>
+            <p>As a select list can only ever stipulate a finite range, the datepicker will automatically create the higher and lower ranges whenever a selectlist is used to represent the year part of the date format i.e. if the year select list starts at 1960 and ends at 1990, the associated datepicker will automatically disallow the selection of dates outside of this range.</p>
+
+            <h2 id="disabling-day-selection">Disabling day selection</h2>
+            <p>Should you wish to disable certain days of the week, add the parameter &#8220;disabledDays&#8221; to the initialisation object and set the parameter value to be a seven item Array where the numeric Array keys each represent a day of the week (index 0 represents Monday through index 6, which represents Sunday) and the corresponding value (either a &#8220;0&#8221; or &#8220;1&#8221;) indicates if the day in question should be disabled or not; for example:</p>
+            <pre><code  class="language-javascript">datePickerController.createDatePicker({
+    formElements:{
+        &quot;inp1&quot;:&quot;%d/%m/%Y&quot;
+    },
+    // Disable Saturday (index 5) and Sunday (index 6)
+    disabledDays:[0,0,0,0,0,1,1]
+});</code></pre>
+
+            <h2 id="disabling-date-selection">Disabling date selection</h2>
+            <p>Dates can be dynamically disabled by calling the <code>setDisabledDates</code> or <code>addDisabledDates</code> methods of the <code>datePickerController</code> Object. The <code>setDisabledDates</code> method will replace the current list of disabled dates with the new list while the <code>addDisabledDates</code> method will add the new dates to the list already assigned to the datepicker.</p>
+            <p>Both methods accept an Object whose keys represent a YYYYMMDD formatted date String and associated value another YYYYMMDD formatted date String (to indicate a date range) or simply the Integer value 1 (to indicate an individual date).</p>
+            <p>Wildcards can be used when stipulating individual dates to disable/enable by substituting the day, month or year parts with asterisks (&#8221;*&#8221;).</p>
+            <pre><code class="language-javascript">var opts = {
+        formElements:{
+            &quot;inp1&quot;:&quot;%d/%m/%Y&quot;
+        }
+    },
+    disabledDates = {
+        // Single Date: Disable the 25th December 2009
+        &quot;20091225&quot;:1,
+        // Wilcard Date: Disable the 31st of December for all years
+        &quot;****1231&quot;:1,
+        /* Date Range: Disable from the 1st of January 2011 to the
+           20th of January 2011. Note, wildcards can&#39;t be used
+           within range declarations */
+        &quot;20110101&quot;:&quot;20110120&quot;
+    };
+datePickerController.createDatePicker(opts);
+datePickerController.setDisabledDates(&quot;inp1&quot;, disabledDates);</code></pre>
+
+            <h2 id="enabling-date-selection">Enabling date selection</h2>
+            <p>Should you wish to enable dates that have been <a href="#disabling-date-selection">previously disabled</a> then use the <code>setEnabledDates</code> or <code>addEnabledDates</code> methods of the <code>datePickerController</code> Object. The <code>setEnabledDates</code> method will delete the current list of enabled dates before adding the new ones while the <code>addEnabledDates</code> method will add the dates to the list already present.</p>
+            <p>Both methods accept an Object whose keys represent a YYYYMMDD formatted date String and associated value another YYYYMMDD formatted date String (to indicate a date range) or simply the Integer value 1 (to indicate an individual date).</p>
+            <p>Wildcards can be used when stipulating individual dates to disable/enable by substituting the day, month or year parts with asterisks (&#8221;*&#8221;).</p>
+
+            <h2 id="disabling-the-fade-in-animation-effect">Disabling the fade-in animation&#160;effect</h2>
+            <p>To disable the fade effect, add the parameter &#8220;noFadeEffect&#8221; to the initialisation object and set the parameter value to &#8220;true&#8221;; for example:</p>
+            <pre><code class="language-javascript">datePickerController.createDatePicker({
+    formElements:{
+        &quot;inp1&quot;:&quot;%d/%m/%Y&quot;
+    },
+    // Disable the fade effect
+    noFadeEffect:true
+});</code></pre>
+
+            <h2 id="setting-a-bespoke-opacity">Setting a bespoke&#160;opacity</h2>
+            <p>To set a bespoke final opacity for a datepicker, add the parameter &#8220;finalOpacity&#8221; to the initialisation Object and set the parameter value to be an Integer value between 20 and 100; for example:</p>
+            <pre><code class="language-javascript">datePickerController.createDatePicker({
+    formElements:{
+        &quot;inp1&quot;:&quot;%d/%m/%Y&quot;
+    },
+    // Set a final opacity of 80%
+    finalOpacity:80
+});</code></pre>
+
+            <h2 id="showing-week-numbers">Showing week numbers</h2>
+            <p>To display week numbers within the datepicker U.I, add the parameter &#8220;showWeeks&#8221; to the initialisation object and set the parameter value to &#8220;true&#8221;.</p>
+
+            <h2 id="removing-the-today-button-from-the-u-i">Removing the &#8220;Today&#8221; button from the&#160;U.I.</h2>
+            <p>To remove the &#8220;today&#8221; button, add the parameter &#8220;noTodayButton&#8221; to the initialisation object and set the parameter value to &#8220;true&#8221;.</p>
+
+            <h2 id="setting-the-default-cursor-date">Setting the default cursor&#160;date</h2>
+            <p>By default, the cursor date is set to today&#8217;s date but there may be times when you wish the cursor to start at a date of your choice &#8211; when stipulating a range of valid dates, you may wish for the cursor to start in the middle of the range for example.</p>
+            <p>To set the cursor to a date of your choice, add the parameter &#8220;cursorDate&#8221; to the initialisation object and set the parameter value to be either a YYYYMMDD format date String or a Javascript Date Object.</p>
+
+            <h3 id="setting-the-cursor-dynamically">Setting the cursor&#160;dynamically</h3>
+            <p>The cursor date can also be set dynamically by calling the <code>setCursorDate</code> method of the <code>datePickerController</code> Object. The <code>setCursorDate</code> method accept a String representing an input id as the first argument and either a YYYYMMDD formatted date String or a Javascript Date Object as a second argument.</p>
+            <pre><code class="language-javascript">// Set the cursor to the date 01/12/2008
+datePickerController.setCursorDate(&quot;inp1&quot;, &quot;20081201&quot;);</code></pre>
+
+            <h2 id="hiding-the-associated-form-elements">Hiding the associated form&#160;elements</h2>
+            <p>To hide the associated form elements, add the parameter &#8220;hideInput&#8221; to the initialisation object and set the parameter value to true. The form elements will then be given the class &#8220;fd-hidden-input&#8221; which, if using the default stylesheet, sets the <code>display</code> property to <code>none</code> (which still sends a value to the server whenever the form submit is fired). </p>
+            <p>This parameter is ignored when creating popup datepickers and is only taken into account for inline datepickers. </p>
+
+            <h2 id="disabling-the-drag-effect">Disabling the drag effect</h2>
+            <p>To disable the drag effect for an individual popup datepicker, add the parameter &#8220;noDrag&#8221; to the initialisation Object and set the parameter value to true.</p>
+
+            <h3 id="disabling-the-drag-effect-for-all-datepickers">Disabling the drag effect for all&#160;datepickers</h3>
+            <p>Disabling the drag effect for all datepickers can be achieved by calling the <code>datePickerController.setGlobalOptions</code> method or using JSON within the script tag &#8211; this is explained in more detail within the section <a href="#setting-global-configuration-parameters">Setting Global configuration parameters</a>.</p>
+
+            <h2 id="filling-the-entire-grid-with-dates">Filling the entire grid with&#160;dates</h2>
+            <p>Should you wish to fill the entire grid with dates, add the parameter &#8220;fillGrid&#8221; to the initialisation object and set the parameter value to true.</p>
+
+            <h3 id="stopping-the-selection-of-out-of-month-dates">Stopping the selection of &#8220;out-of-month&#8221;&#160;dates</h3>
+            <p>By default, all dates rendered on the grid can be selected. To constrain the selection of dates to the current in-view month only, add the parameter &#8220;constrainSelection&#8221; to the initialisation object and set the parameter value to true. Of course, this parameter is only taken into consideration when the &#8220;fillGrid&#8221; parameter has also been set to true.</p>
+
+            <h2 id="styling-the-datepicker">Styling the datepicker</h2>
+            <p>The datepicker currently ships with CSS skin that, for simplicities sake, uses base64 encoded images for all browsers apart from Internet Explorer 6 and 7 &#8211; which use &#8220;normal&#8221; <code>.png</code> images downloaded from the server. The unminified version of the file is well commented, so altering the colours etc to suit your installation should be a relatively easy task for those of you knowledgeable in the dark arts of CSS.</p>
+            <p>A little CSS3 animation flourish has been added in the form of a pulse effect on the activation button and current cursor cell (when keyboard enabled). </p>
+            <p>Additionally, the icon used to activate the datepicker updates if the associated form element(s) represent a valid date.</p>
+
+            <h3 id="styling-individual-dates">Styling individual dates</h3>
+            <p>To enable you to target and style individual dates, each cell rendered within the interface is given three extra classNames of the format <strong>yyyymmdd-YYYYMMDD</strong>, <strong>yyyymm-YYYYMM</strong> and <strong>mmdd-MMDD</strong>, where <strong>DD</strong> is replaced by the two figure date value, <strong>MM</strong> is replaced by the two figure month value and <strong>YYYY</strong> replaced by the four figure year value e.g. the TD node frepresenting the date 21/03/2007 will be given the classNames <code>yyyymmdd-20070321</code>, <code>yyyymm-200703</code> and <code>mmdd-0321</code>.</p>
+
+            <h2 id="setting-global-configuration-parameters">Setting Global configuration&#160;parameters</h2>
+            <p>The script accepts the passing of Global configuration parameters by using a JSON Object within the script tag &#8211; an example of this is shown below:</p>
+            <pre><code class="language-markup">&lt;script type=&quot;text/javascript&quot; src=&quot;/the/path/to/datepicker.js&quot;&gt;
+{
+    &quot;nodrag&quot;:1,
+    &quot;lang&quot;:&quot;en&quot;
+}
+&lt;/script&gt;</code></pre>
+            <p>It&#8217;s worth noting that JSON notation doesn&#8217;t care about whitespace so the above code block could have been written in one line (with no line breaks). Should a native JSON parser exist, it is used to parse the JSON passed to the script.</p>
+            <p>You can also pass the JSON Object programmatically by calling the <code>datePickerController.setGlobalOptions</code> method as is shown below:</p>
+            <pre><code class="language-markup">&lt;!-- Load the datePicker script --&gt;
+&lt;script type=&quot;text/javascript&quot; src=&quot;/the/path/to/datepicker.min.js&quot;&gt;&lt;/script&gt;
+&lt;!-- Now pass our configuration Object to the &quot;setGlobalOptions&quot; method --&gt;
+&lt;script type=&quot;text/javascript&quot;&gt;
+datePickerController.setGlobalOptions({
+    &quot;nodrag&quot;:1
+});
+&lt;/script&gt;</code></pre>
+            <p>The following parameters can currently be passed to the script:</p>
+            <table cellpadding="0" cellspacing="0" border="0">
+                <thead>
+                    <tr>
+                        <th>Parameter</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>nodrag</code></td>
+                        <td>Accepts a Boolean value that, when set to TRUE, disables the drag effect for all datepickers. Defaults to FALSE</td>
+                    </tr>
+                    <tr>
+                        <td><code>lang</code></td>
+                        <td>Accepts a valid <a href="http://www.rfc-editor.org/rfc/rfc4646.txt">rfc4646 language code</a> e.g. &#8220;de&#8221; for German and, if required, an optional region subtag e.g. &#8220;de-CH&#8221;, and attempts to retrieve the corresponding language file from the server. This variable is <em>only</em> taken into consideration when passing the JSON between the script tags and has <em>no</em> effect if passed to the <code>setGlobalOptions</code> method.</td>
+                    </tr>
+                    <tr>
+                        <td><code>cellformat</code></td>
+                        <td>Accepts a date format String that is used to create the full date for each cell whenever the the associated datepicker has keyboard control. This parameter defaults to the value &#8220;%d %F %Y&#8221; i.e. &#8220;13 March 1970&#8221;. Only the day date format parts &#8220;%d&#8221; or &#8220;%j&#8221; are actually displayed (which means that they have to be present within the date format), all other date format parts are hidden from view but made available to screen-readers.</td>
+                    </tr>
+                    <tr>
+                        <td><code>titleformat</code></td>
+                        <td>Accepts a date format String that is used to create the title attribute for each cell. This parameter defaults to a screen-reader friendly value of &#8220;%F %d, %Y&#8221; i.e. &#8220;March 13, 1970&#8221;</td>
+                    </tr>
+                    <tr>
+                        <td><code>statusformat</code></td>
+                        <td>Accepts a String value that is used as the default statusbar date format for all datepickers.</td>
+                    </tr>
+                    <tr>
+                        <td><code>buttontabindex</code></td>
+                        <td>Accepts a Boolean value that adds or removes all popup datepicker activation buttons from the document tabindex (FALSE) or not (TRUE). Deafults to TRUE. Removing the buttons from the document tabindex means that the associated datepicker cannot be controlled using the keyboard and so isn&#8217;t recommended or encouraged in any way.</td>
+                    </tr>
+                    <tr>
+                        <td><code>mousewheel</code></td>
+                        <td>Accepts a Boolean value that enables or disables the mouseWheel activity for all popup datepickers. Defaluts to TRUE.</td>
+                    </tr>
+                    <tr>
+                        <td><code>describedby</code></td>
+                        <td>Accepts a String value that represents the id of the DOM node to use for the <a href="http://www.w3.org/TR/wai-aria/#aria-describedby">ARIA described-by</a> property.</td>
+                    </tr>
+                    <tr>
+                        <td><code>finalopacity</code></td>
+                        <td>Accepts an Integer value between 20 and 100 and sets the opacity for all pop-up datepickers.</td>
+                    </tr>
+                    <tr>
+                        <td><code>bespoketitles</code></td>
+                        <td>Accepts an Object whose keys are a YYYYMMDD date String and whose values represent the message to display within the statusbar for the date in question. Wildcards are accepted for both the Year and Month parts of a key.</td>
+                    </tr>
+                    <tr>
+                        <td><code>derivelocale</code></td>
+                        <td>Accepts a Boolean value that enables or disables the smart localisation feature. Only taken into account when the JSON is passed within the script tag. Defaults to TRUE.</td>
+                    </tr>
+                    <tr>
+                        <td><code>dateparsefallback</code></td>
+                        <td>Accepts a Boolean value that enables or disables the use of the native Date.parse method as a fallback date parser. Defaults to TRUE.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h2 id="the-active-cursor">The active &#8220;cursor&#8221;</h2>
+            <p>Indicating the active cursor is necessary as the datepicker is keyboard accessible and keyboard users <em>require</em> a visual clue as to which date is currently active i.e. which date will be selected when the carriage return key is pressed. The default sylesheet shows the selected date with a black border and black text and the current cursor position in blue.</p>
+            <p>In supporting browsers, the cursor is scaled by 1.2 whenever the datepicker has keyboard control and also given a discrete blue &#8220;pulse&#8221; effect.</p>
+
+            <h2 id="accessibility">Accessibility</h2>
+            <p>The datepicker includes features designed with assitive technologies in mind. </p>
+
+            <h3 id="the-table-structure">The table structure</h3>
+            <p>The HTML table representing the datepicker has been marked up with a THEAD, TBODY and, if a status bar is used, a TFOOT. The TH nodes representing the day names have their <code>scope</code> attribute set to &#8220;col&#8221; and the nodes representing the week numbers, if used, have their <code>scope</code> attribute set to &#8220;row&#8221;. </p>
+
+            <h3 id="the-use-of-the-title-attribute">The use of the TITLE&#160;attribute</h3>
+            <p>Each focusable TD node has been given a <code>title</code> attribute that uses a default format of &#8220;%F %d, %Y&#8221; to describe the cells representative full date; for example, &#8220;March 13, 1970&#8221;. As some screen reader users disactivate the reading of title attributes, the full date is also added to each TD node but <em>only</em> the day part of the date format is actually displayed. </p>
+            <p>This means that screen reader users will still have a full date read aloud whenever the active &#8220;cursor&#8221; is given focus by the script. By default, the TD cell date format is of the form &#8220;%d %F %Y&#8221; i.e &#8220;13 March 1970&#8221;  but both this and the title format can be changed to suit your needs by passing JSON within the script tag &#8211; this is explained in more detail within the section <a href="#setting-global-configuration-parameters">Setting Global configuration parameters</a>.</p>
+
+            <h3 id="keyboard-accessibility">Keyboard accessibility</h3>
+            <p>All keyboard shortcuts &#8211; with the exception of the space bar &#8211; now adhere to <a href="http://access.aol.com/dhtml-style-guide-working-group/#datepicker">The DHTML Style Guide Working Group (DSGWG) recommendations</a>. It&#8217;s worth noting that keeping the key depressed activates a timed increment i.e. there&#8217;s absolutely no need to repeatedly press the key in order to change the month or year value within the interface (which helps with the dreaded &#8220;year of birth&#8221; conundrum). Key combinations are listed below:</p>
+            <table cellpadding="0" cellspacing="0" border="0">
+                <thead>
+                    <tr><th>Key Combination</th><th>Action</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><kbd>&larr;</kbd> <kbd>&rarr;</kbd> <kbd>&uarr;</kbd> <kbd>&darr;</kbd></td><td>Day navigation</td></tr>
+                    <tr><td><kbd>Page Up</kbd></td><td>Previous month</td></tr>
+                    <tr><td><kbd>Page Down</kbd></td><td>Next month</td></tr>
+                    <tr><td><kbd>Ctrl</kbd> + <kbd>page up</kbd></td><td>Previous year</td></tr>
+                    <tr><td><kbd>Ctrl</kbd> + <kbd>page down</kbd></td><td>Next year</td></tr>
+                    <tr><td><kbd>Space</kbd></td><td>Today&#8217;s date</td></tr>
+                    <tr><td><kbd>Esc</kbd></td><td>Close datepicker (without selecting date)</td></tr>
+                    <tr><td><kbd>Return</kbd></td><td>Select highlighted date and close datepicker</td></tr>
+                    <tr><td><kbd>2</kbd>&ndash;<kbd>7</kbd></td><td>Select the corresponding day as the first day of the week</td></tr>
+                </tbody>
+            </table>
+
+            <h3 id="aria-role-properties">ARIA Roles &amp; Properties</h3>
+            <p>The following ARIA Roles are set for the datepicker:</p>
+            <table cellpadding="0" cellspacing="0" border="0">
+                <thead>
+                    <tr>
+                        <th>Role</th>
+                        <th>Associated HTML element</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>grid</td>
+                        <td>Assigned to the TABLE</td>
+                    </tr>
+                    <tr>
+                        <td>gridcell</td>
+                        <td>Assigned to all TD nodes</td>
+                    </tr>
+                    <tr>
+                        <td>row</td>
+                        <td>Assigned to all TR nodes within the TBODY</td>
+                    </tr>
+                    <tr>
+                        <td>columnheader</td>
+                        <td>Assigned to all of the TH nodes representing the day of the week</td>
+                    </tr>
+                    <tr>
+                        <td>rowheader</td>
+                        <td>Assigned to all of the week number TH nodes (if present)</td>
+                    </tr>
+                    <tr>
+                        <td>button</td>
+                        <td>Assigned to a popup datepickers activation button</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>The following ARIA Properties are set for the datepicker:</p>
+            <table cellpadding="0" cellspacing="0" border="0">
+                <thead>
+                    <tr>
+                        <th>Property</th>
+                        <th>Associated HTML element</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>hidden</td>
+                        <td>Assigned to the wrapper DIV for all invisible popup datepickers, the first two TR nodes within the THEAD (used to display the day &amp; month and navigation buttons) and disabled datepickers and activation buttons.</td>
+                    </tr>
+                    <tr>
+                        <td>selected</td>
+                        <td>Assigned to the currently selected dates TD node</td>
+                    </tr>
+                    <tr>
+                        <td>describedby</td>
+                        <td>If the &#8220;describedby&#8221; global configuration parameter has been set, then this is used to set the describedby relationship</td>
+                    </tr>
+                    <tr>
+                        <td>labelledby</td>
+                        <td>If the associated form element has a label, the label is used to set the &#8220;labelledby&#8221; relationship</td>
+                    </tr>
+                    <tr>
+                        <td>haspopup</td>
+                        <td>Assigned to a popup datepickers activation button</td>
+                    </tr>
+                    <tr>
+                        <td>disabled</td>
+                        <td>Assigned to a disabled datepicker</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h2 id="callback-functions">Callback functions</h2>
+            <p>The following callback events are available:</p>
+            <table cellpadding="0" cellspacing="0" border="0">
+                <thead>
+                    <tr>
+                        <th>Event</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>datereturned</code></td>
+                        <td>Called everytime the script updates the associated form element(s) value</td>
+                    </tr>
+                    <tr>
+                        <td><code>dateset</code></td>
+                        <td>Called before the script updates the currently selected value &#8211; this is called whenever the associated form elements onchange event fires or a date has been selected using the datepicker</td>
+                    </tr>
+                    <tr>
+                        <td><code>redraw</code></td>
+                        <td>Called whenever a datepicker updates the U.I.</td>
+                    </tr>
+                    <tr>
+                        <td><code>domcreate</code></td>
+                        <td>Called whenever the datepicker is added to the DOM</td>
+                    </tr>
+                    <tr>
+                        <td><code>dombuttoncreate</code></td>
+                        <td>Called whenever a popup datepickers activation button is added to the DOM</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>Stipulating callback functions is as easy as adding a &#8220;callbackFunctions&#8221; parameter to the initialisation Object and setting the parameter value to be itself an Object of key/value pairs &#8211; where the key names one of the available callbacks and the associated value is an Array of functions to call. </p>
+            <p>A pseudocode example of this is shown below:</p>
+            <pre><code class="language-javascript">datePickerController.createDatePicker({
+    formElements:{
+        &quot;inp1&quot;:&quot;%d/%m/%Y&quot;
+    },
+    // Stipulate some callback functions
+    callbackFunctions:{
+        &quot;redraw&quot;:[function1, function2, ... functionN],
+        &quot;dombuttoncreate&quot;:[function1, function2, ... functionN]
+    }
+});</code></pre>
+
+            <h3 id="callback-function-arguments">Callback function arguments</h3>
+            <p>All callback functions are passed one argument, a Javascript Object containing the following list of key/value pairs:</p>
+            <table cellpadding="0" cellspacing="0" border="0">
+                <thead>
+                    <tr>
+                        <th>Key</th>
+                        <th>Value</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>id</code></td>
+                        <td>the ID of the first form element stipulated within the initialisation object</td>
+                    </tr>
+                    <tr>
+                        <td><code>date</code></td>
+                        <td>A Javascript Date Object representing the selected date or NULL if no date is selected</td>
+                    </tr>
+                    <tr>
+                        <td><code>dd</code></td>
+                        <td>The two figure date part of the selected date or NULL if no date is selected</td>
+                    </tr>
+                    <tr>
+                        <td><code>mm</code></td>
+                        <td>The two figure month part of the selected date or NULL if no date is selected</td>
+                    </tr>
+                    <tr>
+                        <td><code>yyyy</code></td>
+                        <td>The four figure year part of the selected date or NULL if no date is selected</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h4 id="the-redraw-callback-function">The &#8220;redraw&#8221; callback&#160;function</h4>
+            <p>The &#8220;redraw&#8221; callback is a special case and receives the following two additional parameters:</p>
+            <table cellpadding="0" cellspacing="0" border="0">
+                <thead>
+                    <tr>
+                        <th>Key</th>
+                        <th>Value</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>firstDateDisplayed</code></td>
+                        <td>A String representing the YYYYMMDD value of the first date currently displayed</td>
+                    </tr>
+                    <tr>
+                        <td><code>lastDateDisplayed</code></td>
+                        <td>A String representing the YYYYMMDD value of the last date currently displayed</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>Additionally, functions defined for the &#8220;redraw&#8221; callback can return a Javascript Object whose keys are YYYYMMDD Date format Strings and associated key value a String representing classNames to add to the table cells representing specific dates. For example, the following Object, when returned from the &#8220;redraw&#8221; callback function, will add the class &#8220;santa&#8221; to the cell that represents Christmas day 2009:</p>
+            <pre><code class="language-javascript">{
+    &quot;20091225&quot;:&quot;santa&quot;
+}</code></pre>
+
+            <h2 id="the-javascript-a-p-i">The Javascript A.P.I</h2>
+            <p>The <code>datePickerController</code> Object has the following list of public methods:</p>
+            <table cellpadding="0" cellspacing="0" border="0">
+                <thead>
+                    <tr>
+                        <th>Method</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>setDebug(Boolean debug)</code></td>
+                        <td>Accepts a Boolean value that, when set to TRUE, will make the script throw Javascript errors should a problem occur. When set to FALSE, the script should silently fail whenever an error occurs.</td>
+                    </tr>
+                    <tr>
+                        <td><code>addEvent(obj, type, fn)</code></td>
+                        <td>A classic addEvent function (just in case you need one).</td>
+                    </tr>
+                    <tr>
+                        <td><code>removeEvent(obj, type, fn)</code></td>
+                        <td>A classic removeEvent function.</td>
+                    </tr>
+                    <tr>
+                        <td><code>show(String inputID)</code></td>
+                        <td>Makes a popUp datepicker associated with form element &#8220;inputID&#8221; appear i.e. fade in.</td>
+                    </tr>
+                    <tr>
+                        <td><code>hide(String inputID)</code></td>
+                        <td>Makes a popUp datepicker associated with form element &#8220;inputID&#8221; dissappear i.e. fade out.</td>
+                    </tr>
+                    <tr>
+                        <td><code>destroyDatePicker(String inputID)</code></td>
+                        <td>Removes the datepicker associated with form element &#8220;inputID&#8221; from the DOM and browser memory.</td>
+                    </tr>
+                    <tr>
+                        <td><code>cleanUp()</code></td>
+                        <td>Loops through the current list of in-memory datepickers and checks to see if their associated form element(s) exist within the DOM; if not, the datepicker is itself removed from the DOM and browser memory.</td>
+                    </tr>
+                    <tr>
+                        <td><code>printFormattedDate(Date dt, String fmt, Boolean useImportedLocale)</code></td>
+                        <td>Accepts three arguments, a Javascript Date Object, a date format String and a Boolean value that when TRUE, instructs the script to use the imported locale or when FALSE, to default to using the English locale. Returns a String containing the Date &#8220;dt&#8221; formatted to format &#8220;fmt&#8221;.</td>
+                    </tr>
+                    <tr>
+                        <td><code>setDateFromInput(String inputID)</code></td>
+                        <td>Instructs the datepicker associated with form element &#8220;inputID&#8221; to update its currently selected date by parsing the associated form element value(s).</td>
+                    </tr>
+                    <tr>
+                        <td><code>setSelectedDate(String inputID, [String|Date] yyyymmdd)</code></td>
+                        <td>Instructs the datepicker associated with form element &#8220;inputID&#8221; to update its currently selected date to the &#8220;yyyymmdd&#8221; value passed as the second argument. This value can be either a YYYYMMDD date format String or a Javascript Date Object. If the setting of the date is successful, the associated form element values will be updated to reflect the new date.</td>
+                    </tr>
+                    <tr>
+                        <td><code>setRangeLow(String inputID, [String|Date] yyyymmdd)</code></td>
+                        <td>Explained in more detail within the section <a href="#setting-the-date-range-dynamically">Setting the date range dynamically</a>.</td>
+                    </tr>
+                    <tr>
+                        <td><code>setRangeHigh(String inputID, [String|Date] yyyymmdd)</code></td>
+                        <td>Explained in more detail within the section <a href="#setting-the-date-range-dynamically">Setting the date range dynamically</a>.</td>
+                    </tr>
+                    <tr>
+                        <td><code>parseDateString(String str, String format)</code></td>
+                        <td>Accepts two arguments, the first a fully formed date String (e.g. &#8220;13th March 1970&#8221;) and the second, a date format String that the first argument is parsed against. Returns a Javascript Date Object on success or FALSE on failure. </td>
+                    </tr>
+                    <tr>
+                        <td><code>setGlobalOptions(String JSON)</code></td>
+                        <td>Explained in more detail within the section <a href="#setting-global-configuration-parameters">Setting Global configuration parameters</a>.</td>
+                    </tr>
+                    <tr>
+                        <td><code>dateValidForSelection(String inputID, Date date)</code></td>
+                        <td>Returns a Boolean value indicating whether the Date &#8220;date&#8221; is valid for selection or not i.e. within the allowed date ranges and not disabled etc for the datepicker associated with form element &#8220;inputID&#8221;.</td>
+                    </tr>
+                    <tr>
+                        <td><code>getSelectedDate(String inputID)</code></td>
+                        <td>Returns a JavaScript Date Object if the datepicker associated with form element &#8220;inputID&#8221; has a currently set date or FALSE if not.</td>
+                    </tr>
+                    <tr>
+                        <td><code>setBespokeTitles(String inputID, Object titles)</code></td>
+                        <td>Explained in more detail within the section <a href="#setting-status-bar-messages-dynamically">Setting status bar messages dynamically</a>.</td>
+                    </tr>
+                    <tr>
+                        <td><code>addBespokeTitles(String inputID, Object titles)</code></td>
+                        <td>Explained in more detail within the section <a href="#setting-status-bar-messages-dynamically">Setting status bar messages dynamically</a>.</td>
+                    </tr>
+                    <tr>
+                        <td><code>setDisabledDates(String inputID, Object datelist)</code></td>
+                        <td>Explained in more detail within the section <a href="#disabling-date-selection">Disabling date selection</a>.</td>
+                    </tr>
+                    <tr>
+                        <td><code>addDisabledDates(String inputID, Object datelist)</code></td>
+                        <td>Explained in more detail within the section <a href="#disabling-date-selection">Disabling date selection</a>.</td>
+                    </tr>
+                    <tr>
+                        <td><code>setEnabledDates(String inputID, Object datelist)</code></td>
+                        <td>Explained in more detail within the section <a href="#enabling-date-selection">Enabling date selection</a>.</td>
+                    </tr>
+                    <tr>
+                        <td><code>addEnabledDates(String inputID, Object datelist)</code></td>
+                        <td>Explained in more detail within the section <a href="#enabling-date-selection">Enabling date selection</a>.</td>
+                    </tr>
+                    <tr>
+                        <td><code>disable(String inputID)</code></td>
+                        <td>Disables the datepicker associated with the form element &#8220;inputID&#8221; and stops all mouse and keyboard interaction.</td>
+                    </tr>
+                    <tr>
+                        <td><code>enable(String inputID)</code></td>
+                        <td>Enables the datepicker associated with the form element &#8220;inputID&#8221;.</td>
+                    </tr>
+                    <tr>
+                        <td><code>createDatePicker(Object options)</code></td>
+                        <td>Creates a datepicker using the initialisation Object &#8220;options&#8221;.</td>
+                    </tr>
+                    <tr>
+                        <td><code>dateToYYYYMMDDStr(Date date)</code></td>
+                        <td>Returns a YYYYMMDD date format String from the Javascript Date Object &#8220;date&#8221;.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h2 id="installation-guide">Installation guide</h2>
+            <p>Upload the images downloaded with the distribution into a directory of your choice on the server. Now open the <code>datepicker.min.css</code> file in a text editor and find/replace the String <code>http://www.yourdomain.com/the/path/to/the/images/</code> with the absolute path to the folder into which you uploaded the images.</p>
+            <p>Now upload all CSS and JS files to your server, not forgetting to add the various <code>language.js</code> files within a directory named &#8220;lang&#8221;, itself resident within the same directory as the <code>datepicker.min.js</code> file.</p>
+            <p>The minified versions of the Javascript and CSS files can then be referenced within your HTML page; for example:</p>
+            <pre><code class="language-markup">&lt;!-- Add the CSS file --&gt;
+&lt;link href="/the/path/to/datepicker.min.css" rel="stylesheet" type="text/css" /&gt;
+&lt;!-- Add the Javascript file --&gt;
+&lt;script src="/the/path/to/datepicker.min.js"&gt;&lt;/script&gt;
+</code></pre>
+
+            <h2 id="known-foibles">Known Foibles</h2>
+            <p>The inevitable list of known foibles:</p>
+
+            <h3 id="opera-pre-webkit">Opera (pre WebKit)</h3>
+            <p>Opera adds a non-customisable &#8220;focus&#8221; outline to each TD node which encapsulates the hidden span elements within the TD. This makes the focus outline in Opera stretch beyond the left hand side of the viewport and actually hinders accessibility for people with low vision. To stop this happening, I currently don&#8217;t add the hidden text in pre-WebKit Opera. If anyone can show me a better, non-problematic method for hiding the text (whilst still making it available to screen readers) that does not incur the wrath of the Opera focus outline I&#8217;d be happy to hear it.</p>
+
+            <h3 id="webkit">WebKit</h3>
+            <p>WebKit currently has redraw problem with the scale effect used on the cursor whenever the datepicker has keyboard control and so the effect has, for now,  been removed for Webkit based browsers.</p>
+
+            <h2 id="the-license">The License</h2>
+            <p>The script is now released under a double MIT/GPL2 license.  If you require another license, just ask politely.</p>
+
+            <a href="https://github.com/freqdec/datePicker"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"></a>
+            
+            <div id="footer">
+                Syntax highlighter by <a href="http://prismjs.com">prism</a>.<br />
+                Uses parts of <a  href="http://html5boilerplate.com/">h5bp</a> and <a href="http://necolas.github.io/normalize.css/">normalise.css</a>.<br />
+                Fonts <a href="http://www.google.com/fonts/specimen/Bitter">Bitter</a> and <a href="http://www.google.com/fonts/specimen/Source+Sans+Pro">Source Sans Pro</a> from google fonts
+            </div>
+        </div>
+    </div>
+    <script src="./pages/js/prism.js"></script>
+    <script>
+        var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];
+        (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+        g.src='//www.google-analytics.com/ga.js';
+        s.parentNode.insertBefore(g,s)}(document,'script'));
+    </script></body>
+</html>
