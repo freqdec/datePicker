@@ -5,152 +5,152 @@
   <title>Language File Creator</title>
   <style>
 body
-        {
-        padding:2em 0 2em 0;
-        border:0;
-        margin:0;
-        text-align:center;
-        font-size:16px;
-        font-family: verdana,arial,sans-serif;
-        color:#545454;
-        min-width: 800px;
-        background:#fff;
-        border-top:3px solid #000;
-        }
+    {
+    padding:2em 0 2em 0;
+    border:0;
+    margin:0;
+    text-align:center;
+    font-size:16px;
+    font-family: verdana,arial,sans-serif;
+    color:#545454;
+    min-width: 800px;
+    background:#fff;
+    border-top:3px solid #000;
+    }
 h1
-        {
-        font-weight:lighter;
-        font-family:georgia, times new roman, times, georgia, palatino, serif;
-        text-align:center;
-        margin-top:0.6em;
-        color:#000;
-        font-size:36px;
-        }
+    {
+    font-weight:lighter;
+    font-family:georgia, times new roman, times, georgia, palatino, serif;
+    text-align:center;
+    margin-top:0.6em;
+    color:#000;
+    font-size:36px;
+    }
 h2
-        {
-        font-weight:lighter;
-        font-family:verdana,arial,sans-serif;
-        text-align:center;
-        margin-top:1em;
-        color:#333;
-        text-transform:uppercase;
-        letter-spacing:1px;
-        font-size:1.2em;
-        } 
+    {
+    font-weight:lighter;
+    font-family:verdana,arial,sans-serif;
+    text-align:center;
+    margin-top:1em;
+    color:#333;
+    text-transform:uppercase;
+    letter-spacing:1px;
+    font-size:1.2em;
+    } 
 a:link,
 a:visited
-        {
-        color:#333;
-        text-decoration:underline;
-        }
+    {
+    color:#333;
+    text-decoration:underline;
+    }
 a:hover
-        {
-        color:#fff;
-        text-decoration:none;
-        background:#000;
-        }
+    {
+    color:#fff;
+    text-decoration:none;
+    background:#000;
+    }
 a:active
-        {
-        color:#000;
-        text-decoration:underline;
-        }
+    {
+    color:#000;
+    text-decoration:underline;
+    }
 form
-        {
-        width:738px;
-        background:#fcfcfc;
-        border:3px double #ccc;
-        text-align:left;
-        padding:10px;
-        margin:0 auto;
-        border-radius:5px;        
-        }
+    {
+    width:738px;
+    background:#fcfcfc;
+    border:3px double #ccc;
+    text-align:left;
+    padding:10px;
+    margin:0 auto;
+    border-radius:5px;
+    }
 input, textarea
-        {            
-        background:#fff;
-        float:left;
-        width:173px;
-        border:1px solid #ccc;
-        border-top-color:#aaa;
-        border-left-color:#aaa;
-        padding:0;
-        margin:0 5px 4px 0;
-        border-radius:3px;
-        }
+    {
+    background:#fff;
+    float:left;
+    width:173px;
+    border:1px solid #ccc;
+    border-top-color:#aaa;
+    border-left-color:#aaa;
+    padding:0;
+    margin:0 5px 4px 0;
+    border-radius:3px;
+    }
 textarea
-        {
-        width:736px;
-        height:14em;
-        float:none;
-        margin:0;
-        border-radius:5px;
-        }
+    {
+    width:736px;
+    height:14em;
+    float:none;
+    margin:0;
+    border-radius:5px;
+    }
 #doit
-        {
-        font-size:28px;
-        background:#9cd001;
-        border:1px solid #bce058;
-        border-bottom-color:#80a300;
-        border-right-color:#80a300;
-        color:#fff;
-        padding:4px 0;
-        line-height:1;
-        font-weight:normal;
-        text-transform:uppercase;
-        text-decoration:none;
-        cursor:pointer;
-        text-shadow:0 1px 0 #80a300;
-        width:738px;
-        clear:top;
-        float:none;
-        display:block;
-        margin:0 0 0.5em 0;
-        border-radius:6px;
-        }
+    {
+    font-size:28px;
+    background:#9cd001;
+    border:1px solid #bce058;
+    border-bottom-color:#80a300;
+    border-right-color:#80a300;
+    color:#fff;
+    padding:4px 0;
+    line-height:1;
+    font-weight:normal;
+    text-transform:uppercase;
+    text-decoration:none;
+    cursor:pointer;
+    text-shadow:0 1px 0 #80a300;
+    width:738px;
+    clear:top;
+    float:none;
+    display:block;
+    margin:0 0 0.5em 0;
+    border-radius:6px;
+    }
 fieldset
-        {
-        border:1px solid #ccc;
-        margin:0 0 1em 0;
-        padding:10px 5px 10px 10px;
-        border-radius:5px;
-        }
+    {
+    border:1px solid #ccc;
+    margin:0 0 1em 0;
+    padding:10px 5px 10px 10px;
+    border-radius:5px;
+    }
 legend
-        {
-        color:#222;
-        font-size:11px;         
-        font-weight:bold;
-        text-transform:uppercase;
-        letter-spacing:1px;
-        }
-  </style>
-  <script>
+    {
+    color:#222;
+    font-size:11px;
+    font-weight:bold;
+    text-transform:uppercase;
+    letter-spacing:1px;
+    }
+    </style>
+    <script>
 function safeVal(val) {
-        var str = "";
-        for(var i = 0, c; c = val.charAt(i); i++) {
-                if(/^([a-zA-Z0-9\s\[\]%])$/.test(c)) {
-                        str += c;
-                } else {
-                       c = c.charCodeAt(0).toString(16).toUpperCase();
-	               while(c.length<4) c = "0" + c; 
-	               str += "\\u" + c; 
-                };        
+    var str = "";
+    for(var i = 0, c; c = val.charAt(i); i++) {
+        if(/^([a-zA-Z0-9\s\[\]%])$/.test(c)) {
+            str += c;
+        } else {
+            c = c.charCodeAt(0).toString(16).toUpperCase();
+            while(c.length<4) c = "0" + c;
+            str += "\\u" + c;
         };
-        return str;
+    };
+    return str;
 };
 
-var texts = {        
-        fullMonths:["January","February","March","April","May","June","July","August","September","October","November","December"],
-        monthAbbrs:["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],
-        fullDays:  ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
-        dayAbbrs:  ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"],
-        titles:    ["Previous month","Next month","Previous year","Next year", "Today", "Show Calendar", "wk", "Week [[%0%]] of [[%1%]]", "Week", "Select a date", "Click \u0026 Drag to move", "Display \u201C[[%0%]]\u201D first", "Go to Today\u2019s date", "Disabled date:"]
+var texts = {
+    fullMonths:["January","February","March","April","May","June","July","August","September","October","November","December"],
+    monthAbbrs:["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],
+    fullDays:  ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
+    dayAbbrs:  ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"],
+    titles:    ["Previous month","Next month","Previous year","Next year", "Today", "Show Calendar", "wk", "Week [[%0%]] of [[%1%]]", "Week", "Select a date", "Click \u0026 Drag to move", "Display \u201C[[%0%]]\u201D first", "Go to Today\u2019s date", "Disabled date:"]
 };
 
 var titleTrad = {
-        "fullMonths":"Month Names",
-        "monthAbbrs":"Abbreviated month names",
-        "titles":"Miscellaneous titles",
-        "dayAbbrs":"Abbreviated days of the week",
-        "fullDays":"Days of the week"                        
+    "fullMonths":"Month Names",
+    "monthAbbrs":"Abbreviated month names",
+    "titles":"Miscellaneous titles",
+    "dayAbbrs":"Abbreviated days of the week",
+    "fullDays":"Days of the week"
 };
 
 var fs = document.createElement('fieldset'),
@@ -161,64 +161,66 @@ var fs = document.createElement('fieldset'),
     fsc, ipc, lgc, parts;
     
 fm.onsubmit = function() {
-        var out = [], parts, txt, inp, vals;  
-              
-        for(textType in texts) {
-                txt     = "\n" + textType + ":[";                                 
-                parts   = texts[textType];
-                vals    = [];
-                
-                for(var i = 0, pt; pt = parts[i]; i++) {                                              
-                        vals.push('"' + safeVal(document.getElementById(textType + "_" + i).value) + '"');
-                };
-                
-                txt += vals.join(", ") + "]";
-                
-                out.push(txt);
+    var out = [], parts, txt, inp, vals;  
+          
+    for(textType in texts) {
+        txt     = "\n" + textType + ":[";
+        parts   = texts[textType];
+        vals    = [];
+        
+        for(var i = 0, pt; pt = parts[i]; i++) {
+            vals.push('"' + safeVal(document.getElementById(textType + "_" + i).value) + '"');
         };
         
-        ta.value = "/* Please save this as a Javascript file using the appropriate two letter (e.g. fr.js) or four letter (e.g. pt-br.js) language code and send it to frequency.decoder at gmail (dot com) - thanks! */\n\nvar fdLocale = {\n/* Uncomment the following line if the first day of the week does not start on Monday */\n//firstDayOfWeek:0," + out.join(",") + "};\ntry { if(\"datePickerController\" in window) { datePickerController.loadLanguage(); }; } catch(err) {};";
+        txt += vals.join(", ") + "]";
         
-        return false;
+        out.push(txt);
+    };
+    
+    ta.value = "/* Please save this as a Javascript file using the appropriate two letter (e.g. fr.js) or four letter (e.g. pt-br.js) language code and send it to frequency.decoder at gmail (dot com) - thanks! */\n\nvar fdLocale = {\n/* Uncomment the following line if the first day of the week does not start on Monday */\n//firstDayOfWeek:0," + out.join(",") + "};\ntry { if(\"datePickerController\" in window) { datePickerController.loadLanguage(); }; } catch(err) {};";
+    
+    return false;
 };
 
 fm.action = "";
 fm.method = "post"; 
 
 for(textType in texts) {
-        fsc = fs.cloneNode(true);
-        lgc = lg.cloneNode(true);
-        
-        lgc.appendChild(document.createTextNode(titleTrad[textType]));
-        fsc.appendChild(lgc);
-        
-        parts = texts[textType];
-        
-        for(var i = 0, pt; pt = parts[i]; i++) {
-                ipc = ip.cloneNode(true);
-                ipc.type = "text";
-                ipc.id = textType + "_" + i;
-                ipc.value = pt;
-                ipc.onfocus = function() {
-                        var parts = this.id.split("_"),
-                            deftxt = texts[parts[0]][parts[1]];
-                            
-                        if(this.value == deftxt) {
-                                this.value = "";
-                        };
-                };
-                ipc.onblur = function() {
-                        if(this.value) return;
-                        
-                        var parts = this.id.split("_"),
-                            deftxt = texts[parts[0]][parts[1]];                            
-                        
-                        this.value = deftxt;                        
-                };
-                fsc.appendChild(ipc);
+    fsc = fs.cloneNode(true);
+    lgc = lg.cloneNode(true);
+    
+    lgc.appendChild(document.createTextNode(titleTrad[textType]));
+    fsc.appendChild(lgc);
+    
+    parts = texts[textType];
+    
+    for(var i = 0, pt; pt = parts[i]; i++) {
+        ipc = ip.cloneNode(true);
+        ipc.type = "text";
+        ipc.id = textType + "_" + i;
+        ipc.value = pt;
+        ipc.onfocus = function() {
+            var parts = this.id.split("_"),
+            deftxt = texts[parts[0]][parts[1]];
+                
+            if(this.value == deftxt) {
+                this.value = "";
+            };
         };
-        
-        fm.appendChild(fsc);                               
+        ipc.onblur = function() {
+            if(this.value) {
+                return;
+            };
+            
+            var parts = this.id.split("_"),
+                deftxt = texts[parts[0]][parts[1]];
+            
+            this.value = deftxt;
+        };
+        fsc.appendChild(ipc);
+    };
+    
+    fm.appendChild(fsc);
 }; 
 
 ip.type = "submit";
@@ -230,13 +232,12 @@ ta.id = "result";
 fm.appendChild(ta);
  
 window.onload = function() {
-        document.body.appendChild(fm);
+    document.body.appendChild(fm);
 };
 
-  </script>
+    </script>
 </head>
 <body>
   <h1>Language File Creator</h1>
-  <p>View the related &#8220;<a href="http://www.frequency-decoder.com/2011/10/11/unobtrusive-accessible-datepicker-widgit-v6/">language in the lab</a>&#8221; post.</p>
 </body>
-</html>       
+</html>

@@ -5,7 +5,7 @@
     info can be found in the header of the minified file.
     
     F.Y.I: Here's the HTML produced for each instance of the datePicker, in this
-    case associated with a form element whose id is "demo-1"
+    case associated with a form element having an id of "demo-1"
     
 <div id="fd-demo-1" class="date-picker drag-enabled" aria-describedby="fd-dp-aria-describedby" aria-labelledby="demo-1_label" aria-hidden="false" role="application" dir="ltr">
     <div>
@@ -60,16 +60,16 @@
 
 */
 
-/* 
-    Hide the datepickers associated input by using a className 
+/*
+    Hide the datepickers associated input by using a className
 */
 .fd-hidden-input
     {
     display:none;
     }
-/* 
-    Screen reader class - used to hide spans inside each cell from the visual 
-    display. See: http://webaim.org/techniques/css/invisiblecontent/ 
+/*
+    Screen reader class - used to hide spans inside each cell from the visual
+    display. See: http://webaim.org/techniques/css/invisiblecontent/
 */
 .fd-screen-reader
     {
@@ -78,30 +78,30 @@
     top:auto;
     width:1px;
     height:1px;
-    overflow:hidden; 
+    overflow:hidden;
     -moz-outline: 0 none;
          outline: 0 none;
     } 
-/* 
-    The wrapper div 
+/*
+    The wrapper div
 */
 .date-picker
     {
-    position:absolute;        
+    position:absolute;
     z-index:9999;
     text-align:center;
     /* 
     Change the font-size to suit your needs. The following line is for the demo
     that has a 14px font-size defined on the body tag.
-     
-    All other rules are "em" based and inherit from the font-size set here. 
+
+    All other rules are "em" based and inherit from the font-size set here.
     */
     font:900 0.8em/1em "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Verdana, Arial, "Lucida Grande", sans-serif;
     background:transparent;
     -webkit-user-select:none;
        -moz-user-select:none;
         -ms-user-select:none;
-         -o-user-select:none;                        
+         -o-user-select:none;
             user-select:none;
     /*
     Set the fade in/out animation time here. This is used for browsers that
@@ -115,6 +115,11 @@
          -o-transition:opacity .75s ease-in-out;
             transition:opacity .75s ease-in-out;
     }
+.date-picker div
+    {
+    border:1px solid rgba(255, 255, 255, 0.8);
+    border-radius:0.8em;
+    }
 /*
     The following rule is used whenever CSS Animations are supported by the
     browser
@@ -123,18 +128,18 @@
     {
     opacity:0;
     }
-/* 
-    Styles for the static datePickers 
+/*
+    Styles for the static datePickers
 */
 .static-datepicker
     {
-    position:relative;        
+    position:relative;
     top:5px;
     left:0;
     margin-bottom:1.5em;
     }
-/* 
-    The iframe hack to cover selectlists in IE6 
+/*
+    The iframe hack to cover selectlists in IE6
 */
 .iehack
     {
@@ -146,8 +151,8 @@
     border:0;
     display:none;
     }
-/* 
-    The activation "button" created beside each input for popup datePickers 
+/*
+    The activation "button" created beside each input for popup datePickers
 */
 .date-picker-control span
     {
@@ -171,7 +176,7 @@
     box-shadow:0 0 5px rgba(40, 130, 170, 0.7);
     border-radius:2px;
     }
-/* 
+/*
     A base64 encoded image-sprite is used for the activation button. IE6 and 7
     get fed "normal" png images within the rule that follows.
 */
@@ -193,29 +198,29 @@
     visibility:visible;
     text-decoration:none;
     vertical-align:text-bottom;
-    resize:none;         
+    resize:none;
     }
-/* 
-    IE6 & 7 fed "normal" png images 
+/*
+    IE6 & 7 fed "normal" png images
 */
 .oldie .date-picker-control:link,
 .oldie .date-picker-control:visited
     {
-    /* 
-    IE7 gets a non-base64 encoded image sprite of the base64 encoded image 
+    /*
+    IE7 gets a non-base64 encoded image sprite of the base64 encoded image
     declared above. That's all you have to do for IE7 support as it inherits
     the background-position declarations used to reposition the sprite
     */
-    *background-image:url(http://www.frequency-decoder.com/demo/datePicker/media/datepicker-sprite.png);
-    /* 
-    IE6 gets the filter treatment and an individual image for each animation 
+    *background-image:url(http://www.yourdomain.com/the/path/to/the/images/datepicker-sprite.png);
+    /*
+    IE6 gets the filter treatment and an individual image for each animation
     state. This pattern is repeated for all other image-based rules within the
     stylesheet
     */
     _background-image:none;
-    _filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled=true,sizingMethod=crop,src='http://www.frequency-decoder.com/demo/datePicker/media/datepicker-normal.png');        
-    } 
-/* 
+    _filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled=true,sizingMethod=crop,src='http://www.yourdomain.com/the/path/to/the/images/datepicker-normal.png');        
+    }
+/*
     If the datepicker has a valid date then use a different icon for the
     activation button to let the user know. It's a little detail but it's the
     little things in life etc
@@ -224,17 +229,17 @@
 .date-picker-dateval:visited
     {
     background-position:0 -108px;
-    } 
-/* 
+    }
+/*
     Again, IE6 gets a "normal" png image from the server. Rinse, repeat.
 */
 .oldie .date-picker-dateval:link,
 .oldie .date-picker-dateval:visited
     {
-    _filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled=true,sizingMethod=crop,src='http://www.frequency-decoder.com/demo/datePicker/media/datepicker-selected.png');        
-    }                           
-/* 
-    Hover states etc for the activation button 
+    _filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled=true,sizingMethod=crop,src='http://www.yourdomain.com/the/path/to/the/images/datepicker-selected.png');        
+    }
+/*
+    Hover states etc for the activation button
 */
 .date-picker-button-active:link,
 .date-picker-button-active:visited,
@@ -244,8 +249,8 @@
     {
     background-position:0 0;
     }
-/* 
-    IE 6 activation button hover states 
+/*
+    IE 6 activation button hover states
 */
 .oldie .date-picker-button-active:link,
 .oldie .date-picker-button-active:visited,
@@ -253,10 +258,10 @@
 .oldie .date-picker-control:hover,
 .oldie .date-picker-control:active
     {
-    _filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled=true,sizingMethod=crop,src='http://www.frequency-decoder.com/demo/datePicker/media/datepicker-focused.png');             
+    _filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled=true,sizingMethod=crop,src='http://www.yourdomain.com/the/path/to/the/images/datepicker-focused.png');             
     }
-/* 
-    Disabled activation button 
+/*
+    Disabled activation button
 */
 .date-picker-control-disabled:link,
 .date-picker-control-disabled:visited,
@@ -266,38 +271,39 @@
     background-position:0 -36px;
     cursor:default;
     }
-/* 
-    IE 6 disabled activation button 
+/*
+    IE 6 disabled activation button
 */
 .oldie .date-picker-control-disabled:link,
 .oldie .date-picker-control-disabled:visited,
 .oldie .date-picker-control-disabled:hover,
 .oldie .date-picker-control-disabled:active
     {
-    _filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled=true,sizingMethod=crop,src='http://www.frequency-decoder.com/demo/datePicker/media/datepicker-disabled.png');                       
+    _filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled=true,sizingMethod=crop,src='http://www.yourdomain.com/the/path/to/the/images/datepicker-disabled.png');                       
     }
 .date-picker-control-disabled:hover span,
 .date-picker-control-disabled:active span
     {
     box-shadow:none !important;
     }
-/*  
+/*
     Feed IE6 the following rule, IE7 should handle the min-width declared
-    previously. 
+    previously.
  */
 .oldie .date-picker-control
     {
     _width:18px;
     }
-/* 
-    IE, older Safari & Opera. Seperate CSS rule seems to be required. 
+/*
+    IE, older Safari & Opera. Seperate CSS rule seems to be required.
 */
 .date-picker-control
     {
     display:inline-block;
+    outline:none !important;
     }
-/* 
-    Default datepicker "button" styles 
+/*
+    Default datepicker "button" styles
 */
 .date-picker th span
     {
@@ -311,8 +317,8 @@
     font-weight:bold;
     cursor:pointer;
     }
-/* 
-    The "month, year" display 
+/*
+    The "month, year" display
 */
 .date-picker .month-display,
 .date-picker .year-display
@@ -323,8 +329,8 @@
     font-weight:normal;
     font-size:1.2em;
     }
-/* 
-    Generic button class for Next & Previous (both month & year) buttons 
+/*
+    Generic button class for Next & Previous (both month & year) buttons
 */
 .date-picker .prev-but,
 .date-picker .next-but
@@ -337,15 +343,15 @@
 .date-picker .prev-but,
 .date-picker .next-but,
 .date-picker .today-but
-    {         
+    {
     -webkit-transition:all .2s ease-in-out;
        -moz-transition:all .2s ease-in-out;
         -ms-transition:all .2s ease-in-out;
          -o-transition:all .2s ease-in-out;
-            transition:all .2s ease-in-out;        
+            transition:all .2s ease-in-out;
     }
-/* 
-    Hover effect for Next & Previous (month, year) buttons 
+/*
+    Hover effect for Next & Previous (month, year) buttons
 */
 .date-picker .prev-but:hover,
 .date-picker .next-but:hover,
@@ -356,8 +362,8 @@
 .date-picker .prev-but:hover,
 .date-picker .next-but:hover
     {
-    /*        
-    Uncomment this if you want a scale effect...
+    /*
+    Uncomment this if you want a scale effect
     
     -webkit-transform:scale(1.6);
        -moz-transform:scale(1.6);
@@ -368,8 +374,8 @@
     text-shadow:0 2px 1px rgba(0,0,0,.4);
     */
     }
-/* 
-    Today button 
+/*
+    Today button
 */
 .date-picker .today-but
     {
@@ -382,10 +388,10 @@
     padding-top:0.3em;
     text-transform:uppercase;
     vertical-align:middle;
-    cursor:pointer          
+    cursor:pointer
     }
-/* 
-    Disabled buttons 
+/*
+    Disabled buttons
 */ 
 .date-picker-disabled .prev-but,
 .date-picker-disabled .next-but,
@@ -400,14 +406,14 @@
     {
     color:#aaa;
     cursor:default !important; 
-    opacity:1;        
-    }   
+    opacity:1;
+    }
 .date-picker .prev-but.fd-disabled:hover,
 .date-picker .next-but.fd-disabled:hover
     {
-    /*   
+    /*
     Uncomment this if you have uncommented the "scale" rules above
-    
+
     -webkit-transform:scale(1);
        -moz-transform:scale(1);
         -ms-transform:scale(1);
@@ -416,8 +422,8 @@
     */
     text-shadow:0 -1px 1px rgba(255,255,255,.8);
     }
-/* 
-    The gradient background image 
+/*
+    The gradient background image
 */
 .date-picker table,
 .date-picker td,
@@ -440,11 +446,11 @@
 .oldie .date-picker .date-picker-unused,
 .oldie .date-picker .month-out 
     {
-    *background-image:url(http://www.frequency-decoder.com/demo/datePicker/media/datepicker-gradient.gif);
-    /* 
-    Remove from IE6 as it has a bug that never caches images on dynamically 
+    *background-image:url(http://www.yourdomain.com/the/path/to/the/images/datepicker-gradient.gif);
+    /*
+    Remove from IE6 as it has a bug that never caches images on dynamically
     created elements which results in one http request being made for each
-    cell of each table rendered by the script. 
+    cell of each table rendered by the script.
     */
     _background-image:none;
     }
@@ -454,16 +460,16 @@
     empty-cells:show;
     border-spacing:2px;
     border-collapse:separate;
-    position:relative;               
+    position:relative;
     margin:0;
     padding:0;
-    border:1px solid #ccc;        
+    border:1px solid #ccc;
     background-position:0 -20px; 
     text-align:center;
-    padding:0.3em; 
+    padding:0.3em;
     width:auto;
     height:auto;
-    color:#555;         
+    color:#555;
     font-size:1em;
     border-radius:0.8em;
     box-shadow:0px 0px 5px #aaa;
@@ -493,7 +499,6 @@
          -o-transform:rotate(-3deg);
             transform:rotate(-3deg);
     }
-
 .date-picker table:after
     {
     right:10px;
@@ -509,52 +514,50 @@
     {
     display:none;
     }
-
 /* 
-    Common TD & TH styling 
+    Common TD & TH styling
 */
 .date-picker td,
 .date-picker tbody th
-    {                 
-    border:0 none;
+    {
     padding:0;
     text-align:center;
-    vertical-align:middle;               
+    vertical-align:middle;
     cursor:pointer;
     background-position:0 -35px; 
     width:3em;
-    height:3em;   
-    overflow:hidden;      
-    outline:transparent none 0px;        
-    border:1px solid #ccc;
+    height:3em;
+    overflow:hidden;
+    outline:transparent none 0px;
+    border:1px solid #cfcfcf;
     text-transform:none;
     font-weight:normal;
     text-shadow:0 1px #fff;
-    border-radius:2px;
+    border-radius:3px;
     }
 .date-picker th
     {
     border:0 none;
-    padding:0;        
+    padding:0;
     font-weight:bold;
     color:#333;
     text-align:center;
-    vertical-align:middle; 
+    vertical-align:middle;
     text-transform:none;
     }
 .date-picker .date-picker-week-header
-    {                          
-    border:1px solid #dcdcdc;        
-    font-style:oblique;  
+    {
+    border:1px solid #dcdcdc;
+    font-style:oblique;
     background:transparent;
-    cursor:default;         
+    cursor:default;
     }
 .date-picker .date-picker-thead .date-picker-week-header
-    {                          
+    {
     border:0 none;
-    cursor:help;         
+    cursor:help;
     }
-/* 
+/*
     The "mon tue wed etc" day header styles 
 */
 .date-picker .date-picker-day-header
@@ -605,7 +608,7 @@
     }
 .oldie .date-picker .date-picker-today
     {
-    *background:#fff url(http://www.frequency-decoder.com/demo/datePicker/media/datepicker-today.gif) no-repeat 0 0;
+    *background:#fff url(http://www.yourdomain.com/the/path/to/the/images/datepicker-today.gif) no-repeat 0 0;
     }
 .date-picker .month-out.date-picker-highlight 
     {
@@ -660,11 +663,12 @@
     color:rgb(100,130,170); 
     text-shadow: 0px 1px 1px #fff;        
     box-shadow:0 0 6px rgba(100,130,170,.6);
+    background-size:cover;
     }
 .oldie .date-picker .date-picker-hover,
 .oldie .date-picker .month-out.date-picker-hover
     {
-    *background:#fff url(http://www.frequency-decoder.com/demo/datePicker/media/datepicker-cursor.jpg) no-repeat 0 0;
+    *background:#fff url(http://www.yourdomain.com/the/path/to/the/images/datepicker-cursor.jpg) no-repeat 0 0;
     }
 /* 
     The "disabled days" style 
