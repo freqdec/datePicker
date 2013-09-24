@@ -1901,7 +1901,7 @@ var datePickerController = (function datePickerController() {
             if(o.currentTR) {
                 o.currentTR.className = ""; 
                 o.currentTR = null;
-				o.removeHover();
+                o.removeHover();
             };
                         
             if(o.statusBar) { 
