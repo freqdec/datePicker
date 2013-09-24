@@ -615,6 +615,16 @@ var datePickerController = (function datePickerController() {
                 } catch(err) {};
             };
         };
+		
+		// Removes the style on a hovered date
+		this.removeHover = function () {
+			var td = document.getElementById(o.id + "-date-picker-hover");
+			if (td) {
+				try {
+					removeClass(td, "date-picker-hover");
+				} catch (err) { };
+			};
+		};
 
         // Sets the tabindex & focus on the currently highlighted cell
         this.setNewFocus = function() {
@@ -1891,6 +1901,7 @@ var datePickerController = (function datePickerController() {
             if(o.currentTR) {
                 o.currentTR.className = ""; 
                 o.currentTR = null;
+				o.removeHover();
             };
                         
             if(o.statusBar) { 
