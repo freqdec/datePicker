@@ -478,13 +478,13 @@
     Create a "Lifted Corners" effect on the table. Ripped straight from @necolas
     http://nicolasgallagher.com/css-drop-shadows-without-images/
 */
-.date-picker table:before,
-.date-picker table:after
+.date-picker:before,
+.date-picker:after
     {
     content:"";
     position:absolute;
     z-index:-2;
-    bottom:15px;
+    bottom:17px;
     left:10px;
     width:50%;
     height:20%;
@@ -499,7 +499,7 @@
          -o-transform:rotate(-3deg);
             transform:rotate(-3deg);
     }
-.date-picker table:after
+.date-picker:after
     {
     right:10px;
     left:auto;
@@ -509,8 +509,8 @@
          -o-transform:rotate(3deg);
             transform:rotate(3deg);
     }
-.oldie .date-picker table:before,
-.oldie .date-picker table:after
+.oldie .date-picker:before,
+.oldie .date-picker:after
     {
     display:none;
     }
@@ -804,8 +804,8 @@
     {
     box-shadow:0 0 0 transparent;
     }
-.static-datepicker table:before,
-.static-datepicker table:after
+.static-datepicker:before,
+.static-datepicker:after
     {
     display:none;
     }
