@@ -2619,7 +2619,19 @@ var datePickerController = (function datePickerController() {
 
             fmtDate = printFormattedDate(this.dateSet, elemFmt, returnLocaleDate);
             if(elem.tagName.toLowerCase() == "input") {
-                elem.value = fmtDate;
+                
+				//trigger the onchange event if the fields are changed
+				if (elem.value != fmtDate) {
+					elem.value = fmtDate;
+					if ("fireEvent" in elem) {
+						elem.fireEvent("onchange");
+					} else {
+						var evt = document.createEvent("HTMLEvents");
+						evt.initEvent("change", false, true);
+						elem.dispatchEvent(evt);
+					}
+				}
+				elem.value = fmtDate;
             } else {
                 this.setSelectIndex(elem, fmtDate);
             };
