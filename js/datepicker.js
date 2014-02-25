@@ -1,6 +1,7 @@
-"use strict";
 /*! DatePicker v6.3.3 MIT/GPL2 @freqdec */
 var datePickerController = (function datePickerController() {
+
+    "use strict";
 
     var debug               = false,
         isOpera             = Object.prototype.toString.call(window.opera) === "[object Opera]",
@@ -585,7 +586,8 @@ var datePickerController = (function datePickerController() {
                 bSpace      = parseInt(trueBody.clientHeight + scrollTop) - parseInt(pos[1] + elem.offsetHeight + 2);
 
             o.div.style.visibility = "visible";
-
+console.log("trueBody.clientWidth" + trueBody.clientWidth)
+console.log(sOffsets)
             o.div.style.left = Number(parseInt(trueBody.clientWidth+scrollLeft) < parseInt(osw+pos[0]) ? Math.abs(parseInt((trueBody.clientWidth+scrollLeft) - osw)) : pos[0]) + "px";
             o.div.style.top  = (bSpace > tSpace) ? Math.abs(parseInt(pos[1] + elem.offsetHeight + 2)) + "px" : Math.abs(parseInt(pos[1] - (osh + 2))) + "px";
             if(oldIE === 6) {
@@ -3255,7 +3257,8 @@ var datePickerController = (function datePickerController() {
                 options.id = elemID;
             };
 
-            options.formElements[elemID].defaultVal = elem.tagName == "select" ? elem.selectedIndex || 0 : elem.defaultValue;
+            // https://github.com/freqdec/datePicker/issues/26
+            options.formElements[elemID]['defaultVal'] = elem.tagName == "select" ? elem.selectedIndex || 0 : elem.defaultValue;
 
             fmt             = {
                 "value":options.formElements[elemID]
@@ -3371,7 +3374,7 @@ var datePickerController = (function datePickerController() {
         if(myMin && (!options.rangeLow  || (+options.rangeLow < +myMin))) {
             options.rangeLow = myMin;
         };
-        if(myMax && (!options.rangeHigh || (+options.rangeHigh > +myMin))) {
+        if(myMax && (!options.rangeHigh || (+options.rangeHigh > +myMax))) {
             options.rangeHigh = myMax;
         };
 
