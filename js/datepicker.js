@@ -1,4 +1,4 @@
-/*! DatePicker v6.3.3 MIT/GPL2 @freqdec */
+/*! DatePicker v6.3.4 MIT/GPL2 @freqdec */
 var datePickerController = (function datePickerController() {
 
     "use strict";
