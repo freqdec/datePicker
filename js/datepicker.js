@@ -586,8 +586,7 @@ var datePickerController = (function datePickerController() {
                 bSpace      = parseInt(trueBody.clientHeight + scrollTop) - parseInt(pos[1] + elem.offsetHeight + 2);
 
             o.div.style.visibility = "visible";
-console.log("trueBody.clientWidth" + trueBody.clientWidth)
-console.log(sOffsets)
+
             o.div.style.left = Number(parseInt(trueBody.clientWidth+scrollLeft) < parseInt(osw+pos[0]) ? Math.abs(parseInt((trueBody.clientWidth+scrollLeft) - osw)) : pos[0]) + "px";
             o.div.style.top  = (bSpace > tSpace) ? Math.abs(parseInt(pos[1] + elem.offsetHeight + 2)) + "px" : Math.abs(parseInt(pos[1] - (osh + 2))) + "px";
             if(oldIE === 6) {
