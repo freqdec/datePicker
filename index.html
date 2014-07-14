@@ -190,12 +190,12 @@ datePickerController.createDatePicker({
             </table>
 
             <h2 id="date-parsing">Date parsing</h2>
-            <p>The script will first check to see if the form element value matches the associated date format. If that does not produce a valid date and a language file has been downloaded, all month names in that language are replaced by their English counterparts; for example, the French &#8220;mars&#8221; would be replaced by the English &#8220;March&#8221;. Any English ordinal suffix is then removed, dashes &#8220;-&#8221; are replaced by forward slashes &#8220;/&#8221; (as some browsers just don&#8217;t like parsing dates containing dashes) and finally, the result is passed to the native Javascript Date.parse method.</p>
-            <p>The Date.parse method should, theoretically, parse a string representing an RFC2822 or ISO 8601 date &#8211; which is way better than any date parser I would hazard to write.</p>
+            <p>The script will first check to see if the form element value matches the associated date format. If that does not produce a valid date and a language file has been downloaded, all month names in that language are replaced by their English counterparts; for example, the French &#8220;mars&#8221; would be replaced by the English &#8220;March&#8221;. Any English ordinal suffix is then removed, dashes &#8220;-&#8221; are replaced by forward slashes &#8220;/&#8221; (as some browsers just don&#8217;t like parsing dates containing dashes) and finally, the result is passed to the native Javascript <code>Date.parse</code> method.</p>
+            <p>The <code>Date.parse</code> method should, theoretically, parse a string representing an RFC2822 or ISO 8601 date &#8211; which is way better than any date parser I would hazard to write. Unfortunately, the <code>Date.parse</code> implementation is platform independant though so don&#8217;t expect consistency, rhyme or reason.</p>
             <p>If a date is sucessfully parsed, the associated form element is automatically updated to reflect the <em>desired</em> date format; for example, if a user enters &#8220;jan&#8221; and a &#8220;%m&#8221; format (a zero filled two character representation of the month) has been assigned to the form element, the script will automatically update the form element value to be &#8220;01&#8221;.</p>
 
             <h3 id="removing-the-use-of-the-javascript-date-parse-fallback">Removing the use of the Javascript Date.parse&#160;fallback</h3>
-            <p>You may not wish to use the native <code>Date.parse</code> method as a fallback parser. This can be achieved by calling the <code>datePickerController.setGlobalOptions</code> method or by using JSON within the script tag &#8211; this is explained in more detail within the section <a href="#setting-global-configuration-parameters">Setting Global configuration parameters</a>.</p>
+            <p>You may not wish to use the native <code>Date.parse</code> method as a fallback parser. This can be achieved by setting the <code>dateparsefallback</code> configuration paramater when calling the <code>datePickerController.setGlobalOptions</code> method or by using JSON within the script tag &#8211; this is explained in more detail within the section <a href="#setting-global-configuration-parameters">Setting Global configuration parameters</a>.</p>
 
             <h2 id="displaying-a-status-bar">Displaying a status&#160;bar</h2>
             <p>To show a status bar, add the parameter &#8220;statusFormat&#8221; to the initialisation object and set the parameter value to be the date format you wish to have displayed; for example:</p>
@@ -211,7 +211,7 @@ datePickerController.createDatePicker({
             <h3 id="setting-the-status-bar-date-format-for-all-datepickers">Setting the status bar date format for all&#160;datepickers</h3>
             <p>Setting a status bar date format to be shared across all datepickers can be achieved by calling the <code>datePickerController.setGlobalOptions</code> method or by using JSON within the script tag &#8211; this is explained in more detail within the section <a href="#setting-global-configuration-parameters">Setting Global configuration parameters</a>. </p>
 
-            <h3 id="showing-bespoke-messages-within-the-status-bar">Showing bespoke messages within the status&#160;bar</h3>
+            <h3 id="showing-bespoke-messages-within-the-status-bar">Displaying bespoke messages within the status&#160;bar</h3>
             <p>Short text messages can be displayed within the status bar. Messages can either be assigned globally i.e. shared across all datepickers, or individually i.e. for a single datepicker instance only. </p>
             <p>Setting messages to be shared across all datepickers can be achieved by calling the <code>datePickerController.setGlobalOptions</code> method or by using JSON within the script tag &#8211; this is explained in more detail within the section <a href="#setting-global-configuration-parameters">Setting Global configuration parameters</a>.</p>
             <p>To set messages for a specific datepicker instance, add the parameter &#8220;bespokeTitles&#8221; to the initialisation object and set the parameter value to itself be an Object of key/value pairs &#8211; where the keys represent a YYYYMMDD date String and the associated values the message to show for the date in question. The &#8220;*&#8221; wilcard character can be used within the keys; for example:</p>
@@ -300,9 +300,9 @@ datePickerController.createDatePicker({
             <h3 id="stipulating-a-language-to-use">Stipulating a language to&#160;use</h3>
             <p>You can disable the detect locale functionality and stipulate the required language by either using JSON within the script tag &#8211; this is explained in more detail within the section <a href="#setting-global-configuration-parameters">Setting Global configuration parameters</a> &#8211; or, more easily, by adding the desired <code>language.js</code> file <em>before</em> the <code>datepicker.min.js</code> file within the HTML source; for example:</p>
             <pre><code class="language-markup">&lt;!-- Explicitly add the French &quot;fr.js&quot; language file --&gt;
-&lt;script type=&quot;text/javascript&quot; src=&quot;/the/path/to/fr.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;/the/path/to/fr.js&quot;&gt;&lt;/script&gt;
 &lt;!-- Now add the datepicker.min.js file --&gt;
-&lt;script type=&quot;text/javascript&quot; src=&quot;/the/path/to/datepicker.min.js&quot;&gt;&lt;/script&gt;</code></pre>
+&lt;script src=&quot;/the/path/to/datepicker.min.js&quot;&gt;&lt;/script&gt;</code></pre>
 
             <h3 id="the-locale-used-when-formatting-dates-that-include-non-numeric-date-parts">The locale used when formatting dates that include non-numeric date&#160;parts</h3>
             <p>Should no language be explicitly defined for use as described above (i.e. the auto-detect functionality has kicked in and downloaded a language file from the server), the date displayed within the datepicker U.I. will use the downloaded locale but all dates formatted for updating the associated input value will display in English. </p>
@@ -396,7 +396,7 @@ datePickerController.setDisabledDates(&quot;inp1&quot;, disabledDates);</code></
     finalOpacity:80
 });</code></pre>
 
-            <h2 id="showing-week-numbers">Showing week numbers</h2>
+            <h2 id="showing-week-numbers">Displaying week numbers</h2>
             <p>To display week numbers within the datepicker U.I, add the parameter &#8220;showWeeks&#8221; to the initialisation object and set the parameter value to &#8220;true&#8221;.</p>
 
             <h2 id="removing-the-today-button-from-the-u-i">Removing the &#8220;Today&#8221; button from the&#160;U.I.</h2>
@@ -437,7 +437,7 @@ datePickerController.setCursorDate(&quot;inp1&quot;, &quot;20081201&quot;);</cod
 
             <h2 id="setting-global-configuration-parameters">Setting Global configuration&#160;parameters</h2>
             <p>The script accepts the passing of Global configuration parameters by using a JSON Object within the script tag &#8211; an example of this is shown below:</p>
-            <pre><code class="language-markup">&lt;script type=&quot;text/javascript&quot; src=&quot;/the/path/to/datepicker.js&quot;&gt;
+            <pre><code class="language-markup">&lt;script src=&quot;/the/path/to/datepicker.js&quot;&gt;
 {
     &quot;nodrag&quot;:1,
     &quot;lang&quot;:&quot;en&quot;
@@ -446,9 +446,9 @@ datePickerController.setCursorDate(&quot;inp1&quot;, &quot;20081201&quot;);</cod
             <p>It&#8217;s worth noting that JSON notation doesn&#8217;t care about whitespace so the above code block could have been written in one line (with no line breaks). Should a native JSON parser exist, it is used to parse the JSON passed to the script.</p>
             <p>You can also pass the JSON Object programmatically by calling the <code>datePickerController.setGlobalOptions</code> method as is shown below:</p>
             <pre><code class="language-markup">&lt;!-- Load the datePicker script --&gt;
-&lt;script type=&quot;text/javascript&quot; src=&quot;/the/path/to/datepicker.min.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;/the/path/to/datepicker.min.js&quot;&gt;&lt;/script&gt;
 &lt;!-- Now pass our configuration Object to the &quot;setGlobalOptions&quot; method --&gt;
-&lt;script type=&quot;text/javascript&quot;&gt;
+&lt;script&gt;
 datePickerController.setGlobalOptions({
     &quot;nodrag&quot;:1
 });
@@ -839,24 +839,23 @@ datePickerController.setGlobalOptions({
             </table>
 
             <h2 id="installation-guide">Installation guide</h2>
-            <p>Upload the images downloaded with the distribution into a directory of your choice on the server. Now open the <code>datepicker.min.css</code> file in a text editor and find/replace the String <code>http://www.yourdomain.com/the/path/to/the/images/</code> with the absolute path to the folder into which you uploaded the images.</p>
-            <p>Now upload all CSS and JS files to your server, not forgetting to add the various <code>language.js</code> files within a directory named &#8220;lang&#8221;, itself resident within the same directory as the <code>datepicker.min.js</code> file.</p>
+            <p>A quick guide to installing the script on your server.</p>
+            <p><strong>Please note</strong>: Steps #1 and #2 are only necessary if you want to support Internet Explorer versions 6 &amp; 7. If no support for these browsers is required then jump straight to step #3.</p>
+            <dl>
+                <dt><strong>Step #1</strong>: Upload the images to your server</dt>
+                <dd><p>Upload the images downloaded with the distribution into a directory of your choice on the server.</p></dd>
+                <dt><strong>Step #2</strong>: Update the CSS file to point to the uploaded images</dt>
+                <dd><p>Open the <code>datepicker.min.css</code> file in a text editor and find/replace the String <code>http://www.yourdomain.com/the/path/to/the/images/</code> with the <em>absolute path</em> to the folder into which you uploaded the images in step #1.</p></dd>
+                <dt><strong>Step #3</strong>: Upload the JS and CSS files to your server</dt>
+                <dd><p>Upload all CSS and JS files to your server, not forgetting to add the various <code>language.js</code> files within a directory named &#8220;lang&#8221;, itself resident within the same directory as the <code>datepicker.min.js</code> file.</p></dd>
+            </dl>
+
             <p>The minified versions of the Javascript and CSS files can then be referenced within your HTML page; for example:</p>
             <pre><code class="language-markup">&lt;!-- Add the CSS file --&gt;
 &lt;link href="/the/path/to/datepicker.min.css" rel="stylesheet" type="text/css" /&gt;
 &lt;!-- Add the Javascript file --&gt;
 &lt;script src="/the/path/to/datepicker.min.js"&gt;&lt;/script&gt;
 </code></pre>
-
-            <h2 id="known-foibles">Known Foibles</h2>
-            <p>The inevitable list of known foibles:</p>
-
-            <h3 id="opera-pre-webkit">Opera (pre WebKit)</h3>
-            <p>Opera adds a non-customisable &#8220;focus&#8221; outline to each TD node which encapsulates the hidden span elements within the TD. This makes the focus outline in Opera stretch beyond the left hand side of the viewport and actually hinders accessibility for people with low vision. To stop this happening, I currently don&#8217;t add the hidden text in pre-WebKit Opera. If anyone can show me a better, non-problematic method for hiding the text (whilst still making it available to screen readers) that does not incur the wrath of the Opera focus outline I&#8217;d be happy to hear it.</p>
-
-            <h3 id="webkit">WebKit</h3>
-            <p>WebKit currently has redraw problem with the scale effect used on the cursor whenever the datepicker has keyboard control and so the effect has, for now,  been removed for Webkit based browsers.</p>
-
             <h2 id="the-license">The License</h2>
             <p>The script is now released under a double MIT/GPL2 license.  If you require another license, just ask politely.</p>
 
