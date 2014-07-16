@@ -195,7 +195,7 @@ datePickerController.createDatePicker({
             <p>If a date is sucessfully parsed, the associated form element is automatically updated to reflect the <em>desired</em> date format; for example, if a user enters &#8220;jan&#8221; and a &#8220;%m&#8221; format (a zero filled two character representation of the month) has been assigned to the form element, the script will automatically update the form element value to be &#8220;01&#8221;.</p>
 
             <h3 id="removing-the-use-of-the-javascript-date-parse-fallback">Removing the use of the Javascript Date.parse&#160;fallback</h3>
-            <p>You may not wish to use the native <code>Date.parse</code> method as a fallback parser. This can be achieved by setting the <code>dateparsefallback</code> configuration paramater when calling the <code>datePickerController.setGlobalOptions</code> method or by using JSON within the script tag &#8211; this is explained in more detail within the section <a href="#setting-global-configuration-parameters">Setting Global configuration parameters</a>.</p>
+            <p>You may not wish to use the native <code>Date.parse</code> method as a fallback parser. This can be achieved by setting the <code>dateparsefallback</code> configuration parameter when calling the <code>datePickerController.setGlobalOptions</code> method or by using JSON within the script tag &#8211; this is explained in more detail within the section <a href="#setting-global-configuration-parameters">Setting Global configuration parameters</a>.</p>
 
             <h2 id="displaying-a-status-bar">Displaying a status&#160;bar</h2>
             <p>To show a status bar, add the parameter &#8220;statusFormat&#8221; to the initialisation object and set the parameter value to be the date format you wish to have displayed; for example:</p>
@@ -209,11 +209,11 @@ datePickerController.createDatePicker({
 });</code></pre>
 
             <h3 id="setting-the-status-bar-date-format-for-all-datepickers">Setting the status bar date format for all&#160;datepickers</h3>
-            <p>Setting a status bar date format to be shared across all datepickers can be achieved by setting the <code>statusformat</code> configuration paramater when calling the  <code>datePickerController.setGlobalOptions</code> method or by using JSON within the script tag &#8211; this is explained in more detail within the section <a href="#setting-global-configuration-parameters">Setting Global configuration parameters</a>. </p>
+            <p>Setting a status bar date format to be shared across all datepickers can be achieved by setting the <code>statusformat</code> configuration parameter when calling the  <code>datePickerController.setGlobalOptions</code> method or by using JSON within the script tag &#8211; this is explained in more detail within the section <a href="#setting-global-configuration-parameters">Setting Global configuration parameters</a>. </p>
 
             <h3 id="showing-bespoke-messages-within-the-status-bar">Displaying bespoke messages within the status&#160;bar</h3>
             <p>Short text messages can be displayed within the status bar. Messages can either be assigned globally i.e. shared across all datepickers, or individually i.e. for a single datepicker instance only. </p>
-            <p>Setting messages to be shared across all datepickers can be achieved by setting the <code>bespoketitles</code> configuration paramater when calling the <code>datePickerController.setGlobalOptions</code> method or by using JSON within the script tag &#8211; this is explained in more detail within the section <a href="#setting-global-configuration-parameters">Setting Global configuration parameters</a>.</p>
+            <p>Setting messages to be shared across all datepickers can be achieved by setting the <code>bespoketitles</code> configuration parameter when calling the <code>datePickerController.setGlobalOptions</code> method or by using JSON within the script tag &#8211; this is explained in more detail within the section <a href="#setting-global-configuration-parameters">Setting Global configuration parameters</a>.</p>
             <p>To set messages for a specific datepicker instance, add the parameter &#8220;bespokeTitles&#8221; to the initialisation object and set the parameter value to itself be an Object of key/value pairs &#8211; where the keys represent a YYYYMMDD date String and the associated values the message to show for the date in question. The &#8220;*&#8221; wilcard character can be used within the keys; for example:</p>
             <pre><code class="language-javascript">datePickerController.createDatePicker({
     formElements:{
@@ -419,7 +419,7 @@ datePickerController.setCursorDate(&quot;inp1&quot;, &quot;20081201&quot;);</cod
             <p>To disable the drag effect for an individual popup datepicker, add the parameter &#8220;noDrag&#8221; to the initialisation Object and set the parameter value to true.</p>
 
             <h3 id="disabling-the-drag-effect-for-all-datepickers">Disabling the drag effect for all&#160;datepickers</h3>
-            <p>Disabling the drag effect for all datepickers can be achieved by setting the <code>nodrag</code> configuration paramater when calling <code>datePickerController.setGlobalOptions</code> method or by using JSON within the script tag &#8211; this is explained in more detail within the section <a href="#setting-global-configuration-parameters">Setting Global configuration parameters</a>.</p>
+            <p>Disabling the drag effect for all datepickers can be achieved by setting the <code>nodrag</code> configuration parameter when calling <code>datePickerController.setGlobalOptions</code> method or by using JSON within the script tag &#8211; this is explained in more detail within the section <a href="#setting-global-configuration-parameters">Setting Global configuration parameters</a>.</p>
 
             <h2 id="filling-the-entire-grid-with-dates">Filling the entire grid with&#160;dates</h2>
             <p>Should you wish to fill the entire grid with dates, add the parameter &#8220;fillGrid&#8221; to the initialisation object and set the parameter value to true.</p>
