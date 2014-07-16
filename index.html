@@ -37,8 +37,8 @@
                 <li>Can display an optional status bar and week numbers</li>
                 <li>Can be dragged within the viewport by the user</li>
                 <li>Global configuration parameters can be specified using JSON within the script tag itself</li>
-                <li>The &#8220;button&#8221; used for popup datepickers can now be styled for default, hover, focus, active and disabled states, be arbitrarily positioned within the DOM and removed from the document tabindex if so desired</li>
-                <li>Inline datepickers are now available, are automatically added to the document tabindex and can be arbitrarily positioned within the DOM</li>
+                <li>The &#8220;button&#8221; used for popup datepickers can be styled for default, hover, focus, active and disabled states, be arbitrarily positioned within the DOM and removed from the document tabindex if so desired</li>
+                <li>Inline datepickers are available, are automatically added to the document tabindex and can be arbitrarily positioned within the DOM</li>
                 <li>A bespoke final opacity can be defined and if desired, the fade in/out animation effect disabled</li>
                 <li>The entire U.I. grid can now be filled with dates</li>
                 <li>The &#8220;Today&#8221; button can be removed from the U.I.</li>
@@ -66,11 +66,11 @@ datePickerController.createDatePicker({
 &lt;script&gt;
 datePickerController.createDatePicker({
     formElements:{
-        // Associate inp1 with the day date part
+        // Associate #inp1 with the day date part
         &quot;inp1&quot;:&quot;%d&quot;,
-        // Associate inp2 with the month date part
+        // Associate #inp2 with the month date part
         &quot;inp2&quot;:&quot;%m&quot;,
-        // Associate inp3 with the year date part
+        // Associate #inp3 with the year date part
         &quot;inp3&quot;:&quot;%Y&quot;
     }
 });
@@ -106,7 +106,7 @@ datePickerController.createDatePicker({
             <p>Should you wish to set a bespoke tabIndex for the activation button, add the parameter &#8220;bespokeTabIndex&#8221; to the the initialisation Object and set the parameter value to be an Integer representing the desired tabindex.</p>
 
             <h3 id="removing-all-activation-buttons-from-the-document-tabindex">Removing all activation buttons from the document&#160;tabIndex</h3>
-            <p>This can be only be done on a global level by using the &#8220;buttontabindex&#8221; property within the JSON passed to the script &#8211; this is explained in more detail within the section <a href="#setting-global-configuration-parameters">Setting Global configuration parameters</a>.</p>
+            <p>This can be only be done on a global level by using the <code>buttontabindex</code> property within the JSON passed to the script &#8211; this is explained in more detail within the section <a href="#setting-global-configuration-parameters">Setting Global configuration parameters</a>.</p>
             <p>Removing the buttons from the document tabIndex means, of course, that all &#8220;popup&#8221; datepickers are no longer keyboard accessible and is therefore not recommended. </p>
 
             <h2 id="inline-non-popup-datepickers">Inline (non-popup) datepickers</h2>
@@ -191,7 +191,7 @@ datePickerController.createDatePicker({
 
             <h2 id="date-parsing">Date parsing</h2>
             <p>The script will first check to see if the form element value matches the associated date format. If that does not produce a valid date and a language file has been downloaded, all month names in that language are replaced by their English counterparts; for example, the French &#8220;mars&#8221; would be replaced by the English &#8220;March&#8221;. Any English ordinal suffix is then removed, dashes &#8220;-&#8221; are replaced by forward slashes &#8220;/&#8221; (as some browsers just don&#8217;t like parsing dates containing dashes) and finally, the result is passed to the native Javascript <code>Date.parse</code> method.</p>
-            <p>The <code>Date.parse</code> method should, theoretically, parse a string representing an RFC2822 or ISO 8601 date &#8211; which is way better than any date parser I would hazard to write. Unfortunately, the <code>Date.parse</code> implementation is platform independant though so don&#8217;t expect consistency, rhyme or reason.</p>
+            <p>The <code>Date.parse</code> method should, theoretically, parse a string representing an RFC2822 or ISO 8601 date &#8211; which is way better than any date parser I would hazard to write. Unfortunately, the <code>Date.parse</code> implementation is platform independant so don&#8217;t expect consistency, rhyme or reason.</p>
             <p>If a date is sucessfully parsed, the associated form element is automatically updated to reflect the <em>desired</em> date format; for example, if a user enters &#8220;jan&#8221; and a &#8220;%m&#8221; format (a zero filled two character representation of the month) has been assigned to the form element, the script will automatically update the form element value to be &#8220;01&#8221;.</p>
 
             <h3 id="removing-the-use-of-the-javascript-date-parse-fallback">Removing the use of the Javascript Date.parse&#160;fallback</h3>
@@ -209,11 +209,11 @@ datePickerController.createDatePicker({
 });</code></pre>
 
             <h3 id="setting-the-status-bar-date-format-for-all-datepickers">Setting the status bar date format for all&#160;datepickers</h3>
-            <p>Setting a status bar date format to be shared across all datepickers can be achieved by calling the <code>datePickerController.setGlobalOptions</code> method or by using JSON within the script tag &#8211; this is explained in more detail within the section <a href="#setting-global-configuration-parameters">Setting Global configuration parameters</a>. </p>
+            <p>Setting a status bar date format to be shared across all datepickers can be achieved by setting the <code>statusformat</code> configuration paramater when calling the  <code>datePickerController.setGlobalOptions</code> method or by using JSON within the script tag &#8211; this is explained in more detail within the section <a href="#setting-global-configuration-parameters">Setting Global configuration parameters</a>. </p>
 
             <h3 id="showing-bespoke-messages-within-the-status-bar">Displaying bespoke messages within the status&#160;bar</h3>
             <p>Short text messages can be displayed within the status bar. Messages can either be assigned globally i.e. shared across all datepickers, or individually i.e. for a single datepicker instance only. </p>
-            <p>Setting messages to be shared across all datepickers can be achieved by calling the <code>datePickerController.setGlobalOptions</code> method or by using JSON within the script tag &#8211; this is explained in more detail within the section <a href="#setting-global-configuration-parameters">Setting Global configuration parameters</a>.</p>
+            <p>Setting messages to be shared across all datepickers can be achieved by setting the <code>bespoketitles</code> configuration paramater when calling the <code>datePickerController.setGlobalOptions</code> method or by using JSON within the script tag &#8211; this is explained in more detail within the section <a href="#setting-global-configuration-parameters">Setting Global configuration parameters</a>.</p>
             <p>To set messages for a specific datepicker instance, add the parameter &#8220;bespokeTitles&#8221; to the initialisation object and set the parameter value to itself be an Object of key/value pairs &#8211; where the keys represent a YYYYMMDD date String and the associated values the message to show for the date in question. The &#8220;*&#8221; wilcard character can be used within the keys; for example:</p>
             <pre><code class="language-javascript">datePickerController.createDatePicker({
     formElements:{
@@ -419,7 +419,7 @@ datePickerController.setCursorDate(&quot;inp1&quot;, &quot;20081201&quot;);</cod
             <p>To disable the drag effect for an individual popup datepicker, add the parameter &#8220;noDrag&#8221; to the initialisation Object and set the parameter value to true.</p>
 
             <h3 id="disabling-the-drag-effect-for-all-datepickers">Disabling the drag effect for all&#160;datepickers</h3>
-            <p>Disabling the drag effect for all datepickers can be achieved by calling the <code>datePickerController.setGlobalOptions</code> method or using JSON within the script tag &#8211; this is explained in more detail within the section <a href="#setting-global-configuration-parameters">Setting Global configuration parameters</a>.</p>
+            <p>Disabling the drag effect for all datepickers can be achieved by setting the <code>nodrag</code> configuration paramater when calling <code>datePickerController.setGlobalOptions</code> method or by using JSON within the script tag &#8211; this is explained in more detail within the section <a href="#setting-global-configuration-parameters">Setting Global configuration parameters</a>.</p>
 
             <h2 id="filling-the-entire-grid-with-dates">Filling the entire grid with&#160;dates</h2>
             <p>Should you wish to fill the entire grid with dates, add the parameter &#8220;fillGrid&#8221; to the initialisation object and set the parameter value to true.</p>
