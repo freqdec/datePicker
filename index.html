@@ -25,7 +25,7 @@
             <h2 id="at-a-glance">At a glance&#8230;</h2>
             <ul>
                 <li>Keyboard shortcuts adhere to <a href="http://access.aol.com/dhtml-style-guide-working-group/#datepicker">The DHTML Style Guide Working Group (DSGWG) recommendations</a></li>
-                <li>Accessibility enhancements including support for ARIA Roles and States</li>
+                <li>Accessibility enhancements includz support for ARIA Roles and States</li>
                 <li>The script can parse and format dates using a subset of the <a href="http://www.php.net/date/">PHP date</a> conversion specifiers</li>
                 <li>Both upper and lower date limits can be set</li>
                 <li>Bespoke days of the week can be disabled</li>
@@ -191,7 +191,7 @@ datePickerController.createDatePicker({
 
             <h2 id="date-parsing">Date parsing</h2>
             <p>The script will first check to see if the form element value matches the associated date format. If that does not produce a valid date and a language file has been downloaded, all month names in that language are replaced by their English counterparts; for example, the French &#8220;mars&#8221; would be replaced by the English &#8220;March&#8221;. Any English ordinal suffix is then removed, dashes &#8220;-&#8221; are replaced by forward slashes &#8220;/&#8221; (as some browsers just don&#8217;t like parsing dates containing dashes) and finally, the result is passed to the native Javascript <code>Date.parse</code> method.</p>
-            <p>The <code>Date.parse</code> method should, theoretically, parse a string representing an RFC2822 or ISO 8601 date &#8211; which is way better than any date parser I would hazard to write. Unfortunately, the <code>Date.parse</code> implementation is platform independant so don&#8217;t expect consistency, rhyme or reason.</p>
+            <p>The <code>Date.parse</code> method should, theoretically, parse a string representing an RFC2822 or ISO 8601 date &#8211; which is way better than any date parser I would hazard to write. Unfortunately, the <code>Date.parse</code> implementation is platform dependant so don&#8217;t expect consistency, rhyme or reason.</p>
             <p>If a date is sucessfully parsed, the associated form element is automatically updated to reflect the <em>desired</em> date format; for example, if a user enters &#8220;jan&#8221; and a &#8220;%m&#8221; format (a zero filled two character representation of the month) has been assigned to the form element, the script will automatically update the form element value to be &#8220;01&#8221;.</p>
 
             <h3 id="removing-the-use-of-the-javascript-date-parse-fallback">Removing the use of the Javascript Date.parse&#160;fallback</h3>
@@ -212,7 +212,7 @@ datePickerController.createDatePicker({
             <p>Setting a status bar date format to be shared across all datepickers can be achieved by setting the <code>statusformat</code> configuration parameter when calling the  <code>datePickerController.setGlobalOptions</code> method or by using JSON within the script tag &#8211; this is explained in more detail within the section <a href="#setting-global-configuration-parameters">Setting Global configuration parameters</a>. </p>
 
             <h3 id="showing-bespoke-messages-within-the-status-bar">Displaying bespoke messages within the status&#160;bar</h3>
-            <p>Short text messages can be displayed within the status bar. Messages can either be assigned globally i.e. shared across all datepickers, or individually i.e. for a single datepicker instance only. </p>
+            <p>Short text messages can be displayed within the status bar. Each message is associated to a specific date is displayed whenever this date represents the current cursor. Messages can either be assigned globally i.e. shared across all datepickers, or individually i.e. for a single datepicker instance only. </p>
             <p>Setting messages to be shared across all datepickers can be achieved by setting the <code>bespoketitles</code> configuration parameter when calling the <code>datePickerController.setGlobalOptions</code> method or by using JSON within the script tag &#8211; this is explained in more detail within the section <a href="#setting-global-configuration-parameters">Setting Global configuration parameters</a>.</p>
             <p>To set messages for a specific datepicker instance, add the parameter &#8220;bespokeTitles&#8221; to the initialisation object and set the parameter value to itself be an Object of key/value pairs &#8211; where the keys represent a YYYYMMDD date String and the associated values the message to show for the date in question. The &#8220;*&#8221; wilcard character can be used within the keys; for example:</p>
             <pre><code class="language-javascript">datePickerController.createDatePicker({
@@ -300,7 +300,7 @@ datePickerController.createDatePicker({
             <h3 id="stipulating-a-language-to-use">Stipulating a language to&#160;use</h3>
             <p>You can disable the detect locale functionality and stipulate the required language by either using JSON within the script tag &#8211; this is explained in more detail within the section <a href="#setting-global-configuration-parameters">Setting Global configuration parameters</a> &#8211; or, more easily, by adding the desired <code>language.js</code> file <em>before</em> the <code>datepicker.min.js</code> file within the HTML source; for example:</p>
             <pre><code class="language-markup">&lt;!-- Explicitly add the French &quot;fr.js&quot; language file --&gt;
-&lt;script src=&quot;/the/path/to/fr.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;/the/path/to/lang/fr.js&quot;&gt;&lt;/script&gt;
 &lt;!-- Now add the datepicker.min.js file --&gt;
 &lt;script src=&quot;/the/path/to/datepicker.min.js&quot;&gt;&lt;/script&gt;</code></pre>
 
@@ -372,7 +372,8 @@ datePickerController.createDatePicker(opts);
 datePickerController.setDisabledDates(&quot;inp1&quot;, disabledDates);</code></pre>
 
             <h2 id="enabling-date-selection">Enabling date selection</h2>
-            <p>Should you wish to enable dates that have been <a href="#disabling-date-selection">previously disabled</a> then use the <code>setEnabledDates</code> or <code>addEnabledDates</code> methods of the <code>datePickerController</code> Object. The <code>setEnabledDates</code> method will delete the current list of enabled dates before adding the new ones while the <code>addEnabledDates</code> method will add the dates to the list already present.</p>
+            <p>Should you wish to enable dates that have been <a href="#disabling-date-selection">previously disabled</a> then use the <code>setEnabledDates</code> or <code>addEnabledDates</code> methods of the <code>datePickerController</code> Object.
+            <p>The <code>setEnabledDates</code> method will replace the current list of enabled dates with the new list while the <code>addEnabledDates</code> method will add the new dates to the list already assigned to the datepicker.</p>
             <p>Both methods accept an Object whose keys represent a YYYYMMDD formatted date String and associated value another YYYYMMDD formatted date String (to indicate a date range) or simply the Integer value 1 (to indicate an individual date).</p>
             <p>Wildcards can be used when stipulating individual dates to disable/enable by substituting the day, month or year parts with asterisks (&#8221;*&#8221;).</p>
 
