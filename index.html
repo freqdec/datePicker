@@ -30,17 +30,17 @@
                 <li>Both upper and lower date limits can be set</li>
                 <li>Bespoke days of the week can be disabled</li>
                 <li>Bespoke dates can be disabled/enabled and &#8220;*&#8221; wildcards used to stipulate the dates in question</li>
-                <li>Bespoke days of the week can be highlighted</li>
+                <li>Bespoke days of the week can be highlighted within the U.I.</li>
                 <li>Works with any combination of text inputs or select lists</li>
                 <li>DOM friendly &#8211; the datepicker is only added to the DOM when actually required</li>
                 <li>Includes a &#8220;<a href="#localisation">smart localisation</a>&#8221; option and has been translated into <a href="#currently-available-languages">many languages</a></li>
                 <li>Can display an optional status bar and week numbers</li>
-                <li>Can be dragged within the viewport by the user</li>
+                <li>Popup datepickers can be dragged within the viewport by the user</li>
                 <li>Global configuration parameters can be specified using JSON within the script tag itself</li>
                 <li>The &#8220;button&#8221; used for popup datepickers can be styled for default, hover, focus, active and disabled states, be arbitrarily positioned within the DOM and removed from the document tabindex if so desired</li>
                 <li>Inline datepickers are available, are automatically added to the document tabindex and can be arbitrarily positioned within the DOM</li>
                 <li>A bespoke final opacity can be defined and if desired, the fade in/out animation effect disabled</li>
-                <li>The entire U.I. grid can now be filled with dates</li>
+                <li>The entire U.I. grid can be filled with dates</li>
                 <li>The &#8220;Today&#8221; button can be removed from the U.I.</li>
                 <li>Fully skinnable with CSS</li>
                 <li>Compatible down to IE6</li>
@@ -48,7 +48,7 @@
 
             <h2 id="creating-datepickers">Creating datepickers</h2>
             <p>Datepickers are created by calling the <code>datePickerController.createDatePicker</code> method, which expects an initialisation Object as the sole argument. An example of a basic creation call is shown below:</p>
-            <pre><code class="language-markup">&lt;input type=&quot;text&quot; id=&quot;inp1&quot; name=&quot;inp1&quot; /&gt;
+            <pre id="example-creating-datepickers"><code class="language-markup">&lt;input type=&quot;text&quot; id=&quot;inp1&quot; name=&quot;inp1&quot; /&gt;
 &lt;script&gt;
 // Attach a datepicker to the above input element
 datePickerController.createDatePicker({
@@ -59,8 +59,8 @@ datePickerController.createDatePicker({
 &lt;/script&gt;</code></pre>
 
             <h2 id="associating-form-elements-with-a-datepicker">Associating form elements with a&#160;datepicker</h2>
-            <p>Each datepicker has to be associated with at least one form element and each form element has to be associated with a valid <a href="#date-formats">date format</a>. This is acheived by setting the &#8220;formElement&#8221; parameter passed within the initialisation Object; for example, the following code will associate a datepicker with the three distinct form elements whose ids are &#8220;inp1&#8221; (representing the day date part), &#8220;inp2&#8221; (representing the month date part) and &#8220;inp3&#8221; (representing the year date part):</p>
-            <pre><code class="language-markup">&lt;input type=&quot;text&quot; id=&quot;inp1&quot; name=&quot;inp1&quot; /&gt;
+            <p>Each datepicker has to be associated with at least one form element and each form element has to be associated with a valid <a href="#date-formats">date format</a>. This is acheived by setting the <code>formElements</code> parameter passed within the initialisation Object; for example, the following code will associate a datepicker with the three distinct form elements whose ids are &#8220;inp1&#8221; (representing the day date part), &#8220;inp2&#8221; (representing the month date part) and &#8220;inp3&#8221; (representing the year date part):</p>
+            <pre id="example-associating-form-elements-with-a-datepicker"><code class="language-markup">&lt;input type=&quot;text&quot; id=&quot;inp1&quot; name=&quot;inp1&quot; /&gt;
 &lt;input type=&quot;text&quot; id=&quot;inp2&quot; name=&quot;inp2&quot; /&gt;
 &lt;input type=&quot;text&quot; id=&quot;inp3&quot; name=&quot;inp3&quot; /&gt;
 &lt;script&gt;
@@ -75,19 +75,20 @@ datePickerController.createDatePicker({
     }
 });
 &lt;/script&gt;</code></pre>
+            <p>The <code>formElements</code> parameter is itself an Object whose keys represent the unique id of an associated form element and whose values represent the date format to assign to the form element in question.</p>
 
-            <h3 id="the-order-of-the-values-set-within-the-formelements-parameter">The order of the values set within the &#8220;formElements&#8221;&#160;parameter</h3>
-            <p>The first form element stipulated within the <code>formElements</code> parameter is the element that receives focus after a date has been successfuly selected using the datepicker; for example, the previous example will set the focus on the &#8220;inp1&#8221; form element as it was the first element listed within the <code>formElements</code> parameter.</p>
+            <h3 id="the-order-of-the-values-set-within-the-formelements-parameter">The order of the values set within the &#8220;formElements&#8221; parameter</h3>
+            <p>The first form element stipulated within the <code>formElements</code> parameter is the element that receives focus after a date has been successfuly selected using the datepicker; for example, the <a href="#example-associating-form-elements-with-a-datepicker">previous example</a> will set the focus on the &#8220;inp1&#8221; form element as it was the first element listed within the <code>formElements</code> parameter.</p>
             <p>Additionally, the id of the first form element listed is the id that needs to be used when calling certain methods of the <code>datePickerController</code> Object; for example, to destroy the datepicker created within the previous example, the id &#8220;inp1&#8221; would be passed to the <code>destroyDatePicker</code> method as is shown below:</p>
-            <pre><code class="language-javascript">// Remove the datepicker created above
+            <pre id="example-the-order-of-the-values-set-within-the-formelements-parameter"><code class="language-javascript">// Remove the datepicker created above
 datePickerController.destroyDatePicker(&quot;inp1&quot;);</code></pre>
 
             <h2 id="popup-datepickers">Popup datepickers</h2>
             <p>By default, the script creates &#8220;popup&#8221; datepickers i.e. an activation button is positioned beside the associated form element and the datepicker only appears when the button has been activated using the mouse or the keyboard. The activation button is, by default, positioned directly after the associated form element within the DOM.</p>
 
             <h3 id="positioning-the-activation-button">Positioning the activation&#160;button</h3>
-            <p>Should you wish to position the activation button within a specific DOM node, add the parameter &#8220;positioned&#8221; to the initialisation Object and set the parameter value to be the id of the DOM node that you wish to position the button within; for example:</p>
-            <pre><code class="language-markup">&lt;!-- The span that will hold the activation button --&gt;
+            <p>Should you wish to position the activation button within a specific DOM node, add the parameter <code>positioned</code> to the initialisation Object and set the parameter value to be the id of the DOM node that you wish to position the button within; for example:</p>
+            <pre id="example-positioning-the-activation-button"><code class="language-markup">&lt;!-- The span that will hold the activation button --&gt;
 &lt;span id=&quot;pos-demo&quot;&gt;&lt;/span&gt;
 &lt;!-- The input associated with the datepicker --&gt;
 &lt;input id=&quot;inp1&quot; name=&quot;inp1&quot; /&gt;
@@ -103,17 +104,17 @@ datePickerController.createDatePicker({
 &lt;/script&gt;</code></pre>
 
             <h3 id="setting-a-bespoke-tabindex-for-the-activation-button">Setting a bespoke tabIndex for the activation&#160;button</h3>
-            <p>Should you wish to set a bespoke tabIndex for the activation button, add the parameter &#8220;bespokeTabIndex&#8221; to the the initialisation Object and set the parameter value to be an Integer representing the desired tabindex.</p>
+            <p>Should you wish to set a bespoke tabIndex for the activation button, add the parameter <code>bespokeTabIndex</code> to the the initialisation Object and set the parameter value to be an Integer representing the desired tabindex.</p>
 
             <h3 id="removing-all-activation-buttons-from-the-document-tabindex">Removing all activation buttons from the document&#160;tabIndex</h3>
             <p>This can be only be done on a global level by using the <code>buttontabindex</code> property within the JSON passed to the script &#8211; this is explained in more detail within the section <a href="#setting-global-configuration-parameters">Setting Global configuration parameters</a>.</p>
             <p>Removing the buttons from the document tabIndex means, of course, that all &#8220;popup&#8221; datepickers are no longer keyboard accessible and is therefore not recommended. </p>
 
             <h2 id="inline-non-popup-datepickers">Inline (non-popup) datepickers</h2>
-            <p>If you wish to have the datepicker always displayed on screen i.e. with no activation button; add the parameter &#8220;nopopup&#8221; to the initialisation Object and set the parameter value to &#8220;true&#8221;. By default, the script adds inline datepickers to the DOM as the next sibling of the first associated form element.</p>
+            <p>If you wish to have the datepicker always displayed on screen i.e. with no activation button; add the parameter <code>nopopup</code> to the initialisation Object and set the parameter value to &#8220;true&#8221;. By default, the script adds inline datepickers to the DOM as the next sibling of the first associated form element.</p>
 
             <h3 id="positioning-inline-datepickers">Positioning inline datepickers</h3>
-            <p>Should you wish to position inline datepickers within a bespoke DOM node, add the parameter &#8220;positioned&#8221; to the initialisation Object and set the parameter value to be the id of the DOM node that you wish to position the datepicker within. </p>
+            <p>Should you wish to position inline datepickers within a bespoke DOM node, add the parameter <code>positioned</code> to the initialisation Object and set the parameter value to be the id of the DOM node that you wish to position the datepicker within. </p>
 
             <h2 id="date-formats">Date formats</h2>
             <p>The following list of conversion specifiers are valid for use within the date format:</p>
@@ -198,7 +199,7 @@ datePickerController.createDatePicker({
             <p>You may not wish to use the native <code>Date.parse</code> method as a fallback parser. This can be achieved by setting the <code>dateparsefallback</code> configuration parameter when calling the <code>datePickerController.setGlobalOptions</code> method or by using JSON within the script tag &#8211; this is explained in more detail within the section <a href="#setting-global-configuration-parameters">Setting Global configuration parameters</a>.</p>
 
             <h2 id="displaying-a-status-bar">Displaying a status&#160;bar</h2>
-            <p>To show a status bar, add the parameter &#8220;statusFormat&#8221; to the initialisation object and set the parameter value to be the date format you wish to have displayed; for example:</p>
+            <p>To show a status bar, add the parameter <code>statusFormat</code> to the initialisation object and set the parameter value to be the date format you wish to have displayed; for example:</p>
 
             <pre><code class="language-javascript">datePickerController.createDatePicker({
     formElements:{
@@ -214,7 +215,7 @@ datePickerController.createDatePicker({
             <h3 id="showing-bespoke-messages-within-the-status-bar">Displaying bespoke messages within the status&#160;bar</h3>
             <p>Short text messages can be displayed within the status bar. Each message is associated to a specific date is displayed whenever this date represents the current cursor. Messages can either be assigned globally i.e. shared across all datepickers, or individually i.e. for a single datepicker instance only. </p>
             <p>Setting messages to be shared across all datepickers can be achieved by setting the <code>bespoketitles</code> configuration parameter when calling the <code>datePickerController.setGlobalOptions</code> method or by using JSON within the script tag &#8211; this is explained in more detail within the section <a href="#setting-global-configuration-parameters">Setting Global configuration parameters</a>.</p>
-            <p>To set messages for a specific datepicker instance, add the parameter &#8220;bespokeTitles&#8221; to the initialisation object and set the parameter value to itself be an Object of key/value pairs &#8211; where the keys represent a YYYYMMDD date String and the associated values the message to show for the date in question. The &#8220;*&#8221; wilcard character can be used within the keys; for example:</p>
+            <p>To set messages for a specific datepicker instance, add the parameter <code>bespokeTitles</code> to the initialisation object and set the parameter value to itself be an Object of key/value pairs &#8211; where the keys represent a YYYYMMDD date String and the associated values the message to show for the date in question. The &#8220;*&#8221; wilcard character can be used within the keys; for example:</p>
             <pre><code class="language-javascript">datePickerController.createDatePicker({
     formElements:{
         &quot;inp1&quot;:&quot;%d/%m/%Y&quot;
@@ -242,7 +243,7 @@ datePickerController.createDatePicker({
             <p>The <code>setBespokeTitles</code> method replaces any previous messages assigned to the datepicker with the new list of messages while the <code>addBespokeTitles</code> adds the new messages to the existing list.  </p>
 
             <h2 id="highlighting-days-of-the-week">Highlighting days of the&#160;week</h2>
-            <p>By default, Saturday and Sunday are highlighted in another colour within the datepicker U.I. Should you wish to highlight other days of the week, add the parameter &#8220;highlightDays&#8221; to the initialisation object and set the parameter value to be a seven item Array where the numeric Array keys each represent a day of the week (index 0 represents Monday through index 6, which represents Sunday) and the corresponding value (either a &#8220;0&#8221; or &#8220;1&#8221;) indicates if the day in question should be highlighted or not; for example:</p>
+            <p>By default, Saturday and Sunday are highlighted in another colour within the datepicker U.I. Should you wish to highlight other days of the week, add the parameter <code>highlightDays</code> to the initialisation object and set the parameter value to be a seven item Array where the numeric Array keys each represent a day of the week (index 0 represents Monday through index 6, which represents Sunday) and the corresponding value (either a &#8220;0&#8221; or &#8220;1&#8221;) indicates if the day in question should be highlighted or not; for example:</p>
             <pre><code class="language-javascript">datePickerController.createDatePicker({
     formElements:{
         &quot;inp1&quot;:&quot;%d/%m/%Y&quot;
@@ -314,7 +315,7 @@ datePickerController.createDatePicker({
             <p>Additionally, users can click on any of the day headers to dynamically set it as the first day of the week (or alternately, press the numbers 2-7 on the regular keyboard or numpad whenever the datepicker has keyboard focus).</p>
 
             <h2 id="limiting-date-selection-i-e-setting-date-ranges">Limiting date selection i.e. setting date&#160;ranges</h2>
-            <p>To add a lower or upper limit for date selection, add the parameters &#8220;rangeHigh&#8221; and/or &#8220;rangeLow&#8221; to the initialisation object and set the parameter values to be either a YYYYMMDD date format String or a Date Object; for example, the following code will limit date selection outside of the range 13/03/1970 and today's date:</p>
+            <p>To add a lower or upper limit for date selection, add the parameters <code>rangeHigh</code> and/or <code>rangeLow</code> to the initialisation object and set the parameter values to be either a YYYYMMDD date format String or a Date Object; for example, the following code will limit date selection outside of the range 13/03/1970 and today's date:</p>
             <pre><code class="language-markup">&lt;input type=&quot;text&quot; id=&quot;inp1&quot; name=&quot;inp1&quot; /&gt;
 &lt;script&gt;
 datePickerController.createDatePicker({
@@ -340,7 +341,7 @@ datePickerController.setRangeHigh(&quot;inp1&quot;, new Date());</code></pre>
             <p>As a select list can only ever stipulate a finite range, the datepicker will automatically create the higher and lower ranges whenever a selectlist is used to represent the year part of the date format i.e. if the year select list starts at 1960 and ends at 1990, the associated datepicker will automatically disallow the selection of dates outside of this range.</p>
 
             <h2 id="disabling-day-selection">Disabling day selection</h2>
-            <p>Should you wish to disable certain days of the week, add the parameter &#8220;disabledDays&#8221; to the initialisation object and set the parameter value to be a seven item Array where the numeric Array keys each represent a day of the week (index 0 represents Monday through index 6, which represents Sunday) and the corresponding value (either a &#8220;0&#8221; or &#8220;1&#8221;) indicates if the day in question should be disabled or not; for example:</p>
+            <p>Should you wish to disable certain days of the week, add the parameter <code>disabledDays</code> to the initialisation object and set the parameter value to be a seven item Array where the numeric Array keys each represent a day of the week (index 0 represents Monday through index 6, which represents Sunday) and the corresponding value (either a &#8220;0&#8221; or &#8220;1&#8221;) indicates if the day in question should be disabled or not; for example:</p>
             <pre><code  class="language-javascript">datePickerController.createDatePicker({
     formElements:{
         &quot;inp1&quot;:&quot;%d/%m/%Y&quot;
@@ -350,7 +351,8 @@ datePickerController.setRangeHigh(&quot;inp1&quot;, new Date());</code></pre>
 });</code></pre>
 
             <h2 id="disabling-date-selection">Disabling date selection</h2>
-            <p>Dates can be dynamically disabled by calling the <code>setDisabledDates</code> or <code>addDisabledDates</code> methods of the <code>datePickerController</code> Object. The <code>setDisabledDates</code> method will replace the current list of disabled dates with the new list while the <code>addDisabledDates</code> method will add the new dates to the list already assigned to the datepicker.</p>
+            <p>Dates can be dynamically disabled by calling the <code>setDisabledDates</code> or <code>addDisabledDates</code> methods of the <code>datePickerController</code> Object.</p>
+            <p>The <code>setDisabledDates</code> method will replace the current list of disabled dates with the new list while the <code>addDisabledDates</code> method will add the new dates to the list already assigned to the datepicker.</p>
             <p>Both methods accept an Object whose keys represent a YYYYMMDD formatted date String and associated value another YYYYMMDD formatted date String (to indicate a date range) or simply the Integer value 1 (to indicate an individual date).</p>
             <p>Wildcards can be used when stipulating individual dates to disable/enable by substituting the day, month or year parts with asterisks (&#8221;*&#8221;).</p>
             <pre><code class="language-javascript">var opts = {
@@ -375,10 +377,10 @@ datePickerController.setDisabledDates(&quot;inp1&quot;, disabledDates);</code></
             <p>Should you wish to enable dates that have been <a href="#disabling-date-selection">previously disabled</a> then use the <code>setEnabledDates</code> or <code>addEnabledDates</code> methods of the <code>datePickerController</code> Object.
             <p>The <code>setEnabledDates</code> method will replace the current list of enabled dates with the new list while the <code>addEnabledDates</code> method will add the new dates to the list already assigned to the datepicker.</p>
             <p>Both methods accept an Object whose keys represent a YYYYMMDD formatted date String and associated value another YYYYMMDD formatted date String (to indicate a date range) or simply the Integer value 1 (to indicate an individual date).</p>
-            <p>Wildcards can be used when stipulating individual dates to disable/enable by substituting the day, month or year parts with asterisks (&#8221;*&#8221;).</p>
+            <p>Wildcards can be used when stipulating individual dates to disable/enable by substituting the day, month or year parts with asterisks (&#8220;*&#8221;).</p>
 
             <h2 id="disabling-the-fade-in-animation-effect">Disabling the fade-in animation&#160;effect</h2>
-            <p>To disable the fade effect, add the parameter &#8220;noFadeEffect&#8221; to the initialisation object and set the parameter value to &#8220;true&#8221;; for example:</p>
+            <p>To disable the fade effect, add the parameter <code>noFadeEffect</code> to the initialisation object and set the parameter value to &#8220;true&#8221;; for example:</p>
             <pre><code class="language-javascript">datePickerController.createDatePicker({
     formElements:{
         &quot;inp1&quot;:&quot;%d/%m/%Y&quot;
@@ -388,7 +390,7 @@ datePickerController.setDisabledDates(&quot;inp1&quot;, disabledDates);</code></
 });</code></pre>
 
             <h2 id="setting-a-bespoke-opacity">Setting a bespoke&#160;opacity</h2>
-            <p>To set a bespoke final opacity for a datepicker, add the parameter &#8220;finalOpacity&#8221; to the initialisation Object and set the parameter value to be an Integer value between 20 and 100; for example:</p>
+            <p>To set a bespoke final opacity for a datepicker, add the parameter <code>finalOpacity</code> to the initialisation Object and set the parameter value to be an Integer value between 20 and 100; for example:</p>
             <pre><code class="language-javascript">datePickerController.createDatePicker({
     formElements:{
         &quot;inp1&quot;:&quot;%d/%m/%Y&quot;
@@ -398,14 +400,14 @@ datePickerController.setDisabledDates(&quot;inp1&quot;, disabledDates);</code></
 });</code></pre>
 
             <h2 id="showing-week-numbers">Displaying week numbers</h2>
-            <p>To display week numbers within the datepicker U.I, add the parameter &#8220;showWeeks&#8221; to the initialisation object and set the parameter value to &#8220;true&#8221;.</p>
+            <p>To display week numbers within the datepicker U.I, add the parameter <code>showWeeks</code> to the initialisation object and set the parameter value to &#8220;true&#8221;.</p>
 
             <h2 id="removing-the-today-button-from-the-u-i">Removing the &#8220;Today&#8221; button from the&#160;U.I.</h2>
-            <p>To remove the &#8220;today&#8221; button, add the parameter &#8220;noTodayButton&#8221; to the initialisation object and set the parameter value to &#8220;true&#8221;.</p>
+            <p>To remove the &#8220;today&#8221; button, add the parameter <code>noTodayButton</code> to the initialisation object and set the parameter value to &#8220;true&#8221;.</p>
 
             <h2 id="setting-the-default-cursor-date">Setting the default cursor&#160;date</h2>
             <p>By default, the cursor date is set to today&#8217;s date but there may be times when you wish the cursor to start at a date of your choice &#8211; when stipulating a range of valid dates, you may wish for the cursor to start in the middle of the range for example.</p>
-            <p>To set the cursor to a date of your choice, add the parameter &#8220;cursorDate&#8221; to the initialisation object and set the parameter value to be either a YYYYMMDD format date String or a Javascript Date Object.</p>
+            <p>To set the cursor to a date of your choice, add the parameter <code>cursorDate</code> to the initialisation object and set the parameter value to be either a YYYYMMDD format date String or a Javascript Date Object.</p>
 
             <h3 id="setting-the-cursor-dynamically">Setting the cursor&#160;dynamically</h3>
             <p>The cursor date can also be set dynamically by calling the <code>setCursorDate</code> method of the <code>datePickerController</code> Object. The <code>setCursorDate</code> method accept a String representing an input id as the first argument and either a YYYYMMDD formatted date String or a Javascript Date Object as a second argument.</p>
@@ -413,20 +415,20 @@ datePickerController.setDisabledDates(&quot;inp1&quot;, disabledDates);</code></
 datePickerController.setCursorDate(&quot;inp1&quot;, &quot;20081201&quot;);</code></pre>
 
             <h2 id="hiding-the-associated-form-elements">Hiding the associated form&#160;elements</h2>
-            <p>To hide the associated form elements, add the parameter &#8220;hideInput&#8221; to the initialisation object and set the parameter value to true. The form elements will then be given the class &#8220;fd-hidden-input&#8221; which, if using the default stylesheet, sets the <code>display</code> property to <code>none</code> (which still sends a value to the server whenever the form submit is fired). </p>
+            <p>To hide the associated form elements, add the parameter <code>hideInput</code> to the initialisation object and set the parameter value to true. The form elements will then be given the class &#8220;fd-hidden-input&#8221; which, if using the default stylesheet, sets the <code>display</code> property to <code>none</code> (which still sends a value to the server whenever the form submit is fired). </p>
             <p>This parameter is ignored when creating popup datepickers and is only taken into account for inline datepickers. </p>
 
             <h2 id="disabling-the-drag-effect">Disabling the drag effect</h2>
-            <p>To disable the drag effect for an individual popup datepicker, add the parameter &#8220;noDrag&#8221; to the initialisation Object and set the parameter value to true.</p>
+            <p>To disable the drag effect for an individual popup datepicker, add the parameter <code>noDrag</code> to the initialisation Object and set the parameter value to true.</p>
 
             <h3 id="disabling-the-drag-effect-for-all-datepickers">Disabling the drag effect for all&#160;datepickers</h3>
             <p>Disabling the drag effect for all datepickers can be achieved by setting the <code>nodrag</code> configuration parameter when calling <code>datePickerController.setGlobalOptions</code> method or by using JSON within the script tag &#8211; this is explained in more detail within the section <a href="#setting-global-configuration-parameters">Setting Global configuration parameters</a>.</p>
 
             <h2 id="filling-the-entire-grid-with-dates">Filling the entire grid with&#160;dates</h2>
-            <p>Should you wish to fill the entire grid with dates, add the parameter &#8220;fillGrid&#8221; to the initialisation object and set the parameter value to true.</p>
+            <p>Should you wish to fill the entire grid with dates, add the parameter <code>fillGrid</code> to the initialisation object and set the parameter value to true.</p>
 
             <h3 id="stopping-the-selection-of-out-of-month-dates">Stopping the selection of &#8220;out-of-month&#8221;&#160;dates</h3>
-            <p>By default, all dates rendered on the grid can be selected. To constrain the selection of dates to the current in-view month only, add the parameter &#8220;constrainSelection&#8221; to the initialisation object and set the parameter value to true. Of course, this parameter is only taken into consideration when the &#8220;fillGrid&#8221; parameter has also been set to true.</p>
+            <p>By default, all dates rendered on the grid can be selected. To constrain the selection of dates to the current in-view month only, add the parameter <code>constrainSelection</code> to the initialisation object and set the parameter value to true. Of course, this parameter is only taken into consideration when the <code>fillGrid</code> parameter has also been set to true.</p>
 
             <h2 id="styling-the-datepicker">Styling the datepicker</h2>
             <p>The datepicker currently ships with CSS skin that, for simplicities sake, uses base64 encoded images for all browsers apart from Internet Explorer 6 and 7 &#8211; which use &#8220;normal&#8221; <code>.png</code> images downloaded from the server. The unminified version of the file is well commented, so altering the colours etc to suit your installation should be a relatively easy task for those of you knowledgeable in the dark arts of CSS.</p>
@@ -602,11 +604,11 @@ datePickerController.setGlobalOptions({
                     </tr>
                     <tr>
                         <td>describedby</td>
-                        <td>If the &#8220;describedby&#8221; global configuration parameter has been set, then this is used to set the describedby relationship</td>
+                        <td>If the <code>describedby</code> global configuration parameter has been set, then this is used to set the describedby relationship</td>
                     </tr>
                     <tr>
                         <td>labelledby</td>
-                        <td>If the associated form element has a label, the label is used to set the &#8220;labelledby&#8221; relationship</td>
+                        <td>If the associated form element has a label, the label is used to set the <code>labelledby</code> relationship</td>
                     </tr>
                     <tr>
                         <td>haspopup</td>
