@@ -1170,7 +1170,7 @@ var datePickerController = (function datePickerController() {
             };
             // ARIA Application role
             setARIARole(this.div, "application");
-            setARIARole(this.table, "grid");
+            //setARIARole(this.table, "grid");
 
             if(this.statusFormat) {
                 tableFoot = document.createElement('tfoot');
@@ -1255,17 +1255,17 @@ var datePickerController = (function datePickerController() {
 
                     row.appendChild(col);
                     if((this.showWeeks && cols > 0 && rows > 0) || (!this.showWeeks && rows > 0)) {
-                        setARIARole(col, "gridcell");
+                        //setARIARole(col, "gridcell");
                     } else {
                         if(rows === 0 && cols > colOffset) {
                             col.className = "date-picker-day-header";
                             col.scope = "col";
-                            setARIARole(col, "columnheader");
+                            //setARIARole(col, "columnheader");
                             col.id = this.id + "-col-" + cols;
                         } else {
                             col.className = "date-picker-week-header";
                             col.scope = "row";
-                            setARIARole(col, "rowheader");
+                            //setARIARole(col, "rowheader");
                             col.id = this.id + "-row-" + rows;
                         };
                     };
