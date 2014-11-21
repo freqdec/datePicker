@@ -1464,6 +1464,13 @@ var datePickerController = (function datePickerController() {
 
                 o.updateTable();
 
+                var pagingMetadata = {
+                    unit: (o.yearInc) ? 'year' : 'month',
+                    mm: parseInt(o.date.getMonth()) + 1,
+                    yyyy: o.date.getFullYear()
+                };
+                o.callback('paging', pagingMetadata);
+
                 return stopEvent(e);
 
             } else if(el.className.search("drag-enabled") != -1) {
