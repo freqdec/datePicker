@@ -1033,9 +1033,9 @@ var datePickerController = (function datePickerController() {
                 elem = document.getElementById(elemID);
                 if(elem) {
                     if(elem.tagName.toLowerCase() == "select") {
-                        elem.selectedIndex = o.formElements[elemID.defaultVal];
+                        elem.selectedIndex = o.defaultVals[elemID];
                     } else {
-                        elem.value = o.formElements[elemID.defaultVal];
+                        elem.value = o.defaultVals[elemID];
                     };
                 };
             };
@@ -3230,6 +3230,7 @@ var datePickerController = (function datePickerController() {
         options.disabledDates = false;
 
         var partsFound  = {d:0,m:0,y:0},
+            defaultVals = {},
             cursorDate  = false,
             myMin       = 0,
             myMax       = 0,
@@ -3256,8 +3257,7 @@ var datePickerController = (function datePickerController() {
                 options.id = elemID;
             };
 
-            // https://github.com/freqdec/datePicker/issues/26
-            options.formElements[elemID]['defaultVal'] = elem.tagName == "select" ? elem.selectedIndex || 0 : elem.defaultValue;
+            defaultVals[elemID] = elem.tagName == "select" ? elem.selectedIndex || 0 : elem.defaultValue;
 
             fmt             = {
                 "value":options.formElements[elemID]
@@ -3379,6 +3379,8 @@ var datePickerController = (function datePickerController() {
 
         opts = {
             formElements:options.formElements,
+            // default values
+            defaultVals:defaultVals,
             // Form element id
             id:options.id,
             // Non popup datepicker required
