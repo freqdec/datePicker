@@ -1,4 +1,4 @@
-/*! DatePicker v6.3.5 MIT/GPL2 @freqdec */
+/*! DatePicker v6.3.6 MIT/GPL2 @freqdec */
 var datePickerController = (function datePickerController() {
 
     "use strict";
@@ -3456,23 +3456,17 @@ var datePickerController = (function datePickerController() {
     };
 
     var testCSSAnimationSupport = function() {
-        var domPrefixes     = 'Webkit Moz ms O'.split(' '),
+        var domPrefixes     = ["Webkit","Moz", "ms", "O"],
             elm             = document.createElement('div'),
-            transitions     = {
-                'WebkitTransition':'webkitTransitionEnd',
-                'MozTransition':'transitionend',
-                'MSTransition':'msTransitionEnd',
-                'OTransition':'oTransitionEnd',
-                'transition':'transitionEnd'
-            },
+            transitions     = ["WebkitTransition", "transition", "OTransition", "MozTransition", "msTransition"],
             t;
-
-        for(t in transitions){
-            if(elm.style[t] !== undefined){
-                transitionEnd = transitions[t];
+        
+        for(t = 0; t < transitions.length; t++) {
+            if(transitions[t] in elm.style) {
+                transitionEnd = transitions[t] == "webkitTransition" || transitions[t] == "OTransition" ? transitions[t] + "End" : "transitionend"
                 break;
-            };
-        };
+            }
+        }
 
         if(!transitionEnd) {
             return false;
@@ -3481,7 +3475,7 @@ var datePickerController = (function datePickerController() {
         if(elm.style.animationName) { return true; }
 
         for( var i = 0; i < domPrefixes.length; i++ ) {
-            if(elm.style[ domPrefixes[i] + 'AnimationName' ] !== undefined) {
+            if(elm.style[domPrefixes[i] + "AnimationName"] !== undefined) {
                 return true;
             };
         };
