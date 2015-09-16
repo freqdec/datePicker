@@ -1430,7 +1430,7 @@ var datePickerController = (function datePickerController() {
             };
 
             // We check the mousedown events on the buttons
-            if(origEl.id.search(new RegExp("^" + o.id + "(-prev-year-but|-prev-month-but|-next-month-but|-next-year-but)$")) != -1) {
+            if(origEl.id.search(new RegExp("^" + o.id.replace(/[$]/g, "\\\$") + "(-prev-year-but|-prev-month-but|-next-month-but|-next-year-but)$")) != -1) {
 
                 o.mouseDownElem = origEl;
 
