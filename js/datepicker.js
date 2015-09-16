@@ -1402,7 +1402,7 @@ var datePickerController = (function datePickerController() {
             var el     = e.target != null ? e.target : e.srcElement,
                 origEl = el,
                 hideDP = true,
-                reg    = new RegExp("^fd-(but-)?" + o.id + "$");
+                reg    = new RegExp("^fd-(but-)?" + o.id.replace(/[$]/g, "\\\$") + "$");
 
             o.mouseDownElem = null;
 
