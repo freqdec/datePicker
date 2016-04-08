@@ -90,7 +90,7 @@ datePickerController.createDatePicker({
           </ol>
         </li>
       </ul>
-      <label for="demo-2">Date</label> <input type="text" class="w8em" id="demo-2" name="demo-2" value="" />
+      <label for="demo-2">Date</label> <input type="text" class="w8em" id="demo[2]" name="demo-2" value="" />
     </fieldset>
     <script>
 // Create a few variables to pass to the datePicker
@@ -117,7 +117,7 @@ var disabledDates = {
 // Create the datePicker
 datePickerController.createDatePicker({
     // Associate the three text inputs to their date parts
-    formElements:{"demo-2":"%d/%m/%Y"},
+    formElements:{"demo[2]":"%d/%m/%Y"},
     // Show week numbers
     showWeeks:true,
     // Set a statusbar format
