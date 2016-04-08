@@ -393,6 +393,10 @@ var datePickerController = (function datePickerController() {
         return dt instanceof Date && !isNaN(dt) ? dt.getFullYear() + pad(dt.getMonth() + 1) + "" + pad(dt.getDate()) : dt;
     };
 
+	function escapeSpecialChars(str){
+    	return str.replace(/([;&,\.\+\*\~':"\!\^#$%@\[\]\(\)=>\|])/g, '\\$1');
+    }
+	
     // The datePicker object itself
     function datePicker(options) {
         this.dateSet             = null;
@@ -1402,7 +1406,7 @@ var datePickerController = (function datePickerController() {
             var el     = e.target != null ? e.target : e.srcElement,
                 origEl = el,
                 hideDP = true,
-                reg    = new RegExp("^fd-(but-)?" + o.id + "$");
+                reg    = new RegExp("^fd-(but-)?" + escapeSpecialChars(o.id) + "$");
 
             o.mouseDownElem = null;
 
@@ -1430,7 +1434,7 @@ var datePickerController = (function datePickerController() {
             };
 
             // We check the mousedown events on the buttons
-            if(origEl.id.search(new RegExp("^" + o.id + "(-prev-year-but|-prev-month-but|-next-month-but|-next-year-but)$")) != -1) {
+            if(origEl.id.search(new RegExp("^" + escapeSpecialChars(o.id) + "(-prev-year-but|-prev-month-but|-next-month-but|-next-year-but)$")) != -1) {
 
                 o.mouseDownElem = origEl;
 
