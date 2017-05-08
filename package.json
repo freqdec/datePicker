@@ -1,0 +1,16 @@
+{
+  "name": "datepicker",
+  "version": "1.0.0",
+  "description": "Accessible, simple datepicker.",
+  "main": "js/datepicker.min.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vellip/datePicker.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/vellip/datePicker/issues"
+  },
+  "homepage": "https://github.com/vellip/datePicker#readme"
+}
