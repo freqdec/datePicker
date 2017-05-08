@@ -1,5 +1,16 @@
 /*! DatePicker v6.3.6 MIT/GPL2 @freqdec */
-var datePickerController = (function datePickerController() {
+(function (root, factory) {
+    if (typeof define === 'function' && define.amd) {
+        // AMD
+        define(factory);
+    } else if (typeof exports === 'object') {
+        // Node, CommonJS-like
+        module.exports = factory();
+    } else {
+        // Browser globals (root is window)
+        root.datePickerController = factory();
+    }
+}(this, function() {
 
     "use strict";
 
@@ -3544,4 +3555,4 @@ var datePickerController = (function datePickerController() {
         // Converts Date Object to a YYYYMMDD formatted String
         dateToYYYYMMDDStr:      function(dt) { return dateToYYYYMMDD(dt); }
     };
-})();
+}))

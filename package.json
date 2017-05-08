@@ -2,7 +2,7 @@
   "name": "datepicker",
   "version": "1.0.0",
   "description": "Accessible, simple datepicker.",
-  "main": "js/datepicker.min.js",
+  "main": "js/datepicker.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/vellip/datePicker.git"
