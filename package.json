@@ -5,12 +5,12 @@
   "main": "js/datepicker.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/vellip/datePicker.git"
+    "url": "git+https://github.com/freqdec/datePicker.git"
   },
-  "author": "",
+  "author": "freqdec",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/vellip/datePicker/issues"
+    "url": "https://github.com/freqdec/datePicker/issues"
   },
-  "homepage": "https://github.com/vellip/datePicker#readme"
+  "homepage": "https://github.com/freqdec/datePicker#readme"
 }
