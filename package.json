@@ -1,0 +1,16 @@
+{
+  "name": "datepicker",
+  "version": "1.0.0",
+  "description": "Accessible, simple datepicker.",
+  "main": "js/datepicker.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/freqdec/datePicker.git"
+  },
+  "author": "freqdec",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/freqdec/datePicker/issues"
+  },
+  "homepage": "https://github.com/freqdec/datePicker#readme"
+}
