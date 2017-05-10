@@ -2902,7 +2902,7 @@
         };
         datePickers = null;
 
-        removeEvent(window, 'unload', datePickerController.destroy);
+        removeEvent(window, 'unload', destroy);
     };
     var destroySingleDatePicker = function(id) {
         if(id && (id in datePickers)) {
