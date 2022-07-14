@@ -995,6 +995,11 @@ var datePickerController = (function datePickerController() {
             removeEvent(this.table, "mouseout", o.onmouseout);
             removeEvent(document, "mousedown", o.onmousedown);
             removeEvent(document, "mouseup",   o.clearTimer);
+            
+            for (var elemId in o.formElements) {
+                var elem = document.getElementById(elemId);
+                removeEvent(elem, "change", o.changeHandler);
+              }
 
             if (window.addEventListener && !window.devicePixelRatio) {
                 try {
